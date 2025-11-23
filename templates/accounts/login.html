@@ -1,0 +1,230 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anam Holding | ورود به پرتال اعضا</title>
+
+  <!-- Bootstrap RTL -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.rtl.min.css"
+        integrity="sha384-CfCrinSRH2IR6a4e6fy2q6ioOX7O6Mtm1L9vRvFZ1trBncWmMePhzvafv7oIcWiW"
+        crossorigin="anonymous" />
+
+  <!-- Icons -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+
+  <!-- AOS (اختیاری) -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+  <!-- Login Styles -->
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+  <!-- Font -->
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" />
+</head>
+
+<body>
+  <!-- دکمه شناور بازگشت -->
+  <a href="{% url 'home:home' %}" class="btn-floating-home">
+    <i class="bi bi-house-door-fill"></i>
+    <span>بازگشت به صفحه اصلی</span>
+  </a>
+
+  <!-- پیام خطای بالای صفحه (Toast) -->
+  <div id="global-error" class="global-error">
+    <div class="global-error-inner">
+      <i class="bi bi-exclamation-triangle-fill"></i>
+      <span id="global-error-text">ایمیل یا رمز عبور صحیح نیست</span>
+    </div>
+  </div>
+
+  <div class="login-page">
+    <div class="container login-shell">
+      <div class="row align-items-center justify-content-center g-4">
+
+        <!-- پنل برندینگ / اطلاعات هلدینگ -->
+        <div class="col-lg-6 d-none d-lg-block">
+          <div class="login-hero-panel fade-in-up">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <div class="logo-wrap d-flex align-items-center gap-3">
+                <img src="{% static 'image/logo/AnamLogo.PNG' %}" alt="Anam Holding Logo" />
+                <div class="d-flex flex-column small text-muted">
+                  <span class="text-gold fw-semibold">ANAM HOLDING</span>
+                  <span>Strategic Investment &amp; Acceleration Group</span>
+                </div>
+              </div>
+              <span class="badge-glass">
+                <span class="badge-dot"></span>
+                پرتال امن اعضای آنام
+              </span>
+            </div>
+
+            <h1 class="login-hero-title">
+              ورود به <span>اکوسیستم رشد</span>
+            </h1>
+            <p class="login-hero-text mb-0">
+              از طریق این پرتال می‌توانید به داشبورد سرمایه‌گذاری، گزارش‌های عملکرد، قراردادها و
+              ارتباط مستقیم با تیم آنام دسترسی داشته باشید.
+            </p>
+
+            <div class="mini-metrics">
+              <div class="metric-pill">
+                <i class="bi bi-shield-lock-fill text-gold"></i>
+                <div class="d-flex flex-column">
+                  <strong>۲۴/۷</strong>
+                  <span>پایش امنیتی هوشمند</span>
+                </div>
+              </div>
+              <div class="metric-pill">
+                <i class="bi bi-graph-up-arrow text-gold"></i>
+                <div class="d-flex flex-column">
+                  <strong>Real-time</strong>
+                  <span>گزارش رشد پرتفوی</span>
+                </div>
+              </div>
+              <div class="metric-pill">
+                <i class="bi bi-people text-gold"></i>
+                <div class="d-flex flex-column">
+                  <strong>+۱۰۰</strong>
+                  <span>اعضای هیئت‌مدیره و منتور</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="floating-orbit">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- کارت لاگین -->
+        <div class="col-lg-5 col-md-8">
+          <div class="login-card fade-in-up delay-1">
+            <div class="login-card-header">
+              <div class="d-flex align-items-center gap-3">
+                <div class="logo-mini d-flex align-items-center justify-content-center">
+                  <img src="{% static 'image/logo/AnamLogo.PNG' %}" alt="Anam" />
+                </div>
+                <div class="login-card-header-text">
+                  <span>ANAM PORTAL</span>
+                  <span>ورود به پنل اعضای هلدینگ آنام</span>
+                  <span>لطفاً اطلاعات ورود خود را وارد کنید</span>
+                </div>
+              </div>
+              <span class="login-badge-chip">
+                <i class="bi bi-stars"></i>
+                نسخه سازمانی
+              </span>
+            </div>
+
+            <div class="login-card-body">
+              <div class="mb-3">
+                <div class="login-title">سلام، خوش آمدید 👋</div>
+                <div class="login-subtitle">
+                  با حساب کاربری سازمانی خود وارد شوید. در صورت مشکل ورود، از گزینه «دریافت لینک
+                  ورود» استفاده کنید.
+                </div>
+              </div>
+
+              <form id="user-login-form" method="post" action="{% url 'accounts:user_login' %}" novalidate>
+                {% csrf_token %}
+                <!-- یوزرنیم / ایمیل -->
+                <div class="floating-label-group">
+                  <label for="username">ایمیل سازمانی یا نام کاربری</label>
+                  <div class="input-shell">
+                    <i class="bi bi-person"></i>
+                    <input type="text"
+                           id="username"
+                           name="username"
+                           placeholder="example@anamholding.com"
+                           autocomplete="username" />
+                  </div>
+                </div>
+
+                <!-- پسورد -->
+                <div class="floating-label-group">
+                  <label for="password">رمز عبور</label>
+                  <div class="input-shell">
+                    <i class="bi bi-lock"></i>
+                    <input type="password"
+                           id="password"
+                           name="password"
+                           placeholder="••••••••"
+                           autocomplete="current-password" />
+                    <button type="button" class="toggle-password" aria-label="نمایش رمز">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="login-row-meta">
+                  <div class="form-check d-flex align-items-center">
+                    <input class="form-check-input ms-2" type="checkbox" value="" id="rememberMe" checked />
+                    <label class="form-check-label" for="rememberMe">
+                      مرا به خاطر بسپار
+                    </label>
+                  </div>
+                  <a href="#" class="link-muted">فراموشی رمز عبور</a>
+                </div>
+
+                <button type="submit" class="btn-gold">
+                  ورود به پرتال
+                  <i class="bi bi-arrow-left-short"></i>
+                </button>
+
+                <div class="login-divider">
+                  <span></span>
+                  <p class="m-0">یا ورود بدون رمز</p>
+                  <span></span>
+                </div>
+
+                <div class="login-alt-actions">
+                  <button type="button" class="chip-alt">
+                    <i class="bi bi-link-45deg"></i>
+                    ارسال لینک ورود به ایمیل
+                  </button>
+                  <button type="button" class="chip-alt">
+                    <i class="bi bi-phone"></i>
+                    دریافت کد یکبار مصرف
+                  </button>
+                </div>
+              </form>
+
+              <div class="login-footer-text">
+                <span>
+                  حساب کاربری ندارید؟
+                  <a href="#">درخواست دسترسی</a>
+                </span>
+                <span>
+                  <a href="#">راهنمای استفاده از پرتال</a>
+                </span>
+              </div>
+
+              <div class="login-version">Anam Holding Secure Portal · v1.0</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-p8AwQ0pR8F6p2lsIF39l4R2tQvX8QGxFt9BY2Gj54jjXNpMOGepQig2cG05yNh1E"
+          crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+  <!-- اسکریپت اختصاصی لاگین -->
+  <script src="{% static 'js/login.js' %}"></script>
+</body>
+
+</html>

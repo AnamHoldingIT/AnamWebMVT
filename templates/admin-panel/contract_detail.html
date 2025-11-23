@@ -1,0 +1,116 @@
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}جزئیات درخواست{% endblock %}
+{% block menu_contracts %}active{% endblock %}
+
+{% block content %}
+
+<div class="detail-header">
+    <div>
+        <h2 class="page-title mb-1">جزئیات درخواست شتاب‌دهی</h2>
+        <p class="detail-subtitle">
+            {{ contract.full_name }} · {{ contract.startup_name }}
+        </p>
+    </div>
+
+    <div class="detail-header-actions">
+        {% if contract.status == "new" %}
+            <span class="detail-badge detail-badge-warning">
+                <i class="bi bi-hourglass-split ms-1"></i>
+                در انتظار بررسی
+            </span>
+        {% elif contract.status == "done" %}
+            <span class="detail-badge detail-badge-success">
+                <i class="bi bi-check-circle-fill ms-1"></i>
+                تأیید شده
+            </span>
+        {% else %}
+            <span class="detail-badge detail-badge-info">
+                <i class="bi bi-search ms-1"></i>
+                در حال بررسی
+            </span>
+        {% endif %}
+
+        <form method="post" class="detail-status-form d-inline-flex align-items-center ms-3">
+            {% csrf_token %}
+            <label for="id_status" class="detail-label me-2 mb-0">تغییر وضعیت:</label>
+            <select name="status" id="id_status" class="form-select form-select-sm me-2">
+                {% for value,label in status_choices %}
+                    <option value="{{ value }}" {% if contract.status == value %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-sm btn-gold">
+                ثبت
+            </button>
+        </form>
+
+        <a href="{% url 'admin_panel:contracts' %}" class="detail-back-btn ms-3">
+            <i class="bi bi-arrow-right-short"></i>
+            بازگشت به لیست
+        </a>
+    </div>
+</div>
+
+<div class="detail-card">
+
+    <!-- ستون اطلاعات اصلی -->
+    <div class="detail-grid">
+        <div class="detail-item">
+            <span class="detail-label">نام و نام خانوادگی</span>
+            <span class="detail-value">{{ contract.full_name }}</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">شماره تماس</span>
+            <span class="detail-value dir-ltr">{{ contract.phone }}</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">نام استارتاپ / ایده</span>
+            <span class="detail-value">{{ contract.startup_name }}</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">وضعیت</span>
+            <span class="detail-value">
+                {% if contract.status == "new" %}
+                    <span class="badge bg-warning text-dark">در انتظار</span>
+                {% elif contract.status == "done" %}
+                    <span class="badge bg-success">تایید شده</span>
+                {% else %}
+                    <span class="badge bg-info text-dark">در حال بررسی</span>
+                {% endif %}
+            </span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">تاریخ ثبت</span>
+            <span class="detail-value">
+                {{ contract.created_at|date:"Y/m/d - H:i" }}
+            </span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">آخرین به‌روزرسانی</span>
+            <span class="detail-value">
+                {{ contract.updated_at|date:"Y/m/d - H:i" }}
+            </span>
+        </div>
+    </div>
+
+    <!-- توضیحات طولانی -->
+    <div class="detail-description">
+        <div class="detail-description-header">
+            <span><i class="bi bi-card-text ms-1"></i>توضیحات درخواست</span>
+        </div>
+        <p>
+            {{ contract.detail|default:"توضیحاتی برای این درخواست ثبت نشده است." }}
+        </p>
+    </div>
+
+</div>
+
+{% endblock %}

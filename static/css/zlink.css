@@ -1,0 +1,427 @@
+/* ============================================================
+   MODE X — Neural Network + Quantum Fracture UI System
+   ============================================================ */
+
+/* ---------------- ROOT COLORS ---------------- */
+:root {
+    --primary: #00f6ff;
+    --secondary: #00ffa6;
+    --soft-glow: #00fff780;
+    --bg: #03080c;
+    --txt: #e8feff;
+    --txt-soft: #8cbac0;
+
+    --ui-glass: rgba(255,255,255,0.04);
+    --ui-border: rgba(0,255,255,0.23);
+}
+
+/* ---------------- RESET ---------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Vazirmatn", sans-serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--txt);
+    overflow-x: hidden;
+}
+
+/* CANVAS LAYERS */
+#neural-layer,
+#quantum-dust {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ---------------- CONTAINER ---------------- */
+.container-os {
+    position: relative;
+    z-index: 20;
+    width: 88%;
+    max-width: 1500px;
+    margin: 140px auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+/* ---------------- LEFT PANEL ---------------- */
+.panel-left {
+    width: 52%;
+}
+
+.hero-title {
+    font-size: 3.75rem;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.hero-title .glow {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 25px var(--soft-glow);
+}
+
+.hero-title .sub {
+    display: block;
+    font-size: 1rem;
+    color: var(--txt-soft);
+    margin-top: 8px;
+}
+
+.hero-text {
+    margin-top: 24px;
+    font-size: 1.09rem;
+    color: var(--txt-soft);
+    line-height: 1.9;
+    max-width: 520px;
+}
+
+/* Chips */
+.stats {
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.chip {
+    background: rgba(0,255,255,0.05);
+    border: 1px solid rgba(0,255,255,0.2);
+    padding: 10px 18px;
+    border-radius: 12px;
+    width: fit-content;
+    color: var(--txt);
+    font-size: .92rem;
+    backdrop-filter: blur(6px);
+    transition: .25s;
+}
+
+.chip:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 14px var(--soft-glow);
+    transform: translateX(8px);
+}
+
+/* ---------------- RIGHT PANEL (FORM) ---------------- */
+.panel-right {
+    width: 48%;
+}
+
+.glass-ui {
+    background: var(--ui-glass);
+    border: 1px solid var(--ui-border);
+    backdrop-filter: blur(16px);
+    padding: 32px;
+    border-radius: 22px;
+    box-shadow: 0 0 32px rgba(0,255,255,0.15);
+    animation: formIn 1s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes formIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-title {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+/* Inputs */
+label {
+    margin-top: 14px;
+    font-size: .85rem;
+    color: var(--txt-soft);
+    display: block;
+}
+
+.neo-input {
+    width: 100%;
+    padding: 12px 16px;
+    margin-top: 6px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(0,255,255,0.18);
+    border-radius: 14px;
+    color: var(--txt);
+    transition: .3s ease;
+    outline: none;
+}
+
+.neo-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 18px var(--soft-glow);
+}
+
+/* Input Error */
+.neo-input-error {
+    border-color: #ff4646 !important;
+    box-shadow: 0 0 16px rgba(255,70,70,0.4) !important;
+}
+
+/* Button */
+.neo-button {
+    width: 100%;
+    margin-top: 24px;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: #001314;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: .3s;
+}
+
+.neo-button:hover {
+    box-shadow: 0 0 25px var(--soft-glow);
+    transform: scale(1.03);
+}
+
+/* ---------------- MESSAGE BOX (AJAX) ---------------- */
+.recode-message {
+    padding: 12px 18px;
+    margin-bottom: 14px;
+    border-radius: 12px;
+    font-size: .9rem;
+    display: none;
+}
+
+.recode-message-success {
+    display: block;
+    background: rgba(0,255,140,0.1);
+    border: 1px solid rgba(0,255,140,0.4);
+    color: #9affc9;
+}
+
+.recode-message-error {
+    display: block;
+    background: rgba(255,80,80,0.12);
+    border: 1px solid rgba(255,80,80,0.45);
+    color: #ffd1d1;
+}
+
+/* ---------------- SOCIAL BUTTONS (LIQUID GLASS) ---------------- */
+.social-box {
+    margin-top: 36px;
+}
+
+.s-title {
+    color: var(--txt-soft);
+    font-size: .9rem;
+}
+
+.social-grid {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.s-btn {
+    position: relative;
+    padding: 12px 18px;
+    border-radius: 14px;
+
+    flex: 1 1 220px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(18px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.15);
+
+    box-shadow:
+        inset 0 0 22px rgba(255,255,255,0.08),
+        inset 0 0 10px rgba(255,255,255,0.05),
+        0 0 22px rgba(0,255,255,0.15),
+        0 0 40px rgba(0,0,0,0.9);
+
+    color: var(--txt);
+    text-decoration: none;
+    cursor: pointer;
+
+    overflow: hidden;
+    transition: .28s ease;
+}
+
+.s-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        inset 0 0 22px rgba(255,255,255,0.10),
+        inset 0 0 12px rgba(255,255,255,0.06),
+        0 0 30px var(--soft-glow),
+        0 0 70px rgba(0,0,0,0.9);
+}
+
+.s-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        125deg,
+        rgba(255,255,255,0.25) 0%,
+        rgba(255,255,255,0.05) 40%,
+        transparent 60%
+    );
+    opacity: 0;
+    transform: translateX(-80%);
+    transition: .45s ease;
+}
+
+.s-btn:hover::before {
+    opacity: .7;
+    transform: translateX(0);
+}
+
+/* Social Icon */
+.s-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0,0,0,0.55);
+    box-shadow:
+        inset 0 0 12px rgba(255,255,255,0.09),
+        0 0 18px rgba(0,255,255,0.45);
+
+    transition: .28s ease;
+}
+
+.s-btn:hover .s-icon {
+    transform: scale(1.05);
+    box-shadow:
+        inset 0 0 15px rgba(255,255,255,0.12),
+        0 0 26px rgba(0,255,255,0.8);
+}
+
+.s-label {
+    font-size: .85rem;
+    white-space: normal;
+    letter-spacing: .4px;
+}
+
+/* Colors */
+.instagram { border-color: #ff4fe5a8; }
+.instagram .s-icon { color:#ff8ff0; box-shadow:0 0 18px #ff4fe580; }
+
+.telegram { border-color:#4fbaffb0; }
+.telegram .s-icon { color:#8fd3ff; box-shadow:0 0 18px #4fbaff80; }
+
+.youtube { border-color:#ff4646b0; }
+.youtube .s-icon { color:#ffb3b3; box-shadow:0 0 18px #ff464680; }
+
+.linkedin { border-color:#33ccffb0; }
+.linkedin .s-icon { color:#b3ecff; box-shadow:0 0 18px #33ccff80; }
+
+/* ---------------- BACK BUTTON (ANAM BRAND) ---------------- */
+.recode-back-btn {
+    position: absolute;
+    top: 22px;
+    left: 22px;
+    z-index: 200;
+
+    padding: 11px 26px;
+    border-radius: 999px;
+
+    background: #024442;
+    color: #fdf8ec;
+
+    border: 2px solid #C5A059;
+    font-weight: 700;
+
+    text-decoration: none;
+    font-size: 0.95rem;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    box-shadow:
+        0 4px 16px rgba(2, 68, 66, 0.45),
+        0 0 12px rgba(197, 160, 89, 0.45);
+
+    transition: .25s;
+}
+
+.recode-back-btn:hover {
+    background: #03514F;
+    color: #fff;
+    border-color: #e0c48b;
+
+    transform: translateY(-2px) scale(1.04);
+
+    box-shadow:
+        0 12px 30px rgba(197, 160, 89, 0.55),
+        0 0 20px rgba(255, 240, 200, 0.75);
+}
+
+.recode-back-btn i {
+    color: #C5A059;
+    font-size: 1.05rem;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 991px) {
+    .container-os {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+        margin-top: 110px;
+    }
+
+    .panel-left,
+    .panel-right {
+        width: 100%;
+    }
+
+    .chip {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 575px) {
+    .hero-title {
+        font-size: 2.4rem;
+    }
+
+    .glass-ui {
+        padding: 24px;
+    }
+
+    .neo-button {
+        width: 100%;
+    }
+
+    .social-grid {
+        justify-content: center;
+    }
+
+    .s-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

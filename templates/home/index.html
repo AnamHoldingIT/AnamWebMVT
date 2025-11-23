@@ -1,0 +1,969 @@
+{% extends 'base/_base.html' %}
+{% load static %}
+
+{% block title %}هلدینگ آنام | سرمایه‌گذاری، شتاب‌دهی و توسعه استارتاپ‌ها{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/_extra.css' %}">
+
+    {# --- SEO META TAGS --- #}
+    <meta name="description"
+          content="هلدینگ آنام یک هلدینگ سرمایه‌گذاری و شتاب‌دهی استارتاپ‌هاست که با سرمایه‌گذاری خطرپذیر، منتورینگ تخصصی، فضای کار و زیرساخت، به رشد کسب‌وکارهای نوآور کمک می‌کند.">
+    <meta name="robots" content="index, follow">
+
+    {# در صورت نیاز، این canonical را با دامنه اصلی خودت تنظیم کن #}
+    {# <link rel="canonical" href="https://example.com/"> #}
+
+    {# --- Open Graph --- #}
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fa_IR">
+    <meta property="og:site_name" content="Anam Holding">
+    <meta property="og:title" content="هلدینگ آنام | سرمایه‌گذاری، شتاب‌دهی و توسعه استارتاپ‌ها">
+    <meta property="og:description"
+          content="آنـام؛ شریک استراتژیک شما در سرمایه‌گذاری، شتاب‌دهی و رشد استارتاپ‌ها و کسب‌وکارهای نوآور. ترکیبی از سرمایه‌گذاری هوشمند، منتورینگ تخصصی و زیرساخت حرفه‌ای.">
+    <meta property="og:image" content="{% static 'image/seo/anam-og.jpg' %}">
+    <meta property="og:image:alt" content="هلدینگ آنام - سرمایه‌گذاری و شتاب‌دهی استارتاپ‌ها">
+
+    {# --- Twitter Card --- #}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="هلدینگ آنام | سرمایه‌گذاری، شتاب‌دهی و توسعه استارتاپ‌ها">
+    <meta name="twitter:description"
+          content="هلدینگ آنام با تمرکز بر سرمایه‌گذاری خطرپذیر، شتاب‌دهی، منتورینگ و زیرساخت، به استارتاپ‌ها کمک می‌کند سریع‌تر رشد کنند.">
+    <meta name="twitter:image" content="{% static 'image/seo/anam-og.jpg' %}">
+
+    {# --- JSON-LD STRUCTURED DATA --- #}
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "name": "Anam Holding",
+              "alternateName": "هلدینگ آنام",
+              "url": "https://example.com/",
+              "description": "هلدینگ سرمایه‌گذاری و شتاب‌دهی استارتاپ‌ها با تمرکز بر سرمایه‌گذاری خطرپذیر، منتورینگ و زیرساخت.",
+              "foundingDate": "2025",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Mashhad",
+                "addressCountry": "IR"
+              }
+            },
+            {
+              "@type": "WebSite",
+              "name": "Anam Holding",
+              "url": "https://example.com/",
+              "inLanguage": "fa-IR",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://example.com/search?q={query}",
+                "query-input": "required name=query"
+              }
+            }
+          ]
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top luxury-navbar" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="#home">
+                    <img src="{% static 'image/logo/AnamLogo.PNG' %}" alt="لوگو هلدینگ آنام">
+                </a>
+
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+                        aria-label="Toggle navigation">
+                    <i class="bi bi-list text-gold fs-2"></i>
+                </button>
+
+                <div class="offcanvas offcanvas-end w-100" tabindex="-1" id="offcanvasNavbar"
+                     aria-labelledby="offcanvasNavbarLabel">
+
+                    <div class="offcanvas-header border-bottom border-secondary border-opacity-25">
+                        <h5 class="offcanvas-title text-gold" id="offcanvasNavbarLabel">ANAM HOLDING</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                    </div>
+
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-center flex-grow-1 pe-3 align-items-lg-center">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#home">صفحه اصلی</a>
+                            </li>
+
+                            <li class="nav-item dropdown has-megamenu">
+                                <a class="nav-link dropdown-toggle" href="#services" data-bs-toggle="dropdown">
+                                    حوزه‌های فعالیت
+                                </a>
+                                <div class="dropdown-menu megamenu dropdown-menu-dark border-0 shadow-lg p-4">
+                                    <div class="container-fluid p-0">
+                                        <div class="row g-4">
+                                            <div
+                                                    class="col-lg-4 d-none d-lg-block border-end border-secondary border-opacity-25 ps-4">
+                                                <h6 class="text-gold fw-bold mb-3">زنجیره ارزش آنام</h6>
+                                                <p class="small text-muted">
+                                                    ما با سرمایه‌گذاری در صنایع کلیدی، آینده‌ای پایدار می‌سازیم. نگاهی
+                                                    به پورتفوی متنوع ما بیندازید.
+                                                </p>
+                                                <span class="text-white small text-decoration-none border-bottom border-gold pb-1">پورتفوی هلدینگ</span>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6">
+                                                <h6 class="text-white opacity-50 mb-3 small">صنایع زیرساختی</h6>
+                                                <ul class="list-unstyled mb-0">
+                                                    <li><span class="dropdown-item rounded-2"><i
+                                                            class="bi bi-bricks text-gold me-2"></i>عمران و
+                                                            شهرسازی</span></li>
+                                                    <li><span class="dropdown-item rounded-2"><i
+                                                            class="bi bi-fuel-pump text-gold me-2"></i>نفت و
+                                                            انرژی</span></li>
+                                                    <li><span class="dropdown-item rounded-2"><i
+                                                            class="bi bi-truck text-gold me-2"></i>لجستیک و
+                                                            حمل‌ونقل</span></li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6">
+                                                <h6 class="text-white opacity-50 mb-3 small">فناوری و نوآوری</h6>
+                                                <ul class="list-unstyled mb-0">
+                                                    <li><span class="dropdown-item rounded-2"><i
+                                                            class="bi bi-cpu text-gold me-2"></i>هوش مصنوعی و
+                                                            داده</span></li>
+                                                    <li><span class="dropdown-item rounded-2"><i
+                                                            class="bi bi-shop text-gold me-2"></i>تجارت
+                                                            الکترونیک</span></li>
+                                                    <li><span class="dropdown-item rounded-2"><i
+                                                            class="bi bi-rocket text-gold me-2"></i>سرمایه‌گذاری
+                                                            جسورانه (VC)</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#metrics">امور سهامداران</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#why-us">درباره ما</a>
+                            </li>
+                        </ul>
+
+                        <div class="d-flex align-items-center mt-4 mt-lg-0 gap-3">
+
+                            <a href="{% url 'zlink:recode' %}"
+                               class="btn-neon-recode px-4 py-2 d-flex align-items-center gap-2">
+                                <i class="bi bi-stars"></i>
+                                <span>ReCode</span>
+                            </a>
+
+                            <a href="{% url 'accounts:user_login' %}"
+                               class="text-muted text-decoration-none d-flex align-items-center small hover-gold">
+                                <i class="bi bi-person-circle fs-5 me-2 text-white"></i>
+                                <span class="d-none d-lg-inline text-white">پرتال اعضا</span>
+                                <span class="d-lg-none text-white">ورود به حساب</span>
+                            </a>
+
+                            <div class="vr text-secondary d-none d-lg-block mx-2 h-50"></div>
+
+                            <a href="#apply"
+                               class="btn btn-gold-outline px-4 py-2 rounded-1 d-flex align-items-center gap-2 text-white">
+                                تماس با ما
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero-section overflow-hidden" id="home">
+            <div class="hero-glow start-0 top-0 opacity-25"></div>
+
+            <div class="container position-relative z-1">
+                <div class="row align-items-center gy-5 gx-lg-5">
+
+                    <div class="col-lg-6 order-1 order-lg-1 text-center text-lg-start" data-aos="fade-up">
+
+                        <span
+                                class="d-inline-flex align-items-center text-gold border-bottom border-gold pb-2 mb-4 fw-bold">
+                            هلدینگ آنام
+                        </span>
+
+                        <h1 class="display-3 fw-bold lh-base text-white mb-4">
+                            شریک استراتژیک شما در<br/>
+                            <span class="text-gradient-gold">رشد و شتاب‌دهی</span> کسب‌وکار
+                        </h1>
+
+                        <p class="lead text-muted mb-5 w-lg-75 me-auto" style="line-height: 2;">
+                            آنام؛ ترکیبی از سرمایه‌گذاری هوشمند، منتورینگ تخصصی و توسعه زیرساخت برای خلق آینده‌ای
+                            پایدار در اقتصاد دانش‌بنیان.
+                        </p>
+
+                        <div
+                                class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3 mb-5">
+                            <a href="#apply" class="btn btn-gold btn-lg px-5 py-3 rounded-2 shadow-lg">
+                                درخواست همکاری / شتاب‌دهی
+                            </a>
+                            <a href="#services" class="btn btn-outline-light btn-lg px-5 py-3 rounded-2">
+                                آشنایی با خدمات
+                            </a>
+                        </div>
+
+                        <div class="row pt-4 border-top border-white border-opacity-10 g-4 text-start mt-2">
+                            <div class="col-auto">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="bg-white bg-opacity-10 p-2 rounded-circle">
+                                        <i class="bi bi-rocket-takeoff fs-4 text-gold"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-white fw-bold m-0">+۵۰</h3>
+                                        <span class="small text-muted">استارتاپ موفق</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto border-start border-white border-opacity-10 mx-2"></div>
+                            <div class="col-auto">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="bg-white bg-opacity-10 p-2 rounded-circle">
+                                        <i class="bi bi-graph-up-arrow fs-4 text-gold"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-white fw-bold m-0">۵X</h3>
+                                        <span class="small text-muted">میانگین رشد</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero Card -->
+                    <div class="col-lg-6 order-2 order-lg-2" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="hero-visual-wrapper d-flex justify-content-center justify-content-lg-end">
+                            <div class="glass-card float-animation overflow-hidden">
+
+                                <div
+                                        class="card-header border-bottom border-white border-opacity-10 bg-black bg-opacity-25 p-4 d-flex justify-content-between align-items-center">
+                                    <span class="text-white fw-bold">داشبورد عملکرد اکوسیستم</span>
+                                    <div class="d-flex gap-2">
+                                        <span class="dot bg-danger opacity-75"></span>
+                                        <span class="dot bg-warning opacity-75"></span>
+                                        <span class="dot bg-success opacity-75"></span>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-5">
+                                        <div class="holding-icon-box ms-4">
+                                            <i class="bi bi-currency-bitcoin fs-3"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span class="text-white fw-bold">تامین مالی و سرمایه</span>
+                                                <span class="text-gold small">Seed & Series A</span>
+                                            </div>
+                                            <div class="progress bg-secondary bg-opacity-25" style="height: 8px;">
+                                                <div class="progress-bar bg-gold progress-bar-striped progress-bar-animated"
+                                                     style="width: 85%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-center mb-5">
+                                        <div class="holding-icon-box ms-4">
+                                            <i class="bi bi-people fs-3"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span class="text-white fw-bold">شبکه منتورینگ</span>
+                                                <span class="text-info small text-opacity-75">+۱۰۰ متخصص</span>
+                                            </div>
+                                            <div class="progress bg-secondary bg-opacity-25" style="height: 8px;">
+                                                <div class="progress-bar bg-info" style="width: 92%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                            class="bg-black bg-opacity-25 rounded-3 p-4 border border-white border-opacity-10">
+                                        <div class="d-flex align-items-start gap-3">
+                                            <i class="bi bi-lightning-charge-fill text-gold fs-3"></i>
+                                            <div>
+                                                <h6 class="text-white mb-2 fw-bold">مسیر سریع (Fast Track)</h6>
+                                                <p class="text-muted small m-0 lh-base">
+                                                    دسترسی مستقیم به زیرساخت‌های فنی و حقوقی آنام برای کاهش زمان ورود به
+                                                    بازار.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="decoration-circle"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section class="services-section py-5 position-relative" id="services">
+            <div class="container py-5">
+
+                <div class="row justify-content-center text-center mb-5" data-aos="fade-up">
+                    <div class="col-lg-7">
+                        <span class="text-gold text-uppercase letter-spacing-2 small fw-bold">
+                            <i class="bi bi-diamond-fill me-2" style="font-size: 0.6rem;"></i>
+                            خدمات اکوسیستم آنام
+                        </span>
+                        <h2 class="display-5 text-white fw-bold mt-3 mb-3">
+                            پلی میان <span class="text-gold">ایده</span> و <span class="text-gold">اجرا</span>
+                        </h2>
+                        <p class="text-muted">
+                            ما تمام ابزارهای لازم برای تبدیل یک استارتاپ نوپا به یک یونیکورن را در اختیار شما قرار
+                            می‌دهیم.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-card h-100 p-4">
+                            <div class="icon-wrapper mb-4">
+                                <i class="bi bi-cash-coin fs-1 text-gold"></i>
+                            </div>
+                            <h4 class="text-white fw-bold mb-3 h5">سرمایه‌گذاری هوشمند</h4>
+                            <p class="text-muted small mb-0 text-white">
+                                تامین سرمایه بذری (Pre-seed) تا سری A، متناسب با مرحله رشد و نیازهای واقعی کسب‌وکار شما.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-card h-100 p-4">
+                            <div class="icon-wrapper mb-4">
+                                <i class="bi bi-people-fill fs-1 text-gold"></i>
+                            </div>
+                            <h4 class="text-white fw-bold mb-3 h5">منتورینگ و راهبری</h4>
+                            <p class="text-muted small mb-0 text-white">
+                                دسترسی به شبکه ۳۰۰+ نفره از مدیران ارشد و کارآفرینان موفق برای انتقال تجربه و دانش.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                        <div class="service-card h-100 p-4">
+                            <div class="icon-wrapper mb-4">
+                                <i class="bi bi-building-gear fs-1 text-gold"></i>
+                            </div>
+                            <h4 class="text-white fw-bold mb-3 h5">فضای کار و زیرساخت</h4>
+                            <p class="text-muted small mb-0 text-white">
+                                دفاتر کار اشتراکی مدرن، سرورهای قدرتمند و تجهیزات فنی برای تمرکز کامل تیم بر روی محصول.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                        <div class="service-card h-100 p-4">
+                            <div class="icon-wrapper mb-4">
+                                <i class="bi bi-shield-check fs-1 text-gold"></i>
+                            </div>
+                            <h4 class="text-white fw-bold mb-3 h5">حمایت حقوقی و مالی</h4>
+                            <p class="text-muted small mb-0 text-white">
+                                مدیریت امور قراردادها، ثبت شرکت، و مشاوره‌های مالیاتی برای عبور ایمن از چالش‌های قانونی.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- WHY US -->
+        <section class="why-us-section py-5 position-relative overflow-hidden" id="why-us">
+
+            <div class="hero-glow start-0 top-50 translate-middle-y opacity-25"
+                 style="width: 500px; height: 500px; filter: blur(120px);"></div>
+
+            <div class="container py-5 position-relative z-1">
+
+                <div class="row mb-5">
+                    <div class="col-lg-6">
+                        <span class="text-gold small fw-bold text-uppercase letter-spacing-2">
+                            <i class="bi bi-award-fill me-2"></i>چرا آنام؟
+                        </span>
+                        <h2 class="display-5 text-white fw-bold mt-3">
+                            تفاوت ما در <span class="text-gradient-gold">نتایج</span> است
+                        </h2>
+                    </div>
+                    <div class="col-lg-6 mt-4 mt-lg-0 d-flex align-items-end justify-content-lg-end">
+                        <p class="text-white-50 m-0 w-75 text-lg-start">
+                            ما فقط یک سرمایه‌گذار نیستیم؛ ما شریک استراتژیک شما در سخت‌ترین روزهای مسیر کارآفرینی هستیم.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="advantage-card h-100 p-4 p-lg-5">
+                            <span class="watermark-number">01</span>
+                            <div class="position-relative z-2">
+                                <div class="icon-box mb-4">
+                                    <i class="bi bi-graph-up-arrow fs-2 text-gold"></i>
+                                </div>
+                                <h3 class="text-white h4 fw-bold mb-3">سرمایه هوشمند (Smart Money)</h3>
+                                <p class="text-white-50 m-0">
+                                    پولی که از آنام دریافت می‌کنید، همراه با تجربه، دانش و شبکه ارتباطی گسترده هلدینگ
+                                    است که ارزش آن فراتر از مبلغ چک سرمایه‌گذاری است.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="advantage-card h-100 p-4 p-lg-5">
+                            <span class="watermark-number">02</span>
+                            <div class="position-relative z-2">
+                                <div class="icon-box mb-4">
+                                    <i class="bi bi-diagram-3-fill fs-2 text-gold"></i>
+                                </div>
+                                <h3 class="text-white h4 fw-bold mb-3">هم‌افزایی با هلدینگ</h3>
+                                <p class="text-white-50 m-0">
+                                    استارتاپ شما می‌تواند به عنوان تامین‌کننده یا شریک تجاری، مستقیماً به شرکت‌های
+                                    زیرمجموعه گروه آنام متصل شود و اولین مشتریان بزرگ خود را پیدا کند.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="advantage-card h-100 p-4 p-lg-5">
+                            <span class="watermark-number">03</span>
+                            <div class="position-relative z-2">
+                                <div class="icon-box mb-4">
+                                    <i class="bi bi-door-open-fill fs-2 text-gold"></i>
+                                </div>
+                                <h3 class="text-white h4 fw-bold mb-3">استراتژی خروج شفاف</h3>
+                                <p class="text-white-50 m-0">
+                                    ما از روز اول، نقشه راه مشخصی برای راندهای بعدی سرمایه‌گذاری (Next Rounds) و خروج
+                                    (Exit) یا ادغام (M&A) طراحی می‌کنیم.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ACCELERATION -->
+        <section class="acceleration-section py-5 position-relative" id="acceleration">
+            <div class="container py-5">
+
+                <div class="row mb-5 text-center" data-aos="fade-up">
+                    <div class="col-lg-8 mx-auto">
+                        <span class="text-gold small fw-bold text-uppercase tracking-wide">فراتر از یک
+                            سرمایه‌گذار</span>
+                        <h2 class="display-5 fw-bold text-white mt-3">زنجیره کامل <span
+                                class="text-gold">شتاب‌دهی</span></h2>
+                        <p class="text-muted mt-3">
+                            ما در آنام، فقط پول تزریق نمی‌کنیم؛ بلکه اکوسیستمی کامل برای تبدیل استارتاپ شما به رهبر
+                            بازار فراهم می‌کنیم.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-lg-6" data-aos="fade-right">
+                        <div
+                                class="feature-card large-card h-100 p-4 p-lg-5 d-flex flex-column justify-content-between">
+                            <div>
+                                <div class="icon-box mb-4 bg-white bg-opacity-10">
+                                    <i class="bi bi-rocket-takeoff-fill fs-2 text-gold"></i>
+                                </div>
+                                <h3 class="text-white fw-bold mb-3">شتاب‌دهی استارتاپ‌ها</h3>
+                                <p class="text-muted">
+                                    برنامه‌های فشرده ۳ تا ۶ ماهه برای استارتاپ‌های محصول‌محور. ما به شما کمک می‌کنیم تا
+                                    MVP خود را به یک محصول مقیاس‌پذیر تبدیل کنید و آماده جذب سرمایه مراحل بعدی شوید.
+                                </p>
+                                <ul class="list-unstyled text-muted mt-4 small">
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-gold me-2"></i>کارگاه‌های
+                                        تخصصی Growth Hacking
+                                    </li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-gold me-2"></i>دسترسی به
+                                        دیتابیس مشتریان آنام
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="#apply"
+                               class="btn btn-outline-light rounded-pill mt-4 w-auto align-self-start px-4">شرایط
+                                پذیرش</a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row g-4 h-100">
+
+                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                                <div class="feature-card h-100 p-4">
+                                    <i class="bi bi-coin fs-1 text-gold mb-3 d-block"></i>
+                                    <h5 class="text-white fw-bold">سرمایه‌گذاری</h5>
+                                    <p class="text-muted small">
+                                        تامین مالی در مراحل Seed، Pre-seed و Growth با شرایط منعطف و منصفانه.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                                <div class="feature-card h-100 p-4">
+                                    <i class="bi bi-person-video3 fs-1 text-gold mb-3 d-block"></i>
+                                    <h5 class="text-white fw-bold">منتورینگ تخصصی</h5>
+                                    <p class="text-muted small">
+                                        جلسات ۱:۱ با بنیان‌گذاران یونیکورن‌ها و مدیران ارشد صنایع مختلف.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+                                <div class="feature-card h-100 p-4">
+                                    <i class="bi bi-laptop fs-1 text-gold mb-3 d-block"></i>
+                                    <h5 class="text-white fw-bold">فضای کار اشتراکی</h5>
+                                    <p class="text-muted small">
+                                        آفیس‌های مدرن در بهترین نقاط شهر با اینترنت فیبر نوری و اتاق جلسات.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
+                                <div class="feature-card h-100 p-4">
+                                    <i class="bi bi-share-fill fs-1 text-gold mb-3 d-block"></i>
+                                    <h5 class="text-white fw-bold">شبکه‌سازی</h5>
+                                    <p class="text-muted small">
+                                        اتصال به شرکای تجاری، دولتی و بین‌المللی برای توسعه بازار.
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- METRICS -->
+        <section class="metrics-section position-relative py-5" id="metrics">
+
+            <div class="container py-5 position-relative z-2">
+                <div class="row g-4 justify-content-center">
+
+                    <div class="col-6 col-md-3 border-end border-white border-opacity-10">
+                        <div class="stat-item text-center" data-aos="fade-up" data-aos-delay="100">
+                            <div class="mb-3">
+                                <i class="bi bi-safe2-fill text-gold fs-2 opacity-50"></i>
+                            </div>
+                            <div class="d-flex justify-content-center align-items-baseline dir-ltr">
+                                <h2 class="display-4 fw-bold text-white m-0 counter" data-target="25">0</h2>
+                                <span class="text-gold fs-4 fw-bold ms-1">M$</span>
+                            </div>
+                            <p class="text-muted small mt-2 text-uppercase letter-spacing-2">سرمایه تحت مدیریت (AUM)</p>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3 border-end border-white border-opacity-10">
+                        <div class="stat-item text-center" data-aos="fade-up" data-aos-delay="200">
+                            <div class="mb-3">
+                                <i class="bi bi-rocket-takeoff-fill text-gold fs-2 opacity-50"></i>
+                            </div>
+                            <div class="d-flex justify-content-center align-items-baseline dir-ltr">
+                                <span class="text-gold fs-4 fw-bold me-1">+</span>
+                                <h2 class="display-4 fw-bold text-white m-0 counter" data-target="40">0</h2>
+                            </div>
+                            <p class="text-muted small mt-2 text-uppercase letter-spacing-2">سرمایه‌گذاری موفق</p>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3 border-end border-white border-opacity-10">
+                        <div class="stat-item text-center" data-aos="fade-up" data-aos-delay="300">
+                            <div class="mb-3">
+                                <i class="bi bi-people-fill text-gold fs-2 opacity-50"></i>
+                            </div>
+                            <div class="d-flex justify-content-center align-items-baseline dir-ltr">
+                                <span class="text-gold fs-4 fw-bold me-1">+</span>
+                                <h2 class="display-4 fw-bold text-white m-0 counter" data-target="120">0</h2>
+                            </div>
+                            <p class="text-muted small mt-2 text-uppercase letter-spacing-2">شبکه متخصصین</p>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <div class="stat-item text-center" data-aos="fade-up" data-aos-delay="400">
+                            <div class="mb-3">
+                                <i class="bi bi-hourglass-split text-gold fs-2 opacity-50"></i>
+                            </div>
+                            <div class="d-flex justify-content-center align-items-baseline dir-ltr">
+                                <span class="text-gold fs-4 fw-bold me-1">+</span>
+                                <h2 class="display-4 fw-bold text-white m-0 counter" data-target="10">0</h2>
+                            </div>
+                            <p class="text-muted small mt-2 text-uppercase letter-spacing-2">سال تجربه هلدینگ</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO -->
+        <section class="portfolio-section position-relative py-5" id="portfolio">
+            <div class="container py-5">
+
+                <div class="row justify-content-between align-items-end mb-5" data-aos="fade-up">
+                    <div class="col-lg-8">
+                        <span class="text-gold small fw-bold text-uppercase letter-spacing-2">
+                            <i class="bi bi-briefcase-fill me-2"></i>پورتفوی سرمایه‌گذاری
+                        </span>
+                        <h2 class="display-5 text-white fw-bold mt-3">
+                            خلق ارزش در <span class="text-gradient-gold">صنایع آینده</span>
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="portfolio-card">
+                            <img src="{% static 'image/portfolio/1.png' %}" alt="استارتاپ فین‌تک NovaPay"
+                                 class="portfolio-img">
+                            <div class="portfolio-overlay"></div>
+                            <div class="portfolio-content">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-gold text-dark rounded-pill px-3">فین‌تک</span>
+                                    <span class="text-white-50 small">Series A</span>
+                                </div>
+                                <h3 class="text-white fw-bold">نـوا پِی (NovaPay)</h3>
+                                <p class="text-white-50 small mt-2 text-truncate-2">
+                                    پلتفرم پرداخت هوشمند نسل جدید با قابلیت تحلیل رفتار مشتری.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="portfolio-card">
+                            <img src="{% static 'image/portfolio/2.png' %}" alt="استارتاپ سلامت هوشمند مدیکال پلاس"
+                                 class="portfolio-img">
+                            <div class="portfolio-overlay"></div>
+                            <div class="portfolio-content">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-white text-dark rounded-pill px-3">سلامت هوشمند</span>
+                                    <span class="text-white-50 small">Seed Round</span>
+                                </div>
+                                <h3 class="text-white fw-bold">مدیکال پلاس</h3>
+                                <p class="text-white-50 small mt-2 text-truncate-2">
+                                    سامانه تشخیص بیماری‌های پوستی مبتنی بر هوش مصنوعی و پردازش تصویر.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="portfolio-card">
+                            <img src="{% static 'image/portfolio/3.png' %}" alt="استارتاپ لجستیک سریع‌بار"
+                                 class="portfolio-img">
+                            <div class="portfolio-overlay"></div>
+                            <div class="portfolio-content">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-gold text-dark rounded-pill px-3">لجستیک</span>
+                                    <span class="text-white-50 small">Growth</span>
+                                </div>
+                                <h3 class="text-white fw-bold">سریع‌بار</h3>
+                                <p class="text-white-50 small mt-2 text-truncate-2">
+                                    شبکه هوشمند توزیع و حمل‌ونقل بار بین‌شهری با ناوگان اختصاصی.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mt-5 pt-4 justify-content-center" data-aos="fade-up">
+                    <div class="col-10">
+                        <div
+                                class="stats-bar d-flex flex-wrap justify-content-around align-items-center p-4 rounded-4 border border-white border-opacity-10 bg-glass">
+                            <div class="text-center px-3 py-2">
+                                <h2 class="text-gold fw-bold m-0 display-6">۴۵۰+</h2>
+                                <span class="text-white small">اشتغال‌زایی مستقیم</span>
+                            </div>
+                            <div class="vr bg-white opacity-25 d-none d-md-block" style="height: 40px;"></div>
+                            <div class="text-center px-3 py-2">
+                                <h2 class="text-gold fw-bold m-0 display-6">$۱۲M</h2>
+                                <span class="text-white small">ارزش‌گذاری کل</span>
+                            </div>
+                            <div class="vr bg-white opacity-25 d-none d-md-block" style="height: 40px;"></div>
+                            <div class="text-center px-3 py-2">
+                                <h2 class="text-gold fw-bold m-0 display-6">۳</h2>
+                                <span class="text-white small">خروج موفق (Exit)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- APPLY / CONTACT -->
+        <section class="apply-section position-relative py-5 overflow-hidden" id="apply">
+
+            <div class="hero-glow end-0 bottom-0 opacity-25" style="width: 800px; height: 800px;"></div>
+
+            <div class="container py-5 position-relative z-1">
+                <div class="row justify-content-center">
+                    <div class="col-xl-10">
+
+                        <div class="apply-card overflow-hidden shadow-lg">
+                            <div class="row g-0">
+
+                                <div class="col-lg-7 p-5 bg-dark-form">
+                                    <span class="text-gold small fw-bold text-uppercase letter-spacing-2 mb-2 d-block">
+                                        <i class="bi bi-pen-fill me-2"></i>شروع مسیر رشد
+                                    </span>
+                                    <h2 class="text-white fw-bold mb-4">درخواست شتاب‌دهی / همکاری</h2>
+
+                                    <form id="contract-form" method="post" action="{% url 'home:contract_create' %}"
+                                          novalidate>
+                                        {% csrf_token %}
+                                        <div class="row g-4">
+
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input
+                                                            type="text"
+                                                            class="form-control custom-input"
+                                                            id="id_full_name"
+                                                            name="full_name"
+                                                            placeholder="نام کامل"
+                                                            required
+                                                    >
+                                                    <label for="id_full_name">نام و نام خانوادگی</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input
+                                                            type="tel"
+                                                            class="form-control custom-input"
+                                                            id="id_phone"
+                                                            name="phone"
+                                                            placeholder="شماره تماس"
+                                                            required
+                                                    >
+                                                    <label for="id_phone">شماره تماس</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="form-floating">
+                                                    <input
+                                                            type="email"
+                                                            class="form-control custom-input"
+                                                            id="id_email"
+                                                            name="email"
+                                                            placeholder="ایمیل"
+                                                    >
+                                                    <label for="id_email">ایمیل (اختیاری)</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="form-floating">
+                                                    <input
+                                                            type="text"
+                                                            class="form-control custom-input"
+                                                            id="id_startup_name"
+                                                            name="startup_name"
+                                                            placeholder="نام استارتاپ"
+                                                            required
+                                                    >
+                                                    <label for="id_startup_name">نام استارتاپ / ایده</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="form-floating">
+                                                    <input
+                                                            class="form-control custom-input"
+                                                            id="id_detail"
+                                                            name="detail"
+                                                            placeholder=" "
+                                                            style="height: 120px"
+                                                            required
+                                                    >
+                                                    <label for="id_detail">توضیحات کوتاه درباره محصول</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div id="contract-message" class="login-error-alert"
+                                                     style="display: none;">
+                                                    <i class="bi bi-exclamation-octagon-fill"></i>
+                                                    <span id="contract-message-text"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 mt-4">
+                                                <button
+                                                        type="submit"
+                                                        class="btn btn-gold w-100 py-3 rounded-2 fw-bold"
+                                                >
+                                                    ارسال درخواست بررسی
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                                <div
+                                        class="col-lg-5 bg-gradient-gold d-none d-lg-flex flex-column justify-content-center p-5 text-center position-relative overflow-hidden">
+                                    <div class="pattern-overlay"></div>
+
+                                    <div class="position-relative z-2">
+                                        <div class="mb-4">
+                                            <div class="icon-circle bg-white text-gold mx-auto shadow-lg">
+                                                <i class="bi bi-send-check-fill fs-2"></i>
+                                            </div>
+                                        </div>
+                                        <h3 class="text-white fw-bold mb-4">چرا آنام؟</h3>
+                                        <ul class="list-unstyled text-white-50 text-start mx-auto"
+                                            style="max-width: 300px;">
+                                            <li class="mb-3 d-flex align-items-center">
+                                                <i class="bi bi-check2-circle text-white me-2 fs-5"></i>
+                                                بررسی درخواست در کمتر از ۷ روز
+                                            </li>
+                                            <li class="mb-3 d-flex align-items-center">
+                                                <i class="bi bi-check2-circle text-white me-2 fs-5"></i>
+                                                جلسه حضوری با تیم سرمایه‌گذاری
+                                            </li>
+                                            <li class="d-flex align-items-center">
+                                                <i class="bi bi-check2-circle text-white me-2 fs-5"></i>
+                                                حفظ محرمانگی ایده شما
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer-section position-relative">
+
+        <div class="footer-top-border"></div>
+        <div class="footer-map-pattern"></div>
+
+        <div class="container position-relative z-1 pt-5 pb-3">
+            <div class="row gy-5 justify-content-between">
+
+                <div class="col-lg-4">
+                    <a class="navbar-brand d-block mb-4" href="#home">
+                        <img src="{% static 'image/logo/AnamLogo.PNG' %}" alt="لوگوی هلدینگ آنام" style="height: 60px;">
+                    </a>
+                    <p class="footer-desc mb-4 w-lg-75">
+                        آنام؛ پیشرو در خلق ارزش و توسعه کسب‌وکارهای نوآور. ما پلی مطمئن میان سرمایه هوشمند و ایده‌های
+                        جسورانه هستیم تا آینده‌ای روشن‌تر بسازیم.
+                    </p>
+                    <div class="social-links d-flex gap-3">
+                        <a href="#" class="social-icon" aria-label="LinkedIn هلدینگ آنام"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="social-icon" aria-label="X (Twitter) هلدینگ آنام"><i
+                                class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="social-icon" aria-label="Instagram هلدینگ آنام"><i
+                                class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-6 col-lg-2">
+                    <h5 class="text-white fw-bold mb-4">دسترسی سریع</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#why-us">درباره هلدینگ</a></li>
+                        <li><a href="#portfolio">پورتفوی سرمایه‌گذاری</a></li>
+                        <li><a href="#metrics">آمار و عملکرد</a></li>
+                        <li><a href="#apply">فرصت‌های همکاری</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-lg-2">
+                    <h5 class="text-white fw-bold mb-4">خدمات ما</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#acceleration">شتاب‌دهی استارتاپ</a></li>
+                        <li><a href="#services">سرمایه‌گذاری خطرپذیر</a></li>
+                        <li><a href="#services">شبکه منتورینگ</a></li>
+                        <li><a href="#acceleration">فضای کار اشتراکی</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3">
+                    <h5 class="text-white fw-bold mb-4">همراه ما باشید</h5>
+                    <p class="footer-desc small mb-3">برای دریافت آخرین اخبار اکوسیستم، ایمیل خود را وارد کنید.</p>
+                    <form class="newsletter-form position-relative mb-4">
+                        <input type="email" class="form-control" placeholder="ایمیل شما..."
+                               aria-label="ایمیل برای عضویت در خبرنامه">
+                        <button type="submit" class="btn-send" aria-label="ارسال ایمیل">
+                            <i class="bi bi-arrow-left text-dark"></i>
+                        </button>
+                    </form>
+
+                    <div class="contact-info">
+                        <p class="footer-desc small mb-1">
+                            <i class="bi bi-geo-alt-fill text-gold me-2"></i>
+                            مشهد، احد آباد، بین رضای ۱۱ و ۱۳
+                        </p>
+                        <p class="footer-desc small">
+                            <i class="bi bi-telephone-fill text-gold me-2"></i>
+                            ۰۲۱-۴۴۵۵۶۶۷۷
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mt-5 pt-4 border-top border-white border-opacity-10 align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="text-white-50 small m-0">
+                        © ۲۰۲۵ تمامی حقوق برای <span class="text-gold">هلدینگ آنام</span> محفوظ است.
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                    <div class="d-inline-flex gap-4">
+                        <a href="#" class="text-white-50 small text-decoration-none hover-gold">قوانین و مقررات</a>
+                        <a href="#" class="text-white-50 small text-decoration-none hover-gold">حریم خصوصی</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+{% endblock %}
+
+{% block extra_js %}
+    {# اگه برای این صفحه اسکریپت اختصاصی خواستی بعداً اینجا اضافه کن #}
+{% endblock %}

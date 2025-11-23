@@ -1,0 +1,117 @@
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}داشبورد مدیریت{% endblock %}
+
+{% block menu_dashboard %}active{% endblock %}
+
+{% block content %}
+
+<header class="topbar">
+    <h2>داشبورد مدیریت</h2>
+    <div class="search-box">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="جستجو...">
+    </div>
+</header>
+
+<!-- Cards -->
+<section class="stats">
+
+    <!-- کاربر فعال -->
+    <div class="stat-card">
+        <i class="bi bi-person-check-fill"></i>
+        <div>
+            <h4>{{ active_users_count }}</h4>
+            <p>کاربر فعال</p>
+        </div>
+    </div>
+
+    <!-- درخواست جدید -->
+    <div class="stat-card">
+        <i class="bi bi-file-earmark-text"></i>
+        <div>
+            <h4>{{ today_new_contracts }}</h4>
+            <p>درخواست جدید امروز</p>
+        </div>
+    </div>
+
+    <!-- درخواست در انتظار -->
+    <div class="stat-card">
+        <i class="bi bi-hourglass-split"></i>
+        <div>
+            <h4>{{ pending_contracts_count }}</h4>
+            <p>در انتظار بررسی</p>
+        </div>
+    </div>
+
+    <!-- رضایت -->
+    <div class="stat-card">
+        <i class="bi bi-graph-up"></i>
+        <div>
+            <h4>{{ satisfaction_percent }}٪</h4>
+            <p>رضایت کاربران</p>
+        </div>
+    </div>
+
+</section>
+
+<!-- Activity / Notifications -->
+<section class="panel-box">
+
+    <div class="panel-header">
+        <h5 class="box-title">آخرین فعالیت‌ها</h5>
+        <span class="badge panel-badge">
+            <i class="bi bi-bell-fill ms-1"></i>
+            امروز
+        </span>
+    </div>
+
+    <ul class="activity-list">
+
+        {% for act in latest_activities %}
+        <li class="activity-item">
+
+            <div class="activity-icon {{ act.level }}">
+                {% if act.level == "success" %}
+                    <i class="bi bi-check-circle-fill"></i>
+                {% elif act.level == "warning" %}
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                {% elif act.level == "info" %}
+                    <i class="bi bi-info-circle-fill"></i>
+                {% else %}
+                    <i class="bi bi-sliders"></i>
+                {% endif %}
+            </div>
+
+            <div class="activity-content">
+                <div class="activity-title">{{ act.title }}</div>
+                <div class="activity-meta">
+                    {{ act.created_at|timesince }} پیش
+                    {% if act.actor %}
+                        · توسط {{ act.actor.username }}
+                    {% endif %}
+                    {% if act.meta %}
+                        · {{ act.meta }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <span class="activity-tag">{{ act.get_category_display }}</span>
+
+        </li>
+        {% empty %}
+        <li class="activity-item">
+            <div class="activity-content">
+                <div class="activity-title text-muted">
+                    هنوز هیچ فعالیتی ثبت نشده است.
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+
+    </ul>
+
+</section>
+
+{% endblock %}

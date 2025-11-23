@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}داشبورد مدیریت{% endblock %}</title>
+
+    <!-- Bootstrap RTL -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <!-- Custom Admin Styles -->
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+<div class="admin-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="{% static 'image/logo/AnamLogo.PNG' %}" alt="">
+            <h6>پنل مدیریت آنام</h6>
+        </div>
+
+        <nav>
+            <a href="{% url 'admin_panel:dashboard' %}" class="{% block menu_dashboard %}{% endblock %}">
+                <i class="bi bi-speedometer2"></i> داشبورد
+            </a>
+
+            <a href="{% url 'admin_panel:contracts' %}" class="{% block menu_contracts %}{% endblock %}">
+                <i class="bi bi-folder-check"></i> درخواست‌ها
+            </a>
+
+            <a href="{% url 'admin_panel:recode_list' %}" class="{% block menu_recode %}{% endblock %}">
+                <i class="bi bi-cpu"></i> Recode
+            </a>
+
+            <a href="{% url 'admin_panel:users' %}" class="{% block menu_users %}{% endblock %}">{#  #}
+                <i class="bi bi-people"></i> کاربران
+            </a>
+
+            <a href="{% url 'accounts:logout' %}" class="logout">
+                <i class="bi bi-box-arrow-right"></i> خروج
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Section -->
+    <main class="main">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{% block extra_js %}{% endblock %}
+
+</body>
+</html>

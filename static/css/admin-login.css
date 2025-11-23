@@ -1,0 +1,623 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --main-green: #024442;
+  --gold: #C5A059;
+  --bg-dark: #010a09;
+  --bg-card: #022422;
+  --text-light: #ECECEC;
+  --text-muted: #aebdbb;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Vazirmatn", system-ui, -apple-system, sans-serif;
+  background:
+    radial-gradient(circle at top center, rgba(2, 68, 66, 0.85) 0%, #010a09 55%, #000 100%);
+  color: var(--text-light);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ===== نوار هشدار بالای صفحه ===== */
+
+.admin-top-bar {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.admin-top-inner {
+  margin-top: 10px;
+  pointer-events: auto;
+
+  min-width: min(650px, calc(100% - 32px));
+  padding: 8px 14px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  border-radius: 999px;
+
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(2, 36, 34, 0.95));
+  border: 1px solid rgba(197, 160, 89, 0.55);
+  color: #f7ecda;
+
+  font-size: 0.8rem;
+
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9);
+}
+
+.admin-top-inner i {
+  color: #ffd66a;
+}
+
+/* ===== دکمه برگشت به سایت ===== */
+
+.admin-back-home {
+  position: fixed;
+  inset-inline-start: 26px;
+  bottom: 22px;
+  z-index: 50;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 9px 14px;
+  border-radius: 999px;
+
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(197, 160, 89, 0.7);
+  color: #fdfaf1;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.85);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.admin-back-home i {
+  font-size: 0.95rem;
+  color: var(--gold);
+}
+
+.admin-back-home:hover {
+  background: rgba(3, 36, 34, 0.98);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(197, 160, 89, 0.45);
+}
+
+/* ===== Toast خطای لاگین ===== */
+
+.admin-login-toast {
+  position: fixed;
+  inset-inline: 0;
+  top: 60px;
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+  transform: translateY(-180%);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.4s cubic-bezier(0.16, 0.84, 0.44, 1),
+    opacity 0.4s ease-out;
+}
+
+.admin-login-toast-inner {
+  min-width: min(380px, calc(100% - 32px));
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 9px 16px;
+  border-radius: 999px;
+
+  background: rgba(40, 0, 0, 0.92);
+  border: 1px solid rgba(255, 120, 120, 0.7);
+  color: #ffe5e5;
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9);
+  font-size: 0.8rem;
+}
+
+.admin-login-toast-inner i {
+  color: #ff8a8a;
+}
+
+.admin-login-toast.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== پس‌زمینه صفحه ===== */
+
+.admin-login-page {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 90px;
+  padding-bottom: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-login-shell {
+  position: relative;
+  z-index: 2;
+}
+
+.admin-grid {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+  background-size: 70px 70px;
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.admin-orbit {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.42;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.admin-orbit-1 {
+  width: 420px;
+  height: 420px;
+  background: rgba(2, 68, 66, 0.9);
+  top: -60px;
+  right: -40px;
+}
+
+.admin-orbit-2 {
+  width: 520px;
+  height: 520px;
+  background: rgba(197, 160, 89, 0.9);
+  bottom: -120px;
+  left: -80px;
+  opacity: 0.25;
+}
+
+/* ===== کارت لاگین ادمین ===== */
+
+.admin-login-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 42%) minmax(0, 58%);
+  border-radius: 30px;
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at 0 0, rgba(197, 160, 89, 0.2), transparent 55%),
+    linear-gradient(135deg, rgba(0, 0, 0, 0.96), rgba(2, 36, 34, 0.97));
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+}
+
+/* ستون سمت چپ (برندینگ ادمین) */
+
+.admin-login-side {
+  position: relative;
+  padding: 26px 22px 18px;
+  background:
+    radial-gradient(circle at top right, rgba(197, 160, 89, 0.22), transparent 60%),
+    linear-gradient(135deg, rgba(1, 24, 23, 0.98), rgba(3, 46, 44, 0.98));
+  border-inline-end: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.admin-login-side::before {
+  content: "ADMIN";
+  position: absolute;
+  inset-inline-start: 10px;
+  inset-block-end: -16px;
+  font-size: 52px;
+  font-weight: 900;
+  letter-spacing: 0.4em;
+  color: rgba(255, 255, 255, 0.03);
+  transform: rotate(-90deg);
+  transform-origin: bottom left;
+  pointer-events: none;
+}
+
+.admin-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.admin-logo-wrap img {
+  height: 46px;
+  object-fit: contain;
+}
+
+.admin-logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-logo-text span:nth-child(1) {
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.admin-logo-text span:nth-child(2) {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.admin-side-separator {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.45), transparent);
+  opacity: 0.7;
+}
+
+.admin-side-info {
+  margin-top: 20px;
+}
+
+.admin-side-info h2 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.admin-side-info p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.9;
+  margin-bottom: 16px;
+}
+
+.admin-side-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-side-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: #e6f2f0;
+  margin-bottom: 10px;
+}
+
+.admin-side-list i {
+  font-size: 0.9rem;
+  color: var(--gold);
+}
+
+.admin-side-footer {
+  margin-top: 22px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.admin-side-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 6px 12px;
+  border-radius: 999px;
+
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(197, 160, 89, 0.7);
+  font-size: 0.7rem;
+  color: #fdeccc;
+}
+
+.admin-side-badge i {
+  font-size: 0.8rem;
+}
+
+/* ستون سمت راست (فرم لاگین) */
+
+.admin-login-main {
+  position: relative;
+  padding: 24px 24px 20px;
+}
+
+.admin-main-header {
+  margin-bottom: 16px;
+}
+
+.admin-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(197, 160, 89, 0.7);
+
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fdf5da;
+}
+
+.admin-main-header h1 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 10px 0 4px;
+}
+
+.admin-main-header p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* فیلدها */
+
+.admin-field-group {
+  margin-bottom: 14px;
+}
+
+.admin-field-group label {
+  display: block;
+  font-size: 0.75rem;
+  margin-bottom: 4px;
+  color: var(--text-muted);
+}
+
+.admin-input-shell {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding-inline: 10px;
+
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.admin-input-shell:focus-within {
+  border-color: var(--gold);
+  background: rgba(0, 0, 0, 0.92);
+  box-shadow: 0 0 0 1px rgba(197, 160, 89, 0.55);
+}
+
+.admin-input-shell i {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-inline-start: 4px;
+}
+
+.admin-input-shell input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  padding: 9px 8px;
+  width: 100%;
+}
+
+.admin-input-shell input::placeholder {
+  color: rgba(174, 189, 187, 0.6);
+}
+
+.admin-toggle-password {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0 2px;
+  display: flex;
+  align-items: center;
+}
+
+/* متا ردیف */
+
+.admin-meta-row {
+  margin-top: 4px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.admin-link-muted {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.admin-link-muted:hover {
+  color: var(--gold);
+}
+
+/* دکمه ورود */
+
+.admin-btn-submit {
+  position: relative;
+  width: 100%;
+  border-radius: 16px;
+  border: none;
+  outline: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 10px 12px;
+
+  background: linear-gradient(135deg, #fff3c6, var(--gold));
+  color: #001f1c;
+  font-weight: 700;
+  font-size: 0.92rem;
+
+  box-shadow:
+    0 14px 32px rgba(197, 160, 89, 0.4),
+    0 0 18px rgba(197, 160, 89, 0.5);
+
+  cursor: pointer;
+  overflow: hidden;
+
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    filter 0.16s ease;
+}
+
+.admin-btn-submit i {
+  font-size: 1.1rem;
+}
+
+.admin-btn-submit:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+  box-shadow:
+    0 18px 40px rgba(197, 160, 89, 0.55),
+    0 0 22px rgba(197, 160, 89, 0.7);
+}
+
+.admin-btn-submit:active {
+  transform: translateY(0);
+  box-shadow:
+    0 10px 22px rgba(197, 160, 89, 0.4),
+    0 0 14px rgba(197, 160, 89, 0.6);
+}
+
+.admin-btn-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.7), transparent 55%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.admin-btn-submit:hover .admin-btn-glow {
+  opacity: 1;
+  transform: translate3d(10px, -10px, 0);
+}
+
+/* هشدار زیر دکمه */
+
+.admin-warning-text {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  color: rgba(255, 207, 165, 0.95);
+}
+
+.admin-warning-text i {
+  font-size: 0.9rem;
+  color: #ffcf8a;
+}
+
+/* فوتر */
+
+.admin-main-footer {
+  margin-top: 16px;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-main-footer a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.admin-main-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ===== ریسپانسیو ===== */
+
+@media (max-width: 991.98px) {
+  .admin-login-page {
+    padding-top: 100px;
+    padding-bottom: 40px;
+  }
+
+  .admin-login-card {
+    grid-template-columns: minmax(0, 100%);
+  }
+
+  .admin-login-side {
+    display: none;
+  }
+
+  .admin-login-main {
+    padding: 22px 18px 18px;
+  }
+
+  .admin-back-home {
+    inset-inline-start: 16px;
+    bottom: 16px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .admin-top-inner {
+    min-width: calc(100% - 24px);
+    margin-top: 8px;
+  }
+
+  .admin-login-page {
+    padding-top: 90px;
+  }
+
+  .admin-login-card {
+    border-radius: 22px;
+  }
+}

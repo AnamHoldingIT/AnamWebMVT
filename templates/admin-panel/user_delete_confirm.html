@@ -1,0 +1,18 @@
+{% extends "admin-panel/base_admin.html" %}
+{% block title %}حذف کاربر{% endblock %}
+{% block menu_users %}active{% endblock %}
+
+{% block content %}
+<h2 class="page-title text-danger mb-3">حذف کاربر</h2>
+
+<p class="text-warning">
+    آیا مطمئن هستید که می‌خواهید کاربر <strong>{{ object.username }}</strong> را حذف کنید؟
+</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger">حذف</button>
+    <a href="{% url 'admin_panel:user_detail' object.pk %}" class="btn btn-outline-light ms-2">انصراف</a>
+</form>
+
+{% endblock %}

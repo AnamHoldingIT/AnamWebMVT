@@ -1,0 +1,195 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Anam Admin | ورود مدیر سیستم</title>
+
+    <!-- Bootstrap RTL -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.rtl.min.css"
+          integrity="sha384-CfCrinSRH2IR6a4e6fy2q6ioOX7O6Mtm1L9vRvFZ1trBncWmMePhzvafv7oIcWiW"
+          crossorigin="anonymous">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <!-- Admin Login Styles -->
+    <link rel="stylesheet" href="{% static 'css/admin-login.css' %}">
+
+    <!-- Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap"/>
+</head>
+
+<body>
+
+<!-- دکمه برگشت به سایت اصلی -->
+<a href="{% url 'home:home' %}" class="admin-back-home">
+    <i class="bi bi-arrow-right"></i>
+    <span>بازگشت به وب‌سایت آنام</span>
+</a>
+
+<!-- نوار هشدار بالای صفحه -->
+<div id="admin-bar" class="admin-top-bar">
+    <div class="admin-top-inner">
+        <i class="bi bi-shield-lock-fill"></i>
+        <span>این بخش فقط برای مدیران مجاز هلدینگ آنام در نظر گرفته شده است.</span>
+    </div>
+</div>
+
+<!-- Toast خطای لاگین -->
+<div id="admin-login-toast" class="admin-login-toast">
+    <div class="admin-login-toast-inner">
+        <i class="bi bi-exclamation-octagon-fill"></i>
+        <span id="admin-login-toast-text">نام کاربری یا رمز عبور صحیح نیست.</span>
+    </div>
+</div>
+
+<div class="admin-login-page">
+    <div class="admin-orbit admin-orbit-1"></div>
+    <div class="admin-orbit admin-orbit-2"></div>
+    <div class="admin-grid"></div>
+
+    <div class="container admin-login-shell">
+        <div class="row justify-content-center">
+            <div class="col-xl-7 col-lg-8">
+
+                <div class="admin-login-card">
+                    <!-- ستون تزئینی سمت چپ کارت -->
+                    <div class="admin-login-side">
+                        <div class="admin-logo-wrap">
+                            <img src="{% static 'image/logo/AnamLogo.PNG' %}" alt="Anam Holding Logo">
+                            <div class="admin-logo-text">
+                                <span>ANAM HOLDING</span>
+                                <span>ADMIN CONTROL CENTER</span>
+                            </div>
+                        </div>
+
+                        <div class="admin-side-separator"></div>
+
+                        <div class="admin-side-info">
+                            <h2>پنل مدیریت آنام</h2>
+                            <p>
+                                از این بخش می‌توانید دسترسی‌ها، درخواست‌های شتاب‌دهی و اطلاعات کاربران را مدیریت کنید.
+                            </p>
+
+                            <ul class="admin-side-list">
+                                <li>
+                                    <i class="bi bi-key-fill"></i>
+                                    <span>دسترسی لایه‌ دوم امنیتی</span>
+                                </li>
+                                <li>
+                                    <i class="bi bi-activity"></i>
+                                    <span>مانیتورینگ لحظه‌ای فعالیت‌ها</span>
+                                </li>
+                                <li>
+                                    <i class="bi bi-database-lock"></i>
+                                    <span>حفاظت از داده‌های محرمانه استارتاپ‌ها</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="admin-side-footer">
+                <span class="admin-side-badge">
+                  <i class="bi bi-shield-check"></i>
+                  Protected · Anam Security Layer
+                </span>
+                        </div>
+                    </div>
+
+                    <!-- فرم لاگین ادمین -->
+                    <div class="admin-login-main">
+                        <div class="admin-main-header">
+                            <span class="admin-pill">ADMIN LOGIN</span>
+                            <h1>ورود مدیر سیستم</h1>
+                            <p>نام کاربری و رمز عبور مدیریتی خود را وارد کنید.</p>
+                        </div>
+
+                        <form id="admin-login-form" method="post" action="{% url 'accounts:admin_login' %}" novalidate>
+                            {% csrf_token %}
+                            <div class="admin-field-group">
+                                <label for="admin-username">نام کاربری سازمانی</label>
+                                <div class="admin-input-shell">
+                                    <i class="bi bi-person-badge"></i>
+                                    <input
+                                            type="text"
+                                            id="admin-username"
+                                            name="username"
+                                            placeholder="admin@anamholding.com"
+                                            autocomplete="username">
+
+                                </div>
+                            </div>
+
+                            <!-- پسورد -->
+                            <div class="admin-field-group">
+                                <label for="admin-password">رمز عبور</label>
+                                <div class="admin-input-shell">
+                                    <i class="bi bi-lock-fill"></i>
+
+                                    <input
+                                            type="password"
+                                            id="admin-password"
+                                            name="password"
+                                            placeholder="••••••••••"
+                                            autocomplete="current-password">
+
+                                    <button type="button" class="admin-toggle-password" aria-label="نمایش رمز">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- متا -->
+                            <div class="admin-meta-row">
+                                <div class="form-check d-flex align-items-center">
+                                    <input class="form-check-input ms-2" type="checkbox" value="" id="admin-remember"
+                                           checked>
+                                    <label class="form-check-label" for="admin-remember">
+                                        ورود من را به خاطر بسپار
+                                    </label>
+                                </div>
+                                <a href="#" class="admin-link-muted">مشاهده لاگ‌های امنیتی</a>
+                            </div>
+
+                            <!-- دکمه ورود -->
+                            <button type="submit" class="admin-btn-submit">
+                                <span>ورود به کنسول مدیریت</span>
+                                <i class="bi bi-arrow-left-short"></i>
+                                <span class="admin-btn-glow"></span>
+                            </button>
+
+                            <!-- متن هشدار زیر دکمه -->
+                            <div class="admin-warning-text">
+                                <i class="bi bi-shield-exclamation"></i>
+                                <span>هرگونه ورود غیرمجاز پیگرد قانونی خواهد داشت.</span>
+                            </div>
+                        </form>
+
+                        <div class="admin-main-footer">
+                            <span>ANAM Secure Admin · v1.0</span>
+                            <span><a href="#">راهنمای امنیتی مدیران</a></span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-p8AwQ0pR8F6p2lsIF39l4R2tQvX8QGxFt9BY2Gj54jjXNpMOGepQig2cG05yNh1E"
+        crossorigin="anonymous"></script>
+
+<script src="{% static 'js/admin-login.js' %}"></script>
+
+</body>
+
+</html>

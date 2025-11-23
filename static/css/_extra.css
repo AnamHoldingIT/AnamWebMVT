@@ -1,0 +1,33 @@
+.btn-neon-recode {
+    background: linear-gradient(90deg, #00f6ff, #00ffa6);
+    color: #001314 !important;
+    font-weight: 700;
+    border-radius: 50px;
+    box-shadow: 0 0 18px #00fff7a0, 0 0 30px #00ffd5a0;
+    border: none;
+    transition: 0.25s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-neon-recode i {
+    font-size: 1.2rem;
+}
+
+.btn-neon-recode::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 10% 10%, rgba(255,255,255,0.5), transparent 60%);
+    opacity: 0;
+    transition: 0.35s ease;
+}
+
+.btn-neon-recode:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 0 25px #00fff7, 0 0 40px #00ffd5;
+}
+
+.btn-neon-recode:hover::before {
+    opacity: 1;
+}
