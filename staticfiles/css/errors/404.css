@@ -1,0 +1,151 @@
+/* =========================================
+   404 PAGE - PAGE NOT FOUND
+   ========================================= */
+
+.error-body {
+    background: radial-gradient(circle at 50% -20%, var(--main-green) 0%, var(--bg-dark) 55%, #000 100%);
+    color: var(--text-light);
+    min-height: 100vh;
+    direction: rtl;
+    overflow-x: hidden;
+}
+
+/* کل صفحه 404 */
+.error-page {
+    min-height: 100vh;
+    padding: 100px 15px;
+    position: relative;
+}
+
+/* نور سبز نرم در بک‌گراند */
+.error-glow {
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    background: var(--main-green);
+    filter: blur(160px);
+    opacity: 0.3;
+    border-radius: 50%;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* کارت اصلی 404 */
+.error-card {
+    position: relative;
+    z-index: 2;
+    padding: 3rem 2rem;
+    border-radius: 24px;
+    background: linear-gradient(145deg, rgba(0, 59, 54, 0.8), rgba(1, 10, 9, 0.95));
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(197, 160, 89, 0.4);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    overflow: hidden;
+}
+
+/* نوار کوچک بالای کارت */
+.error-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 15%;
+    left: 15%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.85;
+}
+
+/* چیپ بالای کارت */
+.error-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(197, 160, 89, 0.65);
+    color: var(--gold);
+}
+
+/* کد 404 - افکت لوکس و نرم */
+.error-code-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+}
+
+.error-code-main {
+    position: relative;
+    display: inline-block;
+    font-size: clamp(4rem, 10vw, 6rem);
+    font-weight: 800;
+    letter-spacing: 6px;
+    background: linear-gradient(to right, var(--gold), #ffebc3, var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.9));
+    animation: codeFloat 5s ease-in-out infinite;
+}
+
+.error-code-shadow {
+    position: absolute;
+    inset: 0;
+    font-size: clamp(4rem, 10vw, 6rem);
+    font-weight: 800;
+    letter-spacing: 6px;
+    color: rgba(0, 0, 0, 0.4);
+    filter: blur(6px);
+    transform: translateY(12px);
+    z-index: -1;
+}
+
+/* عنوان و متن */
+.error-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+.error-text {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    max-width: 520px;
+    margin-inline: auto;
+    line-height: 1.9;
+}
+
+/* انیمیشن نرم برای 404 */
+@keyframes codeFloat {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* ریسپانسیو کوچک‌تر */
+@media (max-width: 576px) {
+    .error-card {
+        padding: 2.3rem 1.6rem;
+    }
+
+    .error-title {
+        font-size: 1.25rem;
+    }
+
+    .error-text {
+        font-size: 0.9rem;
+    }
+}

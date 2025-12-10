@@ -5,10 +5,13 @@
     border-radius: 50px;
     box-shadow: 0 0 18px #00fff7a0, 0 0 30px #00ffd5a0;
     border: none;
+
     transition: 0.25s ease-in-out;
     position: relative;
     overflow: hidden;
 }
+
+
 
 .btn-neon-recode i {
     font-size: 1.2rem;

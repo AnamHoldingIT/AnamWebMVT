@@ -425,3 +425,118 @@ label {
         justify-content: center;
     }
 }
+
+
+/* ============================================================
+   RC sections (ReCode / BLC content boxes)
+   ============================================================ */
+
+.hero-text {
+    max-width: 580px; /* فقط یکم عریض‌تر برای ابتدای صفحه */
+}
+
+/* کانتینر کلی باکس‌ها */
+.rc-sections {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* هر باکس متن */
+.rc-card {
+    background: rgba(0, 10, 16, 0.92);
+    border-radius: 18px;
+    padding: 14px 16px 12px;
+    border: 1px solid rgba(0,255,255,0.18);
+    box-shadow:
+        0 14px 32px rgba(0,0,0,0.86),
+        0 0 20px rgba(0,255,255,0.12);
+}
+
+/* عنوان باکس */
+.rc-card-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #f3feff;
+    margin-bottom: 6px;
+}
+
+/* متن کوتاه اول هر باکس */
+.rc-card-intro {
+    font-size: .9rem;
+    line-height: 1.9;
+    color: var(--txt-soft);
+}
+
+/* زیرتیتر کوچک داخل باکس */
+.rc-card-subtitle {
+    font-size: .86rem;
+    font-weight: 700;
+    margin-top: 8px;
+    margin-bottom: 2px;
+    color: #dffeff;
+}
+
+/* لیست‌ها */
+.rc-list {
+    margin: 4px 0 4px;
+    padding-right: 1.1rem; /* چون RTL هستی */
+}
+
+.rc-list li {
+    font-size: .86rem;
+    color: #d5f7fa;
+    line-height: 1.8;
+}
+
+/* جزئیات تاشونده (برای این‌که طول متن به چشم نیاد) */
+.rc-collapse {
+    margin-top: 6px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 6px;
+}
+
+.rc-collapse > summary {
+    list-style: none;
+    cursor: pointer;
+    font-size: .82rem;
+    color: var(--txt-soft);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* حذف مثلث پیش‌فرض */
+.rc-collapse > summary::-webkit-details-marker {
+    display: none;
+}
+
+.rc-collapse > summary::before {
+    content: "▾";
+    font-size: .8rem;
+    color: var(--primary);
+    transition: transform .2s ease;
+}
+
+/* وقتی باز است، فلش بچرخد */
+.rc-collapse[open] > summary::before {
+    transform: rotate(180deg);
+}
+
+.rc-collapse p {
+    margin-top: 4px;
+    font-size: .84rem;
+    line-height: 1.9;
+    color: var(--txt-soft);
+}
+
+/* روی موبایل فاصله‌ها کمی کمتر شود */
+@media (max-width: 575px) {
+    .rc-card {
+        padding: 12px 12px 10px;
+    }
+    .rc-card-title {
+        font-size: .95rem;
+    }
+}

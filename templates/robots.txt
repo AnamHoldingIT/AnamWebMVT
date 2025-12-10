@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /admin_panal/
+Disallow: /zlinks/recode/submit/   # اگر فرم اختصاصی ثبت داری
+Disallow: /media/
+
+Allow: /
+
+Sitemap: https://anamholding.com/sitemap.xml

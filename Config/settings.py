@@ -2,14 +2,13 @@
 from pathlib import Path
 import os
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # -------------------------
 # SECURITY
 # -------------------------
 SECRET_KEY = 'django-@ana$RadyasIn%adfnj2$Sj3vj1!jndjrjbfha'
-DEBUG = False  # ❗ سرور = False
+DEBUG = True  # ❗ سرور = False
 
 ALLOWED_HOSTS = [
     '91.107.251.83',
@@ -37,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    "django.contrib.sitemaps",
     'admin_panel.apps.AdminPanelConfig',
     'errors.apps.ErrorsConfig',
     'accounts.apps.AccountsConfig',
@@ -45,7 +44,7 @@ INSTALLED_APPS = [
     'zlink.apps.ZlinkConfig',
 ]
 
-ROOT_URLCONF='Config.urls'
+ROOT_URLCONF = 'Config.urls'
 
 AUTH_USER_MODEL = 'accounts.User'
 

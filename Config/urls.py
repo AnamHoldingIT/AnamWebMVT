@@ -16,10 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
+
 from errors import views as errors_view
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import handler404
+from .sitemaps import StaticViewSitemap
+from django.contrib.sitemaps.views import sitemap
+
+
+sitemaps = {
+    'static': StaticViewSitemap,
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,7 +36,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('admin_panal/', include('admin_panel.urls', namespace='admin_panel')),
     path('zlinks/', include('zlink.urls', namespace='zlink')),
-    path('core/' , include('errors.urls' , namespace='core'))
+    path('core/', include('errors.urls', namespace='core')),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django_sitemap"),
 
 ]
 
@@ -35,3 +45,11 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = errors_view.PageNotFound.as_view()
+
+
+urlpatterns += [
+    path("robots.txt", TemplateView.as_view(
+        template_name="robots.txt",
+        content_type="text/plain"
+    )),
+]

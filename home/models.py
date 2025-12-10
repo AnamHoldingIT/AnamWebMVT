@@ -26,8 +26,9 @@ class Contract(models.Model):
         max_length=200
     )
 
-    email = models.EmailField(
-        'ایمیل',
+    departments = models.CharField(
+        'دپارتمان',
+        max_length=100,
         blank=True,
         null=True
     )

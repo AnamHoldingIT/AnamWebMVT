@@ -4,8 +4,8 @@
 {% block title %}آنام | بستر رشد و شتاب‌دهی کسب‌وکارها{% endblock %}
 
 {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/_extra.css' %}">
-
     <!-- SEO META TAGS -->
     <meta name="description"
           content="آنام؛ بستر رشد و شتاب‌دهی کسب‌وکارها از طریق تحلیل، بهبود ساختار و همراهی استارتاپ‌ها.">
@@ -73,6 +73,7 @@
 
 {% block content %}
 
+    <!-- HEADER / NAVBAR -->
     <header>
         <nav class="navbar navbar-expand-lg fixed-top luxury-navbar" id="mainNav">
             <div class="container">
@@ -90,7 +91,7 @@
                      aria-labelledby="offcanvasNavbarLabel">
 
                     <div class="offcanvas-header border-bottom border-secondary border-opacity-25">
-                        <h5 class="offcanvas-title text-gold" id="offcanvasNavbarLabel">ANAM</h5>
+                        <h5 class="offcanvas-title text-gold" id="offcanvasNavbarLabel">ANAM HOLDING</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
                     </div>
@@ -98,69 +99,100 @@
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-center flex-grow-1 pe-3 align-items-lg-center">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#home">خانه</a>
+                                <a class="nav-link active" aria-current="page" href="#home">صفحه اصلی</a>
                             </li>
 
+                            <!-- حوزه‌های فعالیت – همه لینک‌ها به under_construction -->
                             <li class="nav-item dropdown has-megamenu">
                                 <a class="nav-link dropdown-toggle" href="#services" data-bs-toggle="dropdown">
-                                    مسیرهای همکاری
+                                    حوزه‌های فعالیت
                                 </a>
                                 <div class="dropdown-menu megamenu dropdown-menu-dark border-0 shadow-lg p-4">
                                     <div class="container-fluid p-0">
                                         <div class="row g-4">
                                             <div
                                                     class="col-lg-4 d-none d-lg-block border-end border-secondary border-opacity-25 ps-4">
-                                                <h6 class="text-gold fw-bold mb-3">نقشه رشد در آنام</h6>
+                                                <h6 class="text-gold fw-bold mb-3">زنجیره ارزش آنام</h6>
                                                 <p class="small text-muted">
-                                                    از تحلیل و عارضه‌یابی تا شتاب‌دهی و توسعه، هر کسب‌وکار مسیر مخصوص به خود را دارد.
+                                                    ما با سرمایه‌گذاری در صنایع کلیدی، آینده‌ای پایدار می‌سازیم. نگاهی
+                                                    به پورتفوی متنوع ما بیندازید.
                                                 </p>
-                                                <span class="text-white small text-decoration-none border-bottom border-gold pb-1">آشنایی با ساختار آنام</span>
+                                                <a href="{% url 'core:under_construction' %}"
+                                                   class="text-white small text-decoration-none border-bottom border-gold pb-1 d-inline-block">
+                                                    پورتفوی هلدینگ
+                                                </a>
                                             </div>
 
                                             <div class="col-lg-4 col-md-6">
-                                                <h6 class="text-white opacity-50 mb-3 small">بهبود کسب‌وکار</h6>
+                                                <h6 class="text-white opacity-50 mb-3 small">صنایع زیرساختی</h6>
                                                 <ul class="list-unstyled mb-0">
-                                                    <li><span class="dropdown-item rounded-2">
-                                                        <i class="bi bi-clipboard2-pulse text-gold me-2"></i>تحلیل و عارضه‌یابی
-                                                    </span></li>
-                                                    <li><span class="dropdown-item rounded-2">
-                                                        <i class="bi bi-bar-chart-steps text-gold me-2"></i>بازطراحی فرآیندها
-                                                    </span></li>
-                                                    <li><span class="dropdown-item rounded-2">
-                                                        <i class="bi bi-compass text-gold me-2"></i>نقشه راه رشد
-                                                    </span></li>
+                                                    <li>
+                                                        <a href="{% url 'core:under_construction' %}"
+                                                           class="dropdown-item rounded-2">
+                                                            <i class="bi bi-bricks text-gold me-2"></i>
+                                                            عمران و شهرسازی
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url 'core:under_construction' %}"
+                                                           class="dropdown-item rounded-2">
+                                                            <i class="bi bi-fuel-pump text-gold me-2"></i>
+                                                            نفت و انرژی
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url 'core:under_construction' %}"
+                                                           class="dropdown-item rounded-2">
+                                                            <i class="bi bi-truck text-gold me-2"></i>
+                                                            لجستیک و حمل‌ونقل
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div>
 
                                             <div class="col-lg-4 col-md-6">
-                                                <h6 class="text-white opacity-50 mb-3 small">استارتاپ و شتاب‌دهی</h6>
+                                                <h6 class="text-white opacity-50 mb-3 small">فناوری و نوآوری</h6>
                                                 <ul class="list-unstyled mb-0">
-                                                    <li><span class="dropdown-item rounded-2">
-                                                        <i class="bi bi-rocket-takeoff text-gold me-2"></i>برنامه شتاب‌دهی
-                                                    </span></li>
-                                                    <li><span class="dropdown-item rounded-2">
-                                                        <i class="bi bi-diagram-3 text-gold me-2"></i>ساختار و تیم
-                                                    </span></li>
-                                                    <li><span class="dropdown-item rounded-2">
-                                                        <i class="bi bi-arrows-fullscreen text-gold me-2"></i>آمادگی برای مقیاس‌پذیری
-                                                    </span></li>
+                                                    <li>
+                                                        <a href="{% url 'core:under_construction' %}"
+                                                           class="dropdown-item rounded-2">
+                                                            <i class="bi bi-cpu text-gold me-2"></i>
+                                                            هوش مصنوعی و داده
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url 'core:under_construction' %}"
+                                                           class="dropdown-item rounded-2">
+                                                            <i class="bi bi-shop text-gold me-2"></i>
+                                                            تجارت الکترونیک
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url 'core:under_construction' %}"
+                                                           class="dropdown-item rounded-2">
+                                                            <i class="bi bi-rocket text-gold me-2"></i>
+                                                            سرمایه‌گذاری جسورانه (VC)
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#metrics">نتایج</a>
+                                <a class="nav-link" href="#services">خدمات ما</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#why-us">درباره آنام</a>
+                                <a class="nav-link" href="#why-us">درباره ما</a>
                             </li>
                         </ul>
 
                         <div class="d-flex align-items-center mt-4 mt-lg-0 gap-3">
 
+                            <!-- ReCode با همون کلاس -->
                             <a href="{% url 'zlink:recode' %}"
                                class="btn-neon-recode px-4 py-2 d-flex align-items-center gap-2">
                                 <i class="bi bi-stars"></i>
@@ -171,14 +203,14 @@
                                class="text-muted text-decoration-none d-flex align-items-center small hover-gold">
                                 <i class="bi bi-person-circle fs-5 me-2 text-white"></i>
                                 <span class="d-none d-lg-inline text-white">پرتال اعضا</span>
-                                <span class="d-lg-none text-white">ورود</span>
+                                <span class="d-lg-none text-white">ورود به حساب</span>
                             </a>
 
                             <div class="vr text-secondary d-none d-lg-block mx-2 h-50"></div>
 
                             <a href="#apply"
                                class="btn btn-gold-outline px-4 py-2 rounded-1 d-flex align-items-center gap-2 text-white">
-                                شروع همکاری
+                                تماس با ما
                             </a>
                         </div>
                     </div>
@@ -195,124 +227,132 @@
             <div class="container position-relative z-1">
                 <div class="row align-items-center gy-5 gx-lg-5">
 
+                    <!-- متن هیرو -->
                     <div class="col-lg-6 order-1 order-lg-1 text-center text-lg-start" data-aos="fade-up">
 
                         <span
                                 class="d-inline-flex align-items-center text-gold border-bottom border-gold pb-2 mb-4 fw-bold">
-                            آنام؛ بستر رشد
+                            درخشان آوای افرینش
                         </span>
 
                         <h1 class="display-3 fw-bold lh-base text-white mb-4">
-                            کشف فرصت‌ها و<br/>
-                            <span class="text-gradient-gold">شتاب‌دهی کسب‌وکار</span>
+                            آنام؛ بستر
+                            <span class="text-gradient-gold">رشد، ارتقا و شتاب‌دهی</span>
+                            کسب‌وکارها
                         </h1>
 
-                        <p class="lead text-muted mb-5 w-lg-75 me-auto" style="line-height: 2;">
-                            آنام با نگاه تحلیلی و عملیاتی، به کسب‌وکارها کمک می‌کند از وضعیت فعلی، به مسیری شفاف و قابل
-                            رشد برسند؛ از بهبود ساختار تا همراهی در توسعه استارتاپ‌ها.
+                        <p class="lead text-muted mb-4 w-lg-75 me-auto" style="line-height: 2;">
+                            آنام با هدف شناسایی فرصت‌های پنهان و تقویت نقاط بهبود در کسب‌وکارها شکل گرفت. ما با تمرکز
+                            هم‌زمان بر بهبود عملکرد و استخراج ظرفیت‌های رشد، شرایطی را ایجاد می‌کنیم تا هر کسب‌وکار
+                            بتواند مسیر توسعه‌ای چندبرابری و پایدار را تجربه کند.
+                        </p>
+
+                        <p class="text-muted mb-4 w-lg-75 me-auto" style="line-height: 2;">
+                            آنام بستر رشد است؛ جایی که ایده‌ها تغذیه می‌شوند، کسب‌وکارها شتاب می‌گیرند و در نهایت
+                            مستقل و قدرتمند به مسیر خود ادامه می‌دهند.
                         </p>
 
                         <div
-                                class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3 mb-5">
+                                class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3">
                             <a href="#apply" class="btn btn-gold btn-lg px-5 py-3 rounded-2 shadow-lg">
-                                ارسال درخواست بررسی
-                            </a>
-                            <a href="#services" class="btn btn-outline-light btn-lg px-5 py-3 rounded-2">
-                                دیدن خدمات
+                                درخواست همکاری
                             </a>
                         </div>
 
-                        <div class="row pt-4 border-top border-white border-opacity-10 g-4 text-start mt-2">
-                            <div class="col-auto">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="bg-white bg-opacity-10 p-2 rounded-circle">
-                                        <i class="bi bi-search-heart fs-4 text-gold"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-white fw-bold m-0">+۱۰۰</h3>
-                                        <span class="small text-muted">فرصت کشف‌شده</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-auto border-start border-white border-opacity-10 mx-2"></div>
-                            <div class="col-auto">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="bg-white bg-opacity-10 p-2 rounded-circle">
-                                        <i class="bi bi-graph-up-arrow fs-4 text-gold"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-white fw-bold m-0">رشد هدفمند</h3>
-                                        <span class="small text-muted">با نقشه راه واضح</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
-                    <!-- Hero Card -->
+                    <!-- پنل مسیر رشد -->
                     <div class="col-lg-6 order-2 order-lg-2" data-aos="zoom-in" data-aos-delay="200">
                         <div class="hero-visual-wrapper d-flex justify-content-center justify-content-lg-end">
-                            <div class="glass-card float-animation overflow-hidden">
+                            <div class="hero-growth-panel float-animation">
 
-                                <div
-                                        class="card-header border-bottom border-white border-opacity-10 bg-black bg-opacity-25 p-4 d-flex justify-content-between align-items-center">
-                                    <span class="text-white fw-bold">مسیر همراهی آنام</span>
-                                    <div class="d-flex gap-2">
-                                        <span class="dot bg-danger opacity-75"></span>
-                                        <span class="dot bg-warning opacity-75"></span>
-                                        <span class="dot bg-success opacity-75"></span>
+                                <div class="hero-growth-header">
+                                    <span class="hero-growth-label">
+                                        <i class="bi bi-graph-up-arrow px-1 ms-1"></i>
+                                        مسیر رشد در آنام
+                                    </span>
+                                    <p class="hero-growth-text">
+                                        مدلی چهارمرحله‌ای برای حرکت کسب‌وکار از تشخیص وضعیت فعلی تا استقلال و بلوغ
+                                        پایدار.
+                                    </p>
+                                </div>
+
+                                <div class="hero-growth-body">
+
+                                    <!-- مرحله ۱ -->
+                                    <div class="growth-step">
+                                        <div class="growth-icon">
+                                            <i class="bi bi-search"></i>
+                                        </div>
+                                        <div class="growth-content">
+                                            <div class="growth-title">کشف فرصت‌ها و نقاط بهبود</div>
+                                            <div class="growth-caption">
+                                                تحلیل مدل کسب‌وکار، رفتار مشتری، بازار و داده‌ها.
+                                            </div>
+                                            <div class="growth-meter">
+                                                <span style="width: 35%;"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- مرحله ۲ -->
+                                    <div class="growth-step">
+                                        <div class="growth-icon">
+                                            <i class="bi bi-sliders"></i>
+                                        </div>
+                                        <div class="growth-content">
+                                            <div class="growth-title">بهبود عملکرد و ساختار</div>
+                                            <div class="growth-caption">
+                                                بهینه‌سازی جریان کار، نقش‌ها، مدل مدیریت و زیرساخت‌های رشد.
+                                            </div>
+                                            <div class="growth-meter">
+                                                <span style="width: 60%;"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- مرحله ۳ -->
+                                    <div class="growth-step">
+                                        <div class="growth-icon">
+                                            <i class="bi bi-rocket-takeoff"></i>
+                                        </div>
+                                        <div class="growth-content">
+                                            <div class="growth-title">توسعه و شتاب‌دهی</div>
+                                            <div class="growth-caption">
+                                                رفع موانع، توسعه محصول/خدمات، تقویت عملیات و ورود به فاز مقیاس‌پذیری.
+                                            </div>
+                                            <div class="growth-meter">
+                                                <span style="width: 80%;"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- مرحله ۴ -->
+                                    <div class="growth-step">
+                                        <div class="growth-icon">
+                                            <i class="bi bi-award"></i>
+                                        </div>
+                                        <div class="growth-content">
+                                            <div class="growth-title">استقلال و بلوغ</div>
+                                            <div class="growth-caption">
+                                                ایجاد سیستمی که مستقل، پایدار و آماده جهش‌های بعدی رشد باشد.
+                                            </div>
+                                            <div class="growth-meter">
+                                                <span style="width: 95%;"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="hero-growth-footer">
+                                    <div class="hero-pill">
+                                        <i class="bi bi-shield-check ms-1"></i>
+                                        همراهی استراتژیک برای ساخت رشد پایدار
                                     </div>
                                 </div>
 
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center mb-5">
-                                        <div class="holding-icon-box ms-4">
-                                            <i class="bi bi-search fs-3"></i>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <div class="d-flex justify-content-between mb-2">
-                                                <span class="text-white fw-bold">مرحله شناخت و تحلیل</span>
-                                                <span class="text-gold small">وضعیت فعلی</span>
-                                            </div>
-                                            <div class="progress bg-secondary bg-opacity-25" style="height: 8px;">
-                                                <div class="progress-bar bg-gold progress-bar-striped progress-bar-animated"
-                                                     style="width: 80%"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-flex align-items-center mb-5">
-                                        <div class="holding-icon-box ms-4">
-                                            <i class="bi bi-gear-wide-connected fs-3"></i>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <div class="d-flex justify-content-between mb-2">
-                                                <span class="text-white fw-bold">طراحی راه‌حل و ساختار</span>
-                                                <span class="text-info small text-opacity-75">مرحله ارتقا</span>
-                                            </div>
-                                            <div class="progress bg-secondary bg-opacity-25" style="height: 8px;">
-                                                <div class="progress-bar bg-info" style="width: 90%"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                            class="bg-black bg-opacity-25 rounded-3 p-4 border border-white border-opacity-10">
-                                        <div class="d-flex align-items-start gap-3">
-                                            <i class="bi bi-lightning-charge-fill text-gold fs-3"></i>
-                                            <div>
-                                                <h6 class="text-white mb-2 fw-bold">از همراهی تا استقلال</h6>
-                                                <p class="text-muted small m-0 lh-base">
-                                                    هدف نهایی آنام این است که هر کسب‌وکار پس از طی مسیر، بتواند مستقل و
-                                                    پایدار مسیر رشد خود را ادامه دهد.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-
-                            <div class="decoration-circle"></div>
                         </div>
                     </div>
 
@@ -320,80 +360,394 @@
             </div>
         </section>
 
-        <!-- SERVICES -->
+        <!-- ABOUT -->
+        <section class="about-section position-relative py-5" id="about">
+            <div class="about-glow"></div>
+
+            <div class="container py-5 position-relative z-1">
+                <div class="row g-4 align-items-start">
+
+                    <!-- متن اصلی معرفی آنام -->
+                    <div class="col-lg-5" data-aos="fade-up">
+                        <span class="text-gold small fw-bold text-uppercase letter-spacing-2">
+                            درباره ما
+                        </span>
+                        <h2 class="display-6 text-white fw-bold mt-3 mb-4">
+                            درخشان آوای آفرینش <span class="text-gradient-gold">(آنام)</span>
+                        </h2>
+
+                        <p class="text-white-50 mb-3">
+                            شرکت درخشان آوای آفرینش با این هدف تأسیس شد که نقاط بهبود کسب‌وکارها را اصلاح و تقویت کند
+                            و از دل همین بهبودها، مسیر رشد پایدار، سریع و استراتژیک بسازد.
+                        </p>
+
+                        <p class="text-white-50 mb-3">
+                            ما باور داریم هر کسب‌وکاری، در هر مرحله‌ای، ظرفیت‌های ارزشمندی دارد که اگر درست دیده،
+                            تقویت و مدیریت شوند، می‌توانند به رشد واقعی و قابل‌اندازه‌گیری تبدیل شوند. آنام همین مسیر
+                            را طراحی و اجرا می‌کند: بهبود عملکرد، ایجاد ساختارهای لازم برای رشد، و بازکردن مسیر توسعه
+                            چندبرابری.
+                        </p>
+
+                        <p class="text-white-50 mb-3">
+                            آنام یک بستر است؛ زمینی حاصلخیز که هر ایده و هر کسب‌وکار در آن تغذیه می‌شود، رشد می‌کند و در
+                            نهایت به استقلال و بلوغ عملیاتی می‌رسد. در راستای همین مأموریت، ما این رویکرد را در شتاب‌دهی
+                            استارتاپ‌ها نیز دنبال می‌کنیم؛ پروژه‌هایی که هم‌اکنون در حال توسعه‌اند و به‌زودی با رونمایی
+                            رسمی، شما شاهد و کاربر محصولات و خدمات آن‌ها خواهید بود.
+                        </p>
+
+                        <div class="about-badge mt-3">
+                            <i class="bi bi-stars ms-2"></i>
+                            پرورش، حمایت، تقویت و هدایت به سمت رشد
+                        </div>
+                    </div>
+
+                    <!-- کارت‌های لوکس توضیح نام و ساختار -->
+                    <div class="col-lg-7" data-aos="fade-left">
+                        <div class="about-card h-100">
+
+                            <div class="about-block mb-4">
+                                <h3 class="h5 text-white fw-bold mb-3">
+                                    چرا نام «آنام» را انتخاب کردیم؟
+                                </h3>
+                                <p class="text-white-50 mb-2">
+                                    نام «آنام» فقط یک نام تجاری نیست؛ بیانگر هویت، فلسفه و شخصیت برند ماست. نامی که حس
+                                    پشتیبانی، اعتبار و اصالت را منتقل می‌کند و یادآور نیرویی است که حضورش باعث
+                                    شکل‌گیری، قوی‌شدن و بلوغ می‌شود.
+                                </p>
+                                <p class="text-white-50 mb-2">
+                                    این نام برای ما نماد زمینی امن و حاصلخیز است؛ جایی که ایده‌ها و کسب‌وکارها می‌توانند
+                                    بدون ترس، رشد کنند، جان بگیرند و به شکل مستقل ادامه مسیر بدهند.
+                                </p>
+                                <p class="text-white-50 mb-0">
+                                    این نام نشان‌دهنده اصالت، پیوند و هویتی استوار است؛ هویتی که هم ریشه دارد و هم
+                                    توانایی ساختن آینده را. برای ما، «آنام» فقط یک نام نیست؛ تجسمِ فلسفه‌ای است که در
+                                    تمام فعالیت‌های ما جاری است: پرورش، حمایت، تقویت و هدایت به سمت رشد.
+                                </p>
+                            </div>
+
+                            <div class="about-divider my-3"></div>
+
+                            <div class="about-block">
+                                <h3 class="h5 text-white fw-bold mb-3">
+                                    ساختار ما چگونه کار می‌کند؟
+                                </h3>
+                                <p class="text-white-50 mb-2">
+                                    ساختار سازمانی آنام به شکلی طراحی شده که هر دپارتمان مسیر رشد خودش را داشته باشد،
+                                    اما در عین حال تحت پشتیبانی و هماهنگی یک مرکز واحد قرار بگیرد.
+                                </p>
+                                <p class="text-white-50 mb-2">
+                                    این یعنی هر بخش آزادی عمل، سرعت و تخصص خودش را دارد، اما آنام ستون مرکزی است که
+                                    انرژی، انسجام و جهت‌گیری درست را فراهم می‌کند.
+                                </p>
+                                <p class="text-white-50 mb-0">
+                                    این مدل، ترکیبی از استقلال عملیاتی و هماهنگی مرکزی است و در عمل، هویت هلدینگ آنام را
+                                    شکل می‌دهد؛ جایی که تمام دپارتمان‌ها رشد می‌کنند و در نهایت یک اکوسیستم یکپارچه
+                                    می‌سازند.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- DEPARTMENTS GRID -->
+        <section class="dept-modern-section position-relative py-5" id="departments">
+
+            <div class="dept-modern-glow"></div>
+
+            <div class="container py-5">
+
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <h2 class="dept-modern-title">
+                        ساختار <span class="text-gradient-gold">دپارتمان‌های آنام</span>
+                    </h2>
+                    <p class="dept-modern-subtext">
+                        شبکه‌ای هماهنگ از دپارتمان‌های تخصصی که هرکدام بخشی از موتور مدیریت، رشد و توسعه آنام را
+                        می‌سازند.
+                    </p>
+                </div>
+
+                <div class="dept-modern-grid">
+
+                    <!-- 1 -->
+                    <article class="dept-card bg-wave card-1" data-aos="zoom-in" data-aos-delay="60">
+                        <div class="dept-card-base">
+                            <span class="dept-tag">دپارتمان</span>
+                            <h3 class="dept-title">شبکه نظارت و مهار</h3>
+                        </div>
+                        <div class="dept-card-hover">
+                            <p>پایش و مدیریت مستمر عملکرد، طراحی و هدایت برنامه‌ها، و تضمین کیفیت در کل سطح اکوسیستم</p>
+                        </div>
+                    </article>
+
+                    <!-- 2 -->
+                    <article class="dept-card bg-lines card-2" data-aos="zoom-in" data-aos-delay="90">
+                        <div class="dept-card-base">
+                            <span class="dept-tag">دپارتمان</span>
+                            <h3 class="dept-title">معماری سازمانی و سیستم‌سازی</h3>
+                        </div>
+                        <div class="dept-card-hover">
+                            <p>طراحی و تنظیم فرآیندها، نقش‌ها، ساختارها، مدل‌ها و سیستم‌های استاندارد در جهت یکپارچگی و
+                                مقیاس‌پذیری سازمان</p>
+                        </div>
+                    </article>
+
+                    <!-- 3 -->
+                    <article class="dept-card bg-grid card-3" data-aos="zoom-in" data-aos-delay="120">
+                        <div class="dept-card-base">
+                            <span class="dept-tag">دپارتمان</span>
+                            <h3 class="dept-title">شبکه کلان داده</h3>
+                        </div>
+                        <div class="dept-card-hover">
+                            <p>تحلیل و مهندسی داده، طراحی داشبوردهای تحلیلی، هوش تجاری و مدیریت دیتابیس</p>
+                        </div>
+                    </article>
+
+                    <!-- 4 -->
+                    <article class="dept-card bg-emerald card-4" data-aos="zoom-in" data-aos-delay="150">
+                        <div class="dept-card-base">
+                            <span class="dept-tag">دپارتمان</span>
+                            <h3 class="dept-title">فناوری اطلاعات (IT)</h3>
+                        </div>
+                        <div class="dept-card-hover">
+                            <p>توسعه زیرساخت‌های فنی، سامانه‌ها، امنیت اطلاعات و پشتیبانی فناوری</p>
+                        </div>
+                    </article>
+
+                    <!-- 5 -->
+                    <article class="dept-card bg-deep card-5" data-aos="zoom-in" data-aos-delay="180">
+                        <div class="dept-card-base">
+                            <span class="dept-tag">دپارتمان</span>
+                            <h3 class="dept-title">هوشمندسازی</h3>
+                        </div>
+                        <div class="dept-card-hover">
+                            <p>تحلیل داده‌های هوشمند، هوش مصنوعی و یادگیری ماشین، هوشمندسازی و اتوماسیون فرآیندها</p>
+                        </div>
+                    </article>
+
+                    <!-- 6 -->
+                    <article class="dept-card bg-soft card-6" data-aos="zoom-in" data-aos-delay="210">
+                        <div class="dept-card-base">
+                            <span class="dept-tag">دپارتمان</span>
+                            <h3 class="dept-title">تحقیق و توسعه</h3>
+                        </div>
+                        <div class="dept-card-hover">
+                            <p>تحلیل و رصد روندها، شناسایی فناوری‌های نوین و توسعه و ارائه راهکارهای متناسب با آینده
+                                بازار</p>
+                        </div>
+                    </article>
+
+                    <!-- 7 -->
+                    <article class="dept-card bg-people card-7" data-aos="zoom-in" data-aos-delay="240">
+                        <div class="dept-card-base">
+                            <span class="dept-tag">دپارتمان</span>
+                            <h3 class="dept-title">تعالی منابع انسانی</h3>
+                        </div>
+                        <div class="dept-card-hover">
+                            <p>توانمندسازی، رشد و پرورش استعدادها، طراحی مسیر رشد و آموزش، ارزیابی عملکرد و فرهنگ‌سازی
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- 8 -->
+                    <article class="dept-card bg-darkglass card-8" data-aos="zoom-in" data-aos-delay="270">
+                        <div class="dept-card-base">
+                            <span class="dept-tag">دپارتمان</span>
+                            <h3 class="dept-title">امور مالی- حقوقی</h3>
+                        </div>
+                        <div class="dept-card-hover">
+                            <p>مدیریت مالی، نظارت بر جریان ‌های درآمدی و رسیدگی به امور حقوقی، قراردادی و مجوزها</p>
+                        </div>
+                    </article>
+
+                    <!-- 9 -->
+                    <article class="dept-card bg-red card-9" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="dept-card-base">
+                            <span class="dept-tag">رسانه و برند</span>
+                            <h3 class="dept-title">رسانه – مارکتینگ</h3>
+                        </div>
+                        <div class="dept-card-hover">
+                            <p>هویت برند، خلق محتوا، طراحی و اجرای تبلیغات و کمپین‌های تبلیغاتی، استراتژی‌های جذب مخاطب
+                                هدف و ایجاد نفوذ اجتماعی</p>
+                        </div>
+                    </article>
+
+                    <!-- 10 -->
+                    <article class="dept-card bg-capital card-10" data-aos="zoom-in" data-aos-delay="330">
+                        <div class="dept-card-base">
+                            <span class="dept-tag">دپارتمان</span>
+                            <h3 class="dept-title">سرمایه‌گذاری و شبکه ارزش‌ها</h3>
+                        </div>
+                        <div class="dept-card-hover">
+                            <p>طراحی استراتژی‌های سرمایه‌گذاری، مدیریت پرتفوی و ساخت شبکه‌ای از شرکای کلیدی.</p>
+                        </div>
+                    </article>
+
+                    <!-- 11 -->
+                    <article class="dept-card bg-ocean card-11" data-aos="zoom-in" data-aos-delay="360">
+                        <div class="dept-card-base">
+                            <span class="dept-tag">دپارتمان</span>
+                            <h3 class="dept-title">بازرگانی</h3>
+                        </div>
+                        <div class="dept-card-hover">
+                            <p>مدیریت زنجیره تامین، مذاکرات تجاری، فروش، صادرات و واردات، و توسعه بازار.</p>
+                        </div>
+                    </article>
+
+                    <!-- 12 -->
+                    <article class="dept-card bg-midnight card-12" data-aos="zoom-in" data-aos-delay="390">
+                        <div class="dept-card-base">
+                            <span class="dept-tag">دپارتمان</span>
+                            <h3 class="dept-title">عملیات – راه‌اندازی</h3>
+                        </div>
+                        <div class="dept-card-hover">
+                            <p>پیاده‌سازی، اجرا، راه‌اندازی و مدیریت پروژه‌ها و عملیات‌ها</p>
+                        </div>
+                    </article>
+
+                </div>
+
+                <div class="text-center mt-4" data-aos="fade-up" data-aos-delay="420">
+                    <span class="dept-bottom-note">
+                        تمام این دپارتمان ها تحت یک راهبرد واحد، هماهنگ و هم‌مسیر عمل می‌کنند.
+                    </span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SERVICES (همون نمو‌دار سه‌گانه) -->
         <section class="services-section py-5 position-relative" id="services">
             <div class="container py-5">
 
                 <div class="row justify-content-center text-center mb-5" data-aos="fade-up">
-                    <div class="col-lg-7">
+                    <div class="col-lg-8">
                         <span class="text-gold text-uppercase letter-spacing-2 small fw-bold">
                             <i class="bi bi-diamond-fill me-2" style="font-size: 0.6rem;"></i>
                             خدمات آنام
                         </span>
                         <h2 class="display-5 text-white fw-bold mt-3 mb-3">
-                            سه گام اصلی در <span class="text-gold">همراهی</span> با شما
+                            سه گام اصلی در <span class="text-gold">مسیر رشد با آنام</span>
                         </h2>
-                        <p class="text-muted">
-                            از شناخت و تحلیل، تا طراحی راه‌حل و شتاب‌دهی؛ آنام کنار شماست تا مسیر رشد روشن‌تر شود.
+                        <p class="text-muted mb-0">
+                            از تحلیل عمیق تا طراحی زیرساخت و شتاب‌دهی؛ آنام کنار شماست تا مسیر رشد شما روشن، سریع و
+                            قابل‌اندازه‌گیری شود.
                         </p>
                     </div>
                 </div>
 
-                <div class="row g-4">
+                <div class="growth-chart" data-aos="fade-up" data-aos-delay="50">
 
-                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                        <div class="service-card h-100 p-4">
-                            <div class="icon-wrapper mb-4">
-                                <i class="bi bi-activity fs-1 text-gold"></i>
+                    <!-- پله ۱ -->
+                    <div class="chart-step step-1" data-aos="fade-up" data-aos-delay="100">
+                        <div class="chart-point"></div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <div class="chart-index">۱</div>
+                                <div>
+                                    <div class="chart-title">تحلیل کسب‌وکار</div>
+                                    <div class="chart-subtitle">
+                                        شناسایی فرصت‌ها و نقاط بهبود با تحلیل داده‌محور
+                                    </div>
+                                </div>
                             </div>
-                            <h4 class="text-white fw-bold mb-3 h5">تحلیل کسب‌وکار</h4>
-                            <p class="text-muted small mb-0 text-white">
-                                شناسایی فرصت‌ها، گلوگاه‌ها و اولویت‌های واقعی رشد.
+                            <p class="chart-body">
+                                با بررسی دقیق بازار، مشتری، محصول و مدل درآمدی، اولویت‌های واقعی رشد مشخص می‌شود
+                                و مسیر درست برای توسعه ترسیم می‌گردد.
                             </p>
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-                        <div class="service-card h-100 p-4">
-                            <div class="icon-wrapper mb-4">
-                                <i class="bi bi-diagram-3 fs-1 text-gold"></i>
+                    <!-- پله ۲ -->
+                    <div class="chart-step step-2" data-aos="fade-up" data-aos-delay="220">
+                        <div class="chart-point"></div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <div class="chart-index">۲</div>
+                                <div>
+                                    <div class="chart-title">طراحی ساختار</div>
+                                    <div class="chart-subtitle">
+                                        ساختن زیرساخت‌های رشد؛ از فرآیند تا تیم
+                                    </div>
+                                </div>
                             </div>
-                            <h4 class="text-white fw-bold mb-3 h5">طراحی ساختار</h4>
-                            <p class="text-muted small mb-0 text-white">
-                                بازطراحی ساختار و فرآیندها برای چابکی و کارایی بیشتر.
+                            <p class="chart-body">
+                                بازطراحی ساختار، جریان کار و نقش‌ها برای ایجاد چابکی، هماهنگی و کارایی پایدار؛
+                                این مرحله پایهٔ رشد قابل‌اتکا و توسعه‌پذیر کسب‌وکار است.
                             </p>
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-                        <div class="service-card h-100 p-4">
-                            <div class="icon-wrapper mb-4">
-                                <i class="bi bi-rocket-takeoff fs-1 text-gold"></i>
+                    <!-- پله ۳ -->
+                    <div class="chart-step step-3" data-aos="fade-up" data-aos-delay="340">
+                        <div class="chart-point"></div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <div class="chart-index">۳</div>
+                                <div>
+                                    <div class="chart-title">شتاب‌دهی و توسعه</div>
+                                    <div class="chart-subtitle">
+                                        تقویت مسیر رشد کسب‌وکار؛ از ایده تا اجرا و مقیاس‌پذیری
+                                    </div>
+                                </div>
                             </div>
-                            <h4 class="text-white fw-bold mb-3 h5">شتاب‌دهی استارتاپ</h4>
-                            <p class="text-muted small mb-0 text-white">
-                                همراهی در محصول، بازار و مدل کسب‌وکار تا رسیدن به ثبات اولیه.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
-                        <div class="service-card h-100 p-4">
-                            <div class="icon-wrapper mb-4">
-                                <i class="bi bi-people fs-1 text-gold"></i>
-                            </div>
-                            <h4 class="text-white fw-bold mb-3 h5">همراهی مستمر</h4>
-                            <p class="text-muted small mb-0 text-white">
-                                مشاوره و پشتیبانی در تصمیم‌های کلیدی مدیریتی و توسعه‌ای.
+                            <p class="chart-body">
+                                با تمرکز بر بازار، مدل کسب‌وکار، عملیات، ارائه ارزش و مسیر رشد، به شما کمک می‌کنیم
+                                سریع‌تر به ثبات، مقیاس و توسعه پایدار برسید.
                             </p>
                         </div>
                     </div>
 
                 </div>
+
+                <div class="row justify-content-center mt-5 pt-3">
+                    <div class="col-lg-10">
+                        <div class="support-panel" data-aos="fade-left" data-aos-delay="450">
+
+                            <div class="support-arrow"></div>
+
+                            <div class="support-content">
+                                <span class="support-tag">
+                                    <i class="bi bi-infinity ms-1"></i>
+                                    همراهی مستمر آنام
+                                </span>
+
+                                <h3 class="support-title">
+                                    پشتیبانی مدیریتی و مشاوره مداوم در تصمیم‌های کلیدی
+                                </h3>
+
+                                <p class="support-text">
+                                    پس از طی سه گام اصلی، کنار شما می‌مانیم تا رشد متوقف نشود، تصمیم‌ها دقیق‌تر گرفته
+                                    شوند و توسعه با سرعت بیشتری ادامه یابد.
+                                </p>
+
+                                <ul class="support-list">
+                                    <li>
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        هم‌فکری در تصمیم‌های استراتژیک و راندهای بعدی سرمایه‌گذاری
+                                    </li>
+                                    <li>
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        همراهی در شاخص‌های عملکردی، گزارش‌گیری و پایش رشد
+                                    </li>
+                                    <li>
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        مشاوره مداوم در توسعه تیم، ساختار و فرهنگ سازمانی
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <!-- WHY US -->
+        <!-- WHY US (تایم‌لاین) -->
         <section class="why-us-section py-5 position-relative overflow-hidden" id="why-us">
 
             <div class="hero-glow start-0 top-50 translate-middle-y opacity-25"
@@ -401,163 +755,219 @@
 
             <div class="container py-5 position-relative z-1">
 
-                <div class="row mb-5">
-                    <div class="col-lg-6">
-                        <span class="text-gold small fw-bold text-uppercase letter-spacing-2">
-                            <i class="bi bi-award-fill me-2"></i>چرا آنام؟
-                        </span>
-                        <h2 class="display-5 text-white fw-bold mt-3">
-                            آنام؛ <span class="text-gradient-gold">بستر</span> نه فقط سرمایه‌گذار
-                        </h2>
-                    </div>
-                    <div class="col-lg-6 mt-4 mt-lg-0 d-flex align-items-end justify-content-lg-end">
-                        <p class="text-white-50 m-0 w-75 text-lg-start">
-                            ما ابتدا بستر رشد را می‌سازیم؛ بعد از آن، سرمایه، ساختار و شتاب‌دهی معنا پیدا می‌کند.
-                        </p>
+                <div class="why-header text-center mb-5" data-aos="fade-up" data-aos-duration="700">
+                    <h2 class="why-main-title text-gold">
+                        چرا آنام؟
+                    </h2>
+
+                    <p class="why-subtitle">
+                        ورود به بستری امن، برای رشد و ارتقا
+                    </p>
+
+                    <p class="why-description">
+                        در مسیر رشد، آنچه تفاوت را می‌سازد صرفاً ابزار و راهکار نیست؛
+                        نگاه، شیوهٔ همراهی و مدل تصمیم‌گیری است که مسیر توسعه را شکل می‌دهد.
+                    </p>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-xl-11">
+
+                        <div class="why-layout">
+
+                            <!-- کارت‌های سمت چپ -->
+                            <div class="why-left">
+
+                                <div class="why-card" data-aos="fade-left" data-aos-delay="100">
+                                    <h3 class="why-card-title">دیدگاه بلندمدت و پایدار</h3>
+                                    <p class="why-card-text">
+                                        در آنام، هر همکاری یک رابطه کوتاه‌مدت نیست؛ ما مسیر رشد را طراحی می‌کنیم و تا
+                                        رسیدن
+                                        به نقطه بلوغ کنار کسب‌وکار می‌مانیم.
+                                    </p>
+                                </div>
+
+                                <div class="why-card" data-aos="fade-left" data-aos-delay="200">
+                                    <h3 class="why-card-title">اکوسیستمی که رشد را ممکن می‌کند</h3>
+                                    <p class="why-card-text">
+                                        دپارتمان‌های تخصصی ما مستقل عمل می‌کنند اما تحت یک راهبرد واحد در جریان هستند؛
+                                        نتیجه این است که تصمیم‌ها سریع، دقیق و هماهنگ اجرا می‌شوند.
+                                    </p>
+                                </div>
+
+                                <div class="why-card" data-aos="fade-left" data-aos-delay="300">
+                                    <h3 class="why-card-title">نگاه ترکیبی؛ هم حل مسئله، هم ساختن آینده</h3>
+                                    <p class="why-card-text">
+                                        ما صرفاً به حل مسئله امروز نمی‌پردازیم؛ هم‌زمان با رفع گلوگاه‌ها، مسیر جهش و
+                                        توسعه فردای کسب‌وکار را هم می‌سازیم.
+                                    </p>
+                                </div>
+
+                                <div class="why-card" data-aos="fade-left" data-aos-delay="350">
+                                    <h3 class="why-card-title">تجربه عملی؛ نه فقط مشاوره</h3>
+                                    <p class="why-card-text">
+                                        آنچه ارائه می‌کنیم حاصل تجربه عملی در طراحی، توسعه و رشد طیف متنوعی از
+                                        کسب‌وکارهاست؛ به همین دلیل راهکارها واقعی، قابل‌اجرا و نتیجه‌محور هستند.
+                                    </p>
+                                </div>
+
+                                <div class="why-card" data-aos="fade-left" data-aos-delay="400">
+                                    <h3 class="why-card-title">دیدن ظرفیت‌های پنهان</h3>
+                                    <p class="why-card-text">
+                                        رویکرد آنام مبتنی بر کشف لایه‌های کمتر دیده‌شده ارزش و فرصت است؛ جاهایی که
+                                        معمولاً
+                                        از آن عبور می‌شود اما می‌تواند منبع رشد اصلی باشد.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <!-- وسط: خط و شماره‌ها -->
+                            <div class="why-center">
+
+                                <div class="why-line" data-aos="fade-down" data-aos-duration="800"></div>
+
+                                <div class="why-step" data-aos="zoom-in" data-aos-delay="100"><span>۱</span></div>
+                                <div class="why-step" data-aos="zoom-in" data-aos-delay="200"><span>۲</span></div>
+                                <div class="why-step" data-aos="zoom-in" data-aos-delay="300"><span>۳</span></div>
+                                <div class="why-step" data-aos="zoom-in" data-aos-delay="350"><span>۴</span></div>
+                                <div class="why-step" data-aos="zoom-in" data-aos-delay="400"><span>۵</span></div>
+
+                            </div>
+
+                            <!-- ستون راست -->
+                            <div class="why-right" data-aos="fade-right" data-aos-delay="250">
+                                <div class="why-aside-card">
+
+                                    <span class="why-aside-tag">آنچه آنام را متمایز می‌کند</span>
+
+                                    <h3 class="why-aside-title">
+                                        آنام بستری برای رشد است؛ نه فقط یک سرمایه‌گذار
+                                    </h3>
+
+                                    <p class="why-aside-text">
+                                        آنام بستری برای رشد است؛ جایی که کسب‌وکارها مسیر ارتقا، شتاب و بلوغ خود را با
+                                        وضوح
+                                        و اطمینان بیشتری پیدا می‌کنند. رویکرد ما بر پایهٔ تحلیل عمیق، طراحی مسیر رشد،
+                                        ساختاردهی اصولی و تصمیم‌سازی داده‌محور شکل می‌گیرد—تا هر کسب‌وکار بتواند با تکیه
+                                        بر
+                                        یک مسیر روشن و قابل اتکا، به مرحله‌های بعدی توسعه برسد.
+                                    </p>
+
+                                    <p class="why-aside-text mb-0">
+                                        در آنام هدف تنها حل یک مسئله نیست؛ هدف ساختن انسجام، شفافیت و پایداری در فرآیند
+                                        رشد است.
+                                        نتیجه این رویکرد، رشد قابل‌اعتماد و تصمیم‌های جسورانه‌تری است که کسب‌وکار را
+                                        برای جهش‌های
+                                        بزرگ آماده می‌کند.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
-                <div class="row g-4">
-
-                    <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="advantage-card h-100 p-4 p-lg-5">
-                            <span class="watermark-number">01</span>
-                            <div class="position-relative z-2">
-                                <div class="icon-box mb-4">
-                                    <i class="bi bi-lightbulb-fill fs-2 text-gold"></i>
-                                </div>
-                                <h3 class="text-white h4 fw-bold mb-3">تمرکز روی فرصت‌های پنهان</h3>
-                                <p class="text-white-50 m-0">
-                                    کمک به دیدن چیزهایی که در روزمرگی کسب‌وکار دیده نمی‌شود.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="advantage-card h-100 p-4 p-lg-5">
-                            <span class="watermark-number">02</span>
-                            <div class="position-relative z-2">
-                                <div class="icon-box mb-4">
-                                    <i class="bi bi-tree-fill fs-2 text-gold"></i>
-                                </div>
-                                <h3 class="text-white h4 fw-bold mb-3">رشد مستقل دپارتمان‌ها</h3>
-                                <p class="text-white-50 m-0">
-                                    هر دپارتمان مسیر خود را دارد؛ اما تنه مرکزی آنام پشتیبان همه است.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                        <div class="advantage-card h-100 p-4 p-lg-5">
-                            <span class="watermark-number">03</span>
-                            <div class="position-relative z-2">
-                                <div class="icon-box mb-4">
-                                    <i class="bi bi-arrow-up-right-square-fill fs-2 text-gold"></i>
-                                </div>
-                                <h3 class="text-white h4 fw-bold mb-3">ترکیب بهبود و توسعه</h3>
-                                <p class="text-white-50 m-0">
-                                    هم‌زمان هم اصلاح می‌کنیم، هم برای جهش و توسعه برنامه می‌چینیم.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
             </div>
         </section>
 
         <!-- ACCELERATION -->
         <section class="acceleration-section py-5 position-relative" id="acceleration">
-            <div class="container py-5">
+            <div class="accel-glow"></div>
+
+            <div class="container py-5 position-relative z-1">
 
                 <div class="row mb-5 text-center" data-aos="fade-up">
-                    <div class="col-lg-8 mx-auto">
-                        <span class="text-gold small fw-bold text-uppercase tracking-wide">شتاب‌دهی استارتاپ‌ها</span>
-                        <h2 class="display-5 fw-bold text-white mt-3">
-                            همراهی <span class="text-gold">واقع‌بینانه</span> برای استارتاپ‌ها
+                    <div class="col-lg-9 mx-auto">
+                        <h2 class="accel-title">
+                            زنجیره کامل <span class="text-gradient-gold">شتاب‌دهی</span>
                         </h2>
-                        <p class="text-muted mt-3">
-                            شتاب‌دهی در آنام یعنی طراحی مسیری واقعی برای محصول، تیم و بازار؛ نه فقط یک دوره آموزشی.
+                        <p class="accel-subtitle mt-3 mb-0">
+                            آنام، آماده ورود به استارتاپ‌های نوآور و آینده‌ساز است؛ جایی برای تیم‌هایی با
+                            جسارت، نوآوری و چشم‌انداز بلندمدت.
                         </p>
                     </div>
                 </div>
 
-                <div class="row g-4">
+                <div class="row g-4 align-items-stretch">
 
-                    <div class="col-lg-6" data-aos="fade-right">
-                        <div
-                                class="feature-card large-card h-100 p-4 p-lg-5 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="icon-box mb-4 bg-white bg-opacity-10 d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-rocket-takeoff-fill fs-2 text-gold"></i>
-                                </div>
-                                <h3 class="text-white fw-bold mb-3">برنامه شتاب‌دهی آنام</h3>
-                                <p class="text-muted">
-                                    از اعتبارسنجی ایده تا آماده‌سازی برای جذب سرمایه و توسعه؛ هر استارتاپ مسیر ویژه خود را دارد.
-                                </p>
-                                <ul class="list-unstyled text-muted mt-4 small">
-                                    <li class="mb-2">
-                                        <i class="bi bi-check-circle-fill text-gold me-2"></i>
-                                        تمرکز بر محصول و مدل درآمدی
-                                    </li>
-                                    <li class="mb-2">
-                                        <i class="bi bi-check-circle-fill text-gold me-2"></i>
-                                        کمک در ورود به بازار و جذب مشتری
-                                    </li>
-                                    <li class="mb-2">
-                                        <i class="bi bi-check-circle-fill text-gold me-2"></i>
-                                        آماده‌سازی برای رشد مستقل بعد از دوره
-                                    </li>
-                                </ul>
-                            </div>
-                            <a href="#apply"
-                               class="btn btn-outline-light rounded-pill mt-4 w-auto align-self-start px-4">
-                                درخواست شتاب‌دهی
-                            </a>
-                        </div>
+                    <!-- ستون چپ -->
+                    <div class="col-lg-5" data-aos="fade-left" data-aos-delay="80">
+                        <article class="accel-main-card h-100">
+                            <span class="accel-tag">
+                                فراتر از سرمایه‌گذاری
+                            </span>
+
+                            <h3 class="accel-main-title">
+                                همراهی از ایده تا رشد پایدار
+                            </h3>
+
+                            <p class="accel-main-text">
+                                در آنام از استارتاپ‌هایی که به‌دنبال ساختن آینده‌اند استقبال می‌کنیم؛
+                                تیم‌هایی که می‌خواهند ایده را به محصول و محصول را به رشدی پایدار و قابل‌اتکا تبدیل کنند.
+                            </p>
+
+                            <p class="accel-main-text mb-0">
+                                ما با پشتیبانی کامل—از تحلیل، طراحی و ساختاردهی تا شتاب‌دهی—کنار شما هستیم تا
+                                مسیر ورود به بازار، تثبیت و رشد را روشن‌تر، منسجم‌تر و سریع‌تر طی کنید.
+                            </p>
+                        </article>
                     </div>
 
-                    <div class="col-lg-6">
-                        <div class="row g-4 h-100">
+                    <!-- ستون راست -->
+                    <div class="col-lg-7" data-aos="fade-right" data-aos-delay="120">
+                        <div class="accel-steps">
 
-                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-                                <div class="feature-card h-100 p-4">
-                                    <i class="bi bi-compass fs-1 text-gold mb-3 d-block"></i>
-                                    <h5 class="text-white fw-bold">نقشه راه استارتاپ</h5>
-                                    <p class="text-muted small">
-                                        تعیین گام‌های مشخص برای ۳ تا ۶ ماه آینده تیم.
+                            <div class="accel-step">
+                                <div class="accel-step-index">۱</div>
+                                <div class="accel-step-body">
+                                    <h4 class="accel-step-title">
+                                        همراهی ۱به۱ با بنیان‌گذاران و دپارتمان‌های تخصصی
+                                    </h4>
+                                    <p class="accel-step-text">
+                                        جلسات منتورینگ تخصصی، تصمیم‌سازی، تفکر استراتژیک و مسیر‌دهی عملی برای
+                                        رشد و عبور از چالش‌های کلیدی.
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
-                                <div class="feature-card h-100 p-4">
-                                    <i class="bi bi-person-video3 fs-1 text-gold mb-3 d-block"></i>
-                                    <h5 class="text-white fw-bold">منتورینگ تخصصی</h5>
-                                    <p class="text-muted small">
-                                        جلسات منظم برای بررسی تصمیم‌های مهم محصول و رشد.
+                            <div class="accel-step">
+                                <div class="accel-step-index">۲</div>
+                                <div class="accel-step-body">
+                                    <h4 class="accel-step-title">
+                                        طراحی مسیر از ایده تا محصول و بازار
+                                    </h4>
+                                    <p class="accel-step-text">
+                                        همراهی در اعتبارسنجی، تعریف MVP، ساخت محصول، ورود به بازار و اصلاح
+                                        مداوم مسیر رشد بر اساس داده و بازخورد.
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
-                                <div class="feature-card h-100 p-4">
-                                    <i class="bi bi-hdd-network fs-1 text-gold mb-3 d-block"></i>
-                                    <h5 class="text-white fw-bold">زیرساخت و فضا</h5>
-                                    <p class="text-muted small">
-                                        استفاده از امکانات و زیرساخت آنام برای تمرکز بیشتر روی کار اصلی.
+                            <div class="accel-step">
+                                <div class="accel-step-index">۳</div>
+                                <div class="accel-step-body">
+                                    <h4 class="accel-step-title">
+                                        ساختاردهی و بهینه‌سازی تیم و فرآیندها
+                                    </h4>
+                                    <p class="accel-step-text">
+                                        از مدل تصمیم‌گیری تا جریان کار و عملیات؛ هر آنچه برای چابکی، تمرکز و
+                                        آمادگی برای مقیاس‌پذیری نیاز است.
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
-                                <div class="feature-card h-100 p-4">
-                                    <i class="bi bi-arrows-angle-expand fs-1 text-gold mb-3 d-block"></i>
-                                    <h5 class="text-white fw-bold">آمادگی برای مقیاس</h5>
-                                    <p class="text-muted small">
-                                        کمک به رسیدن به نقطه‌ای که استارتاپ بتواند مستقل و پایدار رشد کند.
+                            <div class="accel-step">
+                                <div class="accel-step-index">۴</div>
+                                <div class="accel-step-body">
+                                    <h4 class="accel-step-title">
+                                        شتاب‌دهی با شرایط خاص و فوق‌العاده
+                                    </h4>
+                                    <p class="accel-step-text mb-0">
+                                        با قرارگیری در چارچوب استانداردهای آنام، تامین منابع مورد نیاز و
+                                        مسیر شتاب‌دهی تخصصی آغاز می‌شود تا برای راندهای بعدی و جهش‌های بزرگ آماده شوید.
                                     </p>
                                 </div>
                             </div>
@@ -565,322 +975,221 @@
                         </div>
                     </div>
 
-                </div>
-            </div>
-        </section>
-
-        <!-- METRICS -->
-        <section class="metrics-section position-relative py-5" id="metrics">
-
-            <div class="container py-5 position-relative z-2">
-                <div class="row g-4 justify-content-center">
-
-                    <div class="col-6 col-md-3 border-end border-white border-opacity-10">
-                        <div class="stat-item text-center" data-aos="fade-up" data-aos-delay="100">
-                            <div class="mb-3">
-                                <i class="bi bi-diagram-2-fill text-gold fs-2 opacity-50"></i>
-                            </div>
-                            <div class="d-flex justify-content-center align-items-baseline dir-ltr">
-                                <h2 class="display-4 fw-bold text-white m-0 counter" data-target="25">0</h2>
-                                <span class="text-gold fs-4 fw-bold ms-1">+</span>
-                            </div>
-                            <p class="text-muted small mt-2 text-uppercase letter-spacing-2">
-                                کسب‌وکارهای همراه آنام
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-md-3 border-end border-white border-opacity-10">
-                        <div class="stat-item text-center" data-aos="fade-up" data-aos-delay="200">
-                            <div class="mb-3">
-                                <i class="bi bi-rocket-takeoff-fill text-gold fs-2 opacity-50"></i>
-                            </div>
-                            <div class="d-flex justify-content-center align-items-baseline dir-ltr">
-                                <span class="text-gold fs-4 fw-bold me-1">+</span>
-                                <h2 class="display-4 fw-bold text-white m-0 counter" data-target="40">0</h2>
-                            </div>
-                            <p class="text-muted small mt-2 text-uppercase letter-spacing-2">
-                                استارتاپ‌های در مسیر رشد
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-md-3 border-end border-white border-opacity-10">
-                        <div class="stat-item text-center" data-aos="fade-up" data-aos-delay="300">
-                            <div class="mb-3">
-                                <i class="bi bi-search-heart text-gold fs-2 opacity-50"></i>
-                            </div>
-                            <div class="d-flex justify-content-center align-items-baseline dir-ltr">
-                                <span class="text-gold fs-4 fw-bold me-1">+</span>
-                                <h2 class="display-4 fw-bold text-white m-0 counter" data-target="120">0</h2>
-                            </div>
-                            <p class="text-muted small mt-2 text-uppercase letter-spacing-2">
-                                فرصت‌ها و نقاط بهبود شناسایی‌شده
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-md-3">
-                        <div class="stat-item text-center" data-aos="fade-up" data-aos-delay="400">
-                            <div class="mb-3">
-                                <i class="bi bi-hourglass-split text-gold fs-2 opacity-50"></i>
-                            </div>
-                            <div class="d-flex justify-content-center align-items-baseline dir-ltr">
-                                <span class="text-gold fs-4 fw-bold me-1">+</span>
-                                <h2 class="display-4 fw-bold text-white m-0 counter" data-target="10">0</h2>
-                            </div>
-                            <p class="text-muted small mt-2 text-uppercase letter-spacing-2">
-                                سال تجربه تیم‌های آنام
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- PORTFOLIO -->
-        <section class="portfolio-section position-relative py-5" id="portfolio">
-            <div class="container py-5">
-
-                <div class="row justify-content-between align-items-end mb-5" data-aos="fade-up">
-                    <div class="col-lg-8">
-                        <span class="text-gold small fw-bold text-uppercase letter-spacing-2">
-                            <i class="bi bi-briefcase-fill me-2"></i>مسیرهای طی‌شده
-                        </span>
-                        <h2 class="display-5 text-white fw-bold mt-3">
-                            چند نمونه از <span class="text-gradient-gold">داستان‌های رشد</span>
-                        </h2>
-                    </div>
-                </div>
-
-                <div class="row g-4">
-
-                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="portfolio-card">
-                            <img src="{% static 'image/portfolio/1.png' %}" alt="نمونه بهبود ساختار سازمانی"
-                                 class="portfolio-img">
-                            <div class="portfolio-overlay"></div>
-                            <div class="portfolio-content">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="badge bg-gold text-dark rounded-pill px-3">بهبود ساختار</span>
-                                    <span class="text-white-50 small">سازمان خدماتی</span>
-                                </div>
-                                <h3 class="text-white fw-bold">بازطراحی فرآیندها</h3>
-                                <p class="text-white-50 small mt-2 text-truncate-2">
-                                    کاهش گلوگاه‌ها و افزایش شفافیت عملکرد با یک نقشه راه ساده و اجرایی.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="portfolio-card">
-                            <img src="{% static 'image/portfolio/2.png' %}" alt="نمونه شتاب‌دهی استارتاپ"
-                                 class="portfolio-img">
-                            <div class="portfolio-overlay"></div>
-                            <div class="portfolio-content">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="badge bg-white text-dark rounded-pill px-3">شتاب‌دهی</span>
-                                    <span class="text-white-50 small">استارتاپ محصول‌محور</span>
-                                </div>
-                                <h3 class="text-white fw-bold">از ایده تا اولین مشتری</h3>
-                                <p class="text-white-50 small mt-2 text-truncate-2">
-                                    تعریف MVP، اعتبارسنجی و دستیابی به اولین فروش‌های واقعی.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                        <div class="portfolio-card">
-                            <img src="{% static 'image/portfolio/3.png' %}" alt="نمونه توسعه بازار"
-                                 class="portfolio-img">
-                            <div class="portfolio-overlay"></div>
-                            <div class="portfolio-content">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="badge bg-gold text-dark rounded-pill px-3">توسعه</span>
-                                    <span class="text-white-50 small">کسب‌وکار در حال رشد</span>
-                                </div>
-                                <h3 class="text-white fw-bold">ورود به بازار جدید</h3>
-                                <p class="text-white-50 small mt-2 text-truncate-2">
-                                    طراحی استراتژی توسعه، با حفظ ثبات عملیات و تیم فعلی.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="row mt-5 pt-4 justify-content-center" data-aos="fade-up">
-                    <div class="col-10">
-                        <div
-                                class="stats-bar d-flex flex-wrap justify-content-around align-items-center p-4 rounded-4 border border-white border-opacity-10 bg-glass">
-                            <div class="text-center px-3 py-2">
-                                <h2 class="text-gold fw-bold m-0 display-6">۴۵۰+</h2>
-                                <span class="text-white small">نفر در این مسیرها همراه بوده‌اند</span>
-                            </div>
-                            <div class="vr bg-white opacity-25 d-none d-md-block" style="height: 40px;"></div>
-                            <div class="text-center px-3 py-2">
-                                <h2 class="text-gold fw-bold m-0 display-6">رشد</h2>
-                                <span class="text-white small">معنادار در عملکرد و ساختار</span>
-                            </div>
-                            <div class="vr bg-white opacity-25 d-none d-md-block" style="height: 40px;"></div>
-                            <div class="text-center px-3 py-2">
-                                <h2 class="text-gold fw-bold m-0 display-6">تنوع</h2>
-                                <span class="text-white small">از سازمان تا استارتاپ</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
             </div>
         </section>
 
-        <!-- APPLY / CONTACT -->
-        <section class="apply-section position-relative py-5 overflow-hidden" id="apply">
-
-            <div class="hero-glow end-0 bottom-0 opacity-25" style="width: 800px; height: 800px;"></div>
+        <!-- APPLY / REQUEST COLLAB (وصل به بک‌اند) -->
+        <section class="apply-section position-relative" id="apply">
+            <div class="apply-orbit apply-orbit-main"></div>
+            <div class="apply-orbit apply-orbit-soft"></div>
 
             <div class="container py-5 position-relative z-1">
                 <div class="row justify-content-center">
                     <div class="col-xl-10">
 
-                        <div class="apply-card overflow-hidden shadow-lg">
-                            <div class="row g-0">
+                        <div class="apply-shell">
+                            <div class="row g-0 align-items-stretch">
 
-                                <div class="col-lg-7 p-5 bg-dark-form">
-                                    <span class="text-gold small fw-bold text-uppercase letter-spacing-2 mb-2 d-block">
-                                        <i class="bi bi-pen-fill me-2"></i>شروع گفت‌وگو با آنام
-                                    </span>
-                                    <h2 class="text-white fw-bold mb-4">فرم درخواست بررسی</h2>
+                                <!-- پنل توضیحی سمت چپ -->
+                                <div class="col-lg-5 d-none d-lg-flex">
+                                    <aside class="apply-side-panel">
+                                        <div class="apply-side-inner">
+                                            <span class="apply-chip">
+                                                <i class="bi bi-stars ms-1"></i>
+                                                آغاز یک مسیر مشترک
+                                            </span>
 
-                                    <form id="contract-form" method="post" action="{% url 'home:contract_create' %}"
-                                          novalidate>
-                                        {% csrf_token %}
-                                        <div class="row g-4">
+                                            <h3 class="apply-side-title">
+                                                از یک فرم ساده، تا همکاری جدی با آنام
+                                            </h3>
 
-                                            <div class="col-md-6">
-                                                <div class="form-floating">
-                                                    <input
-                                                            type="text"
-                                                            class="form-control custom-input"
-                                                            id="id_full_name"
-                                                            name="full_name"
-                                                            placeholder="نام کامل"
-                                                            required
-                                                    >
-                                                    <label for="id_full_name">نام و نام خانوادگی</label>
+                                            <p class="apply-side-text">
+                                                این فرم نقطه‌ی شروع است؛ جایی که ما تصویر اولیه‌ای از شما، تیم‌تان و
+                                                مسیر
+                                                همکاری به‌دست می‌آوریم تا بتوانیم بهترین دپارتمان و نوع همراهی را
+                                                پیشنهاد دهیم.
+                                            </p>
+
+                                            <div class="apply-timeline">
+                                                <div class="apply-step">
+                                                    <span class="step-dot"></span>
+                                                    <div class="step-body">
+                                                        <h4>بررسی درخواست در کمتر از ۷ روز</h4>
+                                                        <p>جمع‌بندی اولیه توسط تیم مربوطه و تصمیم‌گیری برای جلسه‌ی اول.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="apply-step">
+                                                    <span class="step-dot"></span>
+                                                    <div class="step-body">
+                                                        <h4>هماهنگی جلسه معرفی و گفتگو</h4>
+                                                        <p>گفتگوی عمیق‌تر درباره مدل همکاری، نیازها و ظرفیت‌های مشترک.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="apply-step">
+                                                    <span class="step-dot"></span>
+                                                    <div class="step-body">
+                                                        <h4>طراحی مسیر همکاری</h4>
+                                                        <p>تعیین چارچوب، دپارتمان‌های درگیر و گام‌های بعدی رشد.</p>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-6">
-                                                <div class="form-floating">
-                                                    <input
-                                                            type="tel"
-                                                            class="form-control custom-input"
-                                                            id="id_phone"
-                                                            name="phone"
-                                                            placeholder="شماره تماس"
-                                                            required
-                                                    >
-                                                    <label for="id_phone">شماره تماس</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-12">
-                                                <div class="form-floating">
-                                                    <input
-                                                            type="email"
-                                                            class="form-control custom-input"
-                                                            id="id_email"
-                                                            name="email"
-                                                            placeholder="ایمیل"
-                                                    >
-                                                    <label for="id_email">ایمیل (اختیاری)</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-12">
-                                                <div class="form-floating">
-                                                    <input
-                                                            type="text"
-                                                            class="form-control custom-input"
-                                                            id="id_startup_name"
-                                                            name="startup_name"
-                                                            placeholder="نام کسب‌وکار / استارتاپ"
-                                                            required
-                                                    >
-                                                    <label for="id_startup_name">نام کسب‌وکار / استارتاپ</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-12">
-                                                <div class="form-floating">
-                                                    <input
-                                                            class="form-control custom-input"
-                                                            id="id_detail"
-                                                            name="detail"
-                                                            placeholder=" "
-                                                            style="height: 120px"
-                                                            required
-                                                    >
-                                                    <label for="id_detail">به‌طور کوتاه، در چه مرحله‌ای هستید؟</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-12">
-                                                <div id="contract-message" class="login-error-alert"
-                                                     style="display: none;">
-                                                    <i class="bi bi-exclamation-octagon-fill"></i>
-                                                    <span id="contract-message-text"></span>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-12 mt-4">
-                                                <button
-                                                        type="submit"
-                                                        class="btn btn-gold w-100 py-3 rounded-2 fw-bold"
-                                                >
-                                                    ارسال برای بررسی
-                                                </button>
-                                            </div>
+                                            <p class="apply-side-footnote">
+                                                تمام اطلاعات شما با نهایت محرمانگی و فقط برای بررسی امکان همکاری استفاده
+                                                می‌شود.
+                                            </p>
                                         </div>
-                                    </form>
-
+                                    </aside>
                                 </div>
 
-                                <div
-                                        class="col-lg-5 bg-gradient-gold d-none d-lg-flex flex-column justify-content-center p-5 text-center position-relative overflow-hidden">
-                                    <div class="pattern-overlay"></div>
+                                <!-- فرم سمت راست؛ وصل به home:contract_create و JS -->
+                                <div class="col-lg-7">
+                                    <div class="apply-card">
 
-                                    <div class="position-relative z-2">
-                                        <div class="mb-4">
-                                            <div class="icon-circle bg-white text-gold mx-auto shadow-lg">
-                                                <i class="bi bi-send-check-fill fs-2"></i>
+                                        <header class="apply-header">
+                                            <span class="apply-header-chip">
+                                                <i class="bi bi-pen-fill ms-1"></i>
+                                                شروع همکاری با آنام
+                                            </span>
+                                            <h2 class="apply-title">درخواست همکاری</h2>
+                                            <p class="apply-subtitle">
+                                                اطلاعات خود را وارد کنید تا تیم آنام پس از بررسی، برای هماهنگی جلسه‌ی
+                                                اولیه با شما در تماس باشد.
+                                            </p>
+                                        </header>
+
+                                        <form class="apply-form" id="contract-form"
+                                              method="post" action="{% url 'home:contract_create' %}">
+                                            {% csrf_token %}
+                                            <div class="row g-3">
+
+                                                <!-- نام و نام‌خانوادگی -->
+                                                <div class="col-md-6">
+                                                    <div class="floating-group">
+                                                        <input type="text" id="id_full_name"
+                                                               name="full_name"
+                                                               class="floating-input"
+                                                               autocomplete="off" required
+                                                               placeholder=" ">
+                                                        <label for="id_full_name">نام و نام‌خانوادگی</label>
+                                                        <span class="floating-icon">
+                                                            <i class="bi bi-person"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- شماره تماس -->
+                                                <div class="col-md-6">
+                                                    <div class="floating-group">
+                                                        <input type="tel" id="id_phone"
+                                                               name="phone"
+                                                               class="floating-input"
+                                                               autocomplete="off" required
+                                                               placeholder=" ">
+                                                        <label for="id_phone">شماره تماس</label>
+                                                        <span class="floating-icon">
+                                                            <i class="bi bi-telephone"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ارجاع به دپارتمان -->
+                                                <div class="col-12">
+                                                    <div class="floating-group select-group">
+                                                        <select id="id_departments"
+                                                                name="departments"
+                                                                class="floating-input" required>
+
+                                                            <option value="" disabled selected></option>
+
+                                                            <option value="monitoring">شبکه نظارت و مهار</option>
+                                                            <option value="architecture">معماری سازمانی و سیستم‌سازی
+                                                            </option>
+                                                            <option value="bigdata">شبکه کلان داده</option>
+                                                            <option value="it">فناوری اطلاعات (IT)</option>
+                                                            <option value="ai">هوشمندسازی</option>
+                                                            <option value="rnd">تحقیق و توسعه</option>
+                                                            <option value="hr">تعالی منابع انسانی</option>
+                                                            <option value="admin">امور اداری</option>
+                                                            <option value="media-marketing">رسانه - مارکتینگ</option>
+                                                            <option value="investment">سرمایه‌گذاری و شبکه ارزش‌ها
+                                                            </option>
+                                                            <option value="commerce">بازرگانی</option>
+                                                            <option value="operations">عملیات - راه‌اندازی</option>
+                                                        </select>
+
+                                                        <label for="id_departments">ارجاع به دپارتمان</label>
+
+                                                        <span class="floating-icon">
+                                                            <i class="bi bi-diagram-3"></i>
+                                                        </span>
+
+                                                        <span class="floating-chevron">
+                                                            <i class="bi bi-chevron-down"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- نام کسب‌وکار / استارتاپ -->
+                                                <div class="col-12">
+                                                    <div class="floating-group">
+                                                        <input type="text" id="id_startup_name"
+                                                               name="startup_name"
+                                                               class="floating-input"
+                                                               autocomplete="off" required
+                                                               placeholder=" ">
+                                                        <label for="id_startup_name">نام کسب‌وکار / استارتاپ</label>
+                                                        <span class="floating-icon">
+                                                            <i class="bi bi-building"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- توضیحات -->
+                                                <div class="col-12">
+                                                    <div class="floating-group textarea-group">
+                                                        <textarea id="id_detail"
+                                                                  name="detail"
+                                                                  rows="4"
+                                                                  class="floating-input"
+                                                                  placeholder=" " required></textarea>
+                                                        <label for="id_detail">به‌طور کوتاه، در چه مرحله‌ای
+                                                            هستید؟</label>
+                                                        <span class="floating-icon align-items-start pt-2">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- باکس پیام برای JS -->
+                                                <div class="col-12">
+                                                    <div id="contract-message" class="login-error-alert"
+                                                         style="display: none;">
+                                                        <i class="bi bi-exclamation-octagon-fill"></i>
+                                                        <span id="contract-message-text"></span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- دکمه ارسال -->
+                                                <div class="col-12 mt-2">
+                                                    <button type="submit" class="apply-submit-btn w-100">
+                                                        ارسال درخواست بررسی
+                                                        <span class="btn-glow-layer"></span>
+                                                    </button>
+                                                </div>
+
                                             </div>
-                                        </div>
-                                        <h3 class="text-white fw-bold mb-4">مزیت همکاری با آنام</h3>
-                                        <ul class="list-unstyled text-white-50 text-start mx-auto"
-                                            style="max-width: 300px;">
-                                            <li class="mb-3 d-flex align-items-center">
-                                                <i class="bi bi-check2-circle text-white me-2 fs-5"></i>
-                                                نگاه تحلیلی و نه صرفاً شعاری به رشد
-                                            </li>
-                                            <li class="mb-3 d-flex align-items-center">
-                                                <i class="bi bi-check2-circle text-white me-2 fs-5"></i>
-                                                مسیر مشخص و واقع‌بینانه برای هر کسب‌وکار
-                                            </li>
-                                            <li class="d-flex align-items-center">
-                                                <i class="bi bi-check2-circle text-white me-2 fs-5"></i>
-                                                حفظ محرمانگی اطلاعات و ایده‌ها
-                                            </li>
-                                        </ul>
+                                        </form>
+
                                     </div>
                                 </div>
 
-                            </div>
-                        </div>
+                            </div> <!-- row -->
+                        </div> <!-- apply-shell -->
 
                     </div>
                 </div>
@@ -898,66 +1207,74 @@
         <div class="container position-relative z-1 pt-5 pb-3">
             <div class="row gy-5 justify-content-between">
 
+                <!-- لوگو و توضیح -->
                 <div class="col-lg-4">
                     <a class="navbar-brand d-block mb-4" href="#home">
-                        <img src="{% static 'image/logo/AnamLogo.PNG' %}" alt="لوگوی آنام" style="height: 60px;">
+                        <img src="{% static 'image/logo/AnamLogo.PNG' %}" alt="Logo" style="height: 60px;">
                     </a>
                     <p class="footer-desc mb-4 w-lg-75">
-                        آنام؛ بستر رشد، ارتقا و شتاب‌دهی کسب‌وکارها. تمرکز ما بر ساختن زیرساختی است که در آن، ایده‌ها و
-                        سازمان‌ها بتوانند مستقل و پایدار رشد کنند.
+                        آنام بستر رشد، ارتقا و شتاب‌دهی کسب‌وکارهاست؛
+                        جایی که با تکیه بر تحلیل، طراحی ساختار و شتاب‌دهی، کنار تیم‌ها می‌ایستیم تا از
+                        مرحله ایده تا رشد پایدار و مستقل حرکت کنند.
                     </p>
                     <div class="social-links d-flex gap-3">
-                        <a href="#" class="social-icon" aria-label="LinkedIn آنام"><i class="bi bi-linkedin"></i></a>
-                        <a href="#" class="social-icon" aria-label="X (Twitter) آنام"><i
+                        <a href="{% url 'core:under_construction' %}" class="social-icon"><i class="bi bi-linkedin"></i></a>
+                        <a href="{% url 'core:under_construction' %}" class="social-icon"><i
                                 class="bi bi-twitter-x"></i></a>
-                        <a href="#" class="social-icon" aria-label="Instagram آنام"><i
+                        <a href="{% url 'core:under_construction' %}" class="social-icon"><i
                                 class="bi bi-instagram"></i></a>
                     </div>
                 </div>
 
+                <!-- دسترسی سریع -->
                 <div class="col-6 col-lg-2">
                     <h5 class="text-white fw-bold mb-4">دسترسی سریع</h5>
                     <ul class="list-unstyled footer-links">
-                        <li><a href="#why-us">درباره آنام</a></li>
-                        <li><a href="#services">خدمات</a></li>
-                        <li><a href="#portfolio">نمونه کارها</a></li>
-                        <li><a href="#apply">همکاری با آنام</a></li>
+                        <li><a href="#why-us">چرا آنام؟</a></li>
+                        <li><a href="#departments">ساختار دپارتمان‌ها</a></li>
+                        <li><a href="#services">مسیر رشد با آنام</a></li>
+                        <li><a href="#apply">درخواست همکاری</a></li>
                     </ul>
                 </div>
 
+                <!-- حوزه‌های همکاری -->
                 <div class="col-6 col-lg-2">
-                    <h5 class="text-white fw-bold mb-4">مسیرها</h5>
+                    <h5 class="text-white fw-bold mb-4">حوزه‌های همکاری</h5>
                     <ul class="list-unstyled footer-links">
-                        <li><a href="#services">بهبود کسب‌وکار</a></li>
-                        <li><a href="#services">طراحی ساختار</a></li>
-                        <li><a href="#acceleration">شتاب‌دهی استارتاپ</a></li>
-                        <li><a href="#metrics">نتایج و خروجی‌ها</a></li>
+                        <li><a href="#acceleration">شتاب‌دهی استارتاپ‌ها</a></li>
+                        <li><a href="#services">تحلیل و طراحی ساختار</a></li>
+                        <li><a href="#services">مشاوره و همراهی مدیریتی</a></li>
+                        <li><a href="#acceleration">سرمایه‌گذاری و هم‌راهی بلندمدت</a></li>
                     </ul>
                 </div>
 
+                <!-- تماس -->
                 <div class="col-lg-3">
-                    <h5 class="text-white fw-bold mb-4">خبرها و به‌روزرسانی‌ها</h5>
+                    <h5 class="text-white fw-bold mb-4">تماس با آنام</h5>
                     <p class="footer-desc small mb-3">
-                        برای دریافت خبرها و محتواهای مرتبط با رشد کسب‌وکار، ایمیل خود را وارد کنید.
+                        برای هماهنگی جلسه اولیه، ارسال پیشنهاد همکاری یا دریافت اطلاعات بیشتر،
+                        از راه‌های زیر با ما در ارتباط باشید.
                     </p>
-                    <form class="newsletter-form position-relative mb-4">
-                        <input type="email" class="form-control" placeholder="ایمیل شما..."
-                               aria-label="ایمیل برای عضویت در خبرنامه">
-                        <button type="submit" class="btn-send" aria-label="ارسال ایمیل">
-                            <i class="bi bi-arrow-left text-dark"></i>
-                        </button>
-                    </form>
 
-                    <div class="contact-info">
-                        <p class="footer-desc small mb-1">
-                            <i class="bi bi-geo-alt-fill text-gold me-2"></i>
-                            مشهد، احمد آباد، بین رضا ۱۱ و ۱۳
-                        </p>
-                        <p class="footer-desc small">
+                    <ul class="list-unstyled footer-contact-list mb-3">
+                        <li>
+                            <i class="bi bi-envelope-fill text-gold me-2"></i>
+                            <span>contact@anamholding.com</span>
+                        </li>
+                        <li>
                             <i class="bi bi-telephone-fill text-gold me-2"></i>
-                            ۰۲۱-۴۴۵۵۶۶۷۷
-                        </p>
-                    </div>
+                            <span>1080 3833 051</span>
+                        </li>
+                        <li>
+                            <i class="bi bi-geo-alt-fill text-gold me-2"></i>
+                            <span>مشهد، احمدآباد، بین رضا ۱۱ و ۱۳</span>
+                        </li>
+                    </ul>
+
+                    <a href="#apply" class="footer-cta-btn d-inline-flex align-items-center gap-2">
+                        درخواست جلسه اولیه
+                        <i class="bi bi-arrow-left-short"></i>
+                    </a>
                 </div>
 
             </div>
@@ -965,13 +1282,15 @@
             <div class="row mt-5 pt-4 border-top border-white border-opacity-10 align-items-center">
                 <div class="col-md-6 text-center text-md-start">
                     <p class="text-white-50 small m-0">
-                        © ۲۰۲۵ تمامی حقوق برای <span class="text-gold">آنام</span> محفوظ است.
+                        © ۲۰۲۵ تمامی حقوق برای <span class="text-gold">درخشان آوای آفرینش</span> محفوظ است.
                     </p>
                 </div>
                 <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
                     <div class="d-inline-flex gap-4">
-                        <a href="{% url 'core:under_construction' %}" class="text-white-50 small text-decoration-none hover-gold">قوانین سایت</a>
-                        <a href="{% url 'core:under_construction' %}" class="text-white-50 small text-decoration-none hover-gold">حریم خصوصی</a>
+                        <a href="{% url 'core:under_construction' %}"
+                           class="text-white-50 small text-decoration-none hover-gold">قوانین و مقررات</a>
+                        <a href="{% url 'core:under_construction' %}"
+                           class="text-white-50 small text-decoration-none hover-gold">حریم خصوصی</a>
                     </div>
                 </div>
             </div>
@@ -980,5 +1299,3 @@
 
 {% endblock %}
 
-{% block extra_js %}
-{% endblock %}

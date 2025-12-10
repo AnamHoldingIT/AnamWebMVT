@@ -1,0 +1,113 @@
+/* =========================================
+   UNDER CONSTRUCTION PAGE
+   ========================================= */
+
+.uc-body {
+    background: radial-gradient(circle at 50% -20%, var(--main-green) 0%, var(--bg-dark) 60%, #000 100%);
+    color: var(--text-light);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* صفحه */
+.uc-page {
+    min-height: 100vh;
+    padding: 100px 15px;
+    position: relative;
+}
+
+/* نور سبز */
+.uc-glow {
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    background: var(--main-green);
+    opacity: 0.25;
+    filter: blur(150px);
+    border-radius: 50%;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+/* کارت */
+.uc-card {
+    background: linear-gradient(145deg, rgba(0, 59, 54, 0.8), rgba(1, 10, 9, 0.95));
+    backdrop-filter: blur(20px);
+    padding: 3rem 2rem;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(197, 160, 89, 0.4);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9);
+    position: relative;
+    overflow: hidden;
+}
+
+/* خط طلایی بالا */
+.uc-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 20%;
+    left: 20%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* برچسب */
+.uc-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    border: 1px solid var(--gold);
+    background-color: rgba(0, 0, 0, 0.3);
+    color: var(--gold);
+    letter-spacing: 1px;
+}
+
+/* آیکن وسط */
+.uc-icon {
+    font-size: 4.5rem;
+    color: var(--gold);
+    filter: drop-shadow(0 0 20px rgba(197, 160, 89, 0.5));
+    animation: spinGear 7s linear infinite;
+}
+
+@keyframes spinGear {
+    from { transform: rotate(0); }
+    to { transform: rotate(360deg); }
+}
+
+/* متن‌ها */
+.uc-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+.uc-text {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.9;
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+/* موبایل */
+@media (max-width: 576px) {
+    .uc-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .uc-icon {
+        font-size: 3.2rem;
+    }
+
+    .uc-title {
+        font-size: 1.4rem;
+    }
+}

@@ -23,7 +23,7 @@ class ContractAdmin(admin.ModelAdmin):
         "full_name",
         "phone",
         "startup_name",
-        "email",
+        "department",
     )
     ordering = ("-created_at",)
     readonly_fields = ("created_at", "updated_at")
@@ -33,7 +33,7 @@ class ContractAdmin(admin.ModelAdmin):
             "fields": (
                 "full_name",
                 "phone",
-                "email",
+                "department",
             )
         }),
         ("اطلاعات استارتاپ / ایده", {

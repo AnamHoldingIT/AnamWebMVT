@@ -9,6 +9,6 @@ class ContractForm(forms.ModelForm):
             'full_name',
             'phone',
             'startup_name',
-            'email',
+            'departments',
             'detail',
         ]
