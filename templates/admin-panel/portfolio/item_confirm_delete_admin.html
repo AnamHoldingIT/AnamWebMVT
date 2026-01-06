@@ -1,0 +1,71 @@
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}حذف {{ item_title }}{% endblock %}
+{% block menu_portfolio %}active{% endblock %}
+
+{% block content %}
+
+<div class="detail-header">
+  <div>
+    <h2 class="page-title mb-1">حذف {{ item_title }}</h2>
+    <p class="detail-subtitle mb-0">
+      این عملیات قابل بازگشت نیست.
+      <br>
+      برای پروژه:
+      <strong>{{ project.name_fa }}</strong>
+      <span class="dir-ltr text-muted">({{ project.slug }})</span>
+    </p>
+  </div>
+
+  <div class="detail-header-actions">
+    <a href="{% url 'admin_panel:portfolio_project_detail' slug=project.slug %}" class="detail-back-btn">
+      <i class="bi bi-arrow-right"></i>
+      بازگشت به جزئیات پروژه
+    </a>
+  </div>
+</div>
+
+<div class="detail-card">
+
+  <div class="alert alert-danger mb-0">
+    <div class="d-flex align-items-start gap-2">
+      <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+      <div>
+        <div class="fw-bold mb-1">مطمئنی می‌خوای حذفش کنی؟</div>
+
+        <div class="small" style="opacity:0.95">
+          {% if object.text %}
+            <span class="text-muted">متن:</span> {{ object.text }}
+          {% elif object.label %}
+            <span class="text-muted">عنوان:</span> {{ object.label }} — <span class="dir-ltr">{{ object.value }}</span>
+          {% elif object.title and object.description %}
+            <span class="text-muted">مرحله:</span> {{ object.step_number }} — {{ object.title }}
+          {% elif object.role %}
+            <span class="text-muted">نقش:</span> {{ object.role.title }}
+          {% else %}
+            <span class="text-muted">آیتم:</span> {{ object }}
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <form method="post" class="d-flex justify-content-end gap-2 mt-3">
+    {% csrf_token %}
+
+    <a href="{% url 'admin_panel:portfolio_project_detail' slug=project.slug %}"
+       class="btn btn-outline-secondary btn-sm">
+      انصراف
+    </a>
+
+    <button type="submit" class="btn btn-danger btn-sm">
+      <i class="bi bi-trash3 ms-1"></i>
+      حذف نهایی
+    </button>
+  </form>
+
+</div>
+
+{% endblock %}

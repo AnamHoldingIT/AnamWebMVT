@@ -1,0 +1,213 @@
+/* --- Filter Section --- */
+.filter-glass {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+}
+
+.filter-btn {
+  border-radius: 10px !important;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+  padding: 6px 16px;
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #C5A059, #a68543);
+  color: #000 !important;
+  box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
+}
+
+/* --- Luxury Project Card --- */
+.project-card-luxury {
+  background: linear-gradient(145deg, rgba(30, 30, 30, 0.4) 0%, rgba(10, 10, 10, 0.6) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  backdrop-filter: blur(10px);
+}
+
+/* افکت نور پس‌زمینه کارت */
+.card-glow {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: var(--gold);
+  filter: blur(80px);
+  opacity: 0;
+  top: -50px;
+  right: -50px;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Hover Effects */
+.project-card-luxury:hover {
+  transform: translateY(-8px);
+  border-color: rgba(197, 160, 89, 0.3);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(197, 160, 89, 0.1);
+}
+
+.project-card-luxury:hover .card-glow {
+  opacity: 0.15;
+}
+
+.project-card-luxury:hover .btn-luxury-full {
+  background: var(--gold);
+  color: #000;
+  border-color: var(--gold);
+  box-shadow: 0 5px 20px rgba(197, 160, 89, 0.3);
+}
+
+/* Role Chip */
+.role-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: #ccc;
+  z-index: 1;
+}
+
+.role-chip.manager {
+  background: rgba(197, 160, 89, 0.1);
+  border-color: rgba(197, 160, 89, 0.3);
+  color: var(--gold);
+}
+
+/* Status Dot */
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.status-dot.active {
+  background-color: #00ff88;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.pulse-green {
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(0, 255, 136, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+}
+
+.status-dot.inactive {
+  background-color: #555;
+}
+
+/* Typography */
+.project-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.project-desc {
+  font-size: 0.9rem;
+  color: #aebdbb;
+  line-height: 1.7;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+  min-height: 45px;
+}
+
+/* Meta Data Row */
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  position: relative;
+  z-index: 1;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.meta-item .label {
+  font-size: 0.7rem;
+  color: #6c757d;
+}
+
+.meta-item .value {
+  font-size: 0.85rem;
+  color: #e0e0e0;
+  font-weight: 600;
+}
+
+/* Main Action Button */
+.btn-luxury-full {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 20px;
+  background: transparent;
+  border: 1px solid rgba(197, 160, 89, 0.5);
+  color: var(--gold);
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.btn-luxury-full i {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-luxury-full:hover i {
+  transform: translateX(-5px);
+}
+
+/* Inactive Card Style */
+.project-card-luxury.inactive {
+  opacity: 0.7;
+  filter: grayscale(100%);
+  transition: all 0.3s;
+}
+
+.project-card-luxury.inactive:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: translateY(-4px);
+}
+
+.btn-luxury-full.disabled {
+  border-color: #444;
+  color: #666;
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, 0.2);
+}

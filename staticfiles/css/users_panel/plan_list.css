@@ -1,0 +1,297 @@
+/* --- Date Search Input --- */
+.date-search-wrapper {
+    min-width: 250px;
+}
+
+.glass-input-group {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.glass-input-group:focus-within {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--gold);
+    box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.15);
+}
+
+.glass-input-group input {
+    font-size: 0.9rem;
+    padding: 10px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) sepia(1) saturate(5) hue-rotate(180deg);
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+/* --- Plan Card Structure (Fixed Layout) --- */
+.plan-card {
+    border-radius: 24px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+    transition: all 0.4s var(--luxury-ease);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.plan-card.active-today {
+    border: 1px solid rgba(197, 160, 89, 0.4);
+    background: linear-gradient(145deg, rgba(30, 30, 30, 0.6), rgba(10, 10, 10, 0.8));
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.today-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(197, 160, 89, 0.15);
+    color: var(--gold);
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.plan-header {
+    margin-bottom: 24px;
+}
+
+.plan-weekday {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.plan-date {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.plan-date .day {
+    font-size: 4rem;
+    font-weight: 800;
+    letter-spacing: -2px;
+    text-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.plan-date .month {
+    font-size: 1.1rem;
+    color: #aebdbb;
+    font-weight: 300;
+    margin-top: -5px;
+}
+
+.plan-body {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.plan-footer {
+    width: 100%;
+    margin-top: auto;
+    padding-top: 16px;
+}
+
+/* --- 1. Top "New Date" Button (Premium Gold) --- */
+.btn-premium-gold {
+    background: linear-gradient(135deg, #d4af37, #C5A059);
+    border: none;
+    color: #000;
+    font-weight: 700;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-premium-gold::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: 0.5s;
+    z-index: -1;
+}
+
+.btn-premium-gold:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(197, 160, 89, 0.6);
+}
+
+.btn-premium-gold:hover::before {
+    left: 100%;
+}
+
+/* --- 2. Card Action Button (Glassy Gold) --- */
+.btn-card-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border-radius: 14px;
+    background: rgba(197, 160, 89, 0.05);
+    border: 1px solid rgba(197, 160, 89, 0.4);
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-card-action:hover {
+    background: var(--gold);
+    color: #000;
+    border-color: var(--gold);
+    box-shadow: 0 5px 20px rgba(197, 160, 89, 0.3);
+    transform: translateY(-2px);
+}
+
+/* --- 1. Achievements Preview Section --- */
+.achievements-preview {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
+}
+
+.achievement-dots {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-right: 15px;
+}
+
+.achievement-dots li {
+    font-size: 0.8rem;
+    color: #ccc;
+    margin-bottom: 4px;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.achievement-dots li::before {
+    content: '';
+    position: absolute;
+    right: -12px;
+    top: 8px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+}
+
+/* --- 2. Time Blocks Indicator --- */
+.time-blocks-row {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.time-block {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.time-block.filled {
+    background: rgba(33, 115, 70, 0.15);
+    color: #2ecc71;
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.time-block.extra {
+    background: rgba(13, 202, 240, 0.1);
+    color: #0dcaf0;
+    border: 1px solid rgba(13, 202, 240, 0.2);
+    flex: 0.7;
+}
+
+
+/* ===== Future Plan Delete Button (NO override on other styles) ===== */
+.plan-delete-action{
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 20;
+    margin: 0;
+    padding: 0;
+}
+
+/* ریست کامل ظاهر button تا مربع سفید نیاد */
+.plan-delete-btn{
+    all: unset;
+    -webkit-appearance: none;
+    appearance: none;
+
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255, 80, 80, 0.35);
+    color: rgba(255, 120, 120, 0.95);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    cursor: pointer;
+    transition: all .22s ease;
+}
+
+.plan-delete-btn i{
+    font-size: 1.1rem;
+    line-height: 1;
+    display: block;
+}
+
+.plan-delete-btn:hover{
+    background: rgba(255, 80, 80, 0.16);
+    border-color: rgba(255, 80, 80, 0.65);
+    color: #ff6b6b;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(255, 80, 80, 0.14);
+}
+
+.plan-delete-btn:active{
+    transform: scale(0.96);
+}

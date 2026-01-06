@@ -1,0 +1,250 @@
+{# project_list.html #}
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}Anam Admin | مدیریت پروژه‌ها{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/admin_panel/worklog/admin-projects.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <header class="topbar mb-5">
+        <div>
+            <h2 class="h4 fw-bold text-white mb-1">لیست پروژه‌ها</h2>
+            <span class="text-white-50 small">مدیریت فضاهای کاری و اعضای تیم‌ها</span>
+        </div>
+
+        <div class="d-flex gap-3">
+            <form method="get" class="search-box">
+                <i class="bi bi-search text-gold"></i>
+                <input
+                        type="text"
+                        name="q"
+                        value="{{ q }}"
+                        placeholder="جستجوی پروژه..."
+                        autocomplete="off"
+                >
+                <input type="hidden" name="status" value="{{ status }}">
+            </form>
+
+            <a href="{% url 'admin_panel:worklog_project_create' %}"
+               class="btn btn-premium-gold icon-btn text-decoration-none d-flex align-items-center gap-2 px-4">
+                <i class="bi bi-plus-lg"></i>
+                <span>پروژه جدید</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="d-flex gap-2 mb-4">
+        <a class="btn btn-sm btn-filter {% if status == 'all' %}active{% endif %}"
+           href="?status=all{% if q %}&q={{ q|urlencode }}{% endif %}">
+            همه
+        </a>
+
+        <a class="btn btn-sm btn-filter {% if status == 'active' %}active{% endif %}"
+           href="?status=active{% if q %}&q={{ q|urlencode }}{% endif %}">
+            فعال
+        </a>
+
+        <a class="btn btn-sm btn-filter {% if status == 'archived' %}active{% endif %}"
+           href="?status=archived{% if q %}&q={{ q|urlencode }}{% endif %}">
+            آرشیو شده
+        </a>
+    </div>
+
+    <section class="glass-panel p-0 overflow-hidden">
+        <div class="table-responsive">
+            <table class="table admin-table mb-0 align-middle">
+                <thead>
+                <tr>
+                    <th width="5%">#</th>
+                    <th width="25%">نام پروژه</th>
+                    <th width="20%">تیم اجرایی</th>
+                    <th width="15%">گوگل شیت</th>
+                    <th width="15%">تاریخ ایجاد</th>
+                    <th width="10%">وضعیت</th>
+                    <th width="10%" class="text-end">عملیات</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for p in rows %}
+                    <tr class="{% if not p.is_active %}inactive-row{% endif %}">
+                        <td><span class="row-index">{{ p.index }}</span></td>
+
+                        <td>
+                            <div class="d-flex flex-column">
+              <span class="fw-bold {% if p.is_active %}text-white{% else %}text-white-50{% endif %} fs-09">
+                {{ p.title }}
+              </span>
+                                <span class="text-white-50 super-small">شناسه: PRJ-{{ p.id }}</span>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="avatar-group {% if p.team_is_grayscale %}grayscale{% endif %}">
+                                {% for a in p.avatars %}
+                                    <img
+                                            src="{{ a.url }}"
+                                            class="avatar-sm {% if a.is_manager %}manager-border{% endif %}"
+                                            title="{{ a.title }}"
+                                            alt="{{ a.title }}"
+                                    >
+                                {% endfor %}
+
+                                {% if p.remaining_count > 0 %}
+                                    <span class="avatar-sm more-count">+{{ p.remaining_count }}</span>
+                                {% endif %}
+                            </div>
+                        </td>
+
+                        <td>
+                            {% if p.sheet_url %}
+                                <a href="{{ p.sheet_url }}" target="_blank" class="sheet-badge">
+                                    <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                                    <span>باز کردن</span>
+                                </a>
+                            {% else %}
+                                <span class="sheet-badge disabled">
+                <i class="bi bi-dash-circle"></i>
+                <span>ناموجود</span>
+              </span>
+                            {% endif %}
+                        </td>
+
+                        <td class="text-white-50 fs-09">{{ p.created_jalali }}</td>
+
+                        <td>
+                            {% if p.is_active %}
+                                <span class="status-badge active">فعال</span>
+                            {% else %}
+                                <span class="status-badge inactive">آرشیو</span>
+                            {% endif %}
+                        </td>
+
+                        <td class="text-end">
+                            <div class="d-flex justify-content-end gap-2">
+
+                                <a href="{% url 'admin_panel:worklog_project_edit' pk=p.id %}"
+                                   class="btn btn-icon-sm hover-info" title="ویرایش">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+
+                                {# ✅ آرشیو / بازگردانی با POST + confirm #}
+                                {% if p.is_active %}
+                                    <form method="post" class="d-inline archive-form">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="archive">
+                                        <input type="hidden" name="project_id" value="{{ p.id }}">
+                                        <button type="submit"
+                                                class="btn btn-icon-sm hover-danger"
+                                                title="آرشیو"
+                                                data-confirm="این پروژه آرشیو شود؟">
+                                            <i class="bi bi-archive"></i>
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <form method="post" class="d-inline archive-form">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="restore">
+                                        <input type="hidden" name="project_id" value="{{ p.id }}">
+                                        <button type="submit"
+                                                class="btn btn-icon-sm hover-gold"
+                                                title="بازگردانی"
+                                                data-confirm="این پروژه از آرشیو خارج شود؟">
+                                            <i class="bi bi-arrow-counterclockwise"></i>
+                                        </button>
+                                    </form>
+                                {% endif %}
+
+                            </div>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center py-5 text-white-50">
+                            پروژه‌ای برای نمایش وجود ندارد.
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {# ===== Footer + Pagination (فعال و کامل مثل صفحات دیگر) ===== #}
+        <div class="p-3 border-top border-white-10 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+    <span class="text-white-50 super-small">
+      نمایش {{ showing_from }} تا {{ showing_to }} از {{ total_count }} پروژه
+    </span>
+
+            {% if is_paginated %}
+                <nav aria-label="Projects pagination">
+                    <ul class="pagination pagination-custom mb-0">
+
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="?page={{ page_obj.previous_page_number }}&status=
+                                           {{ status|urlencode }}{% if q %}&q={{ q|urlencode }}{% endif %}">
+                                    قبلی
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled"><span class="page-link">قبلی</span></li>
+                        {% endif %}
+
+                        {# نمایش چند شماره نزدیک به صفحه فعلی #}
+                        {% for num in paginator.page_range %}
+                            {% if num == page_obj.number %}
+                                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                            {% elif num >= page_obj.number|add:-2 and num <= page_obj.number|add:2 %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="?page={{ num }}&status=
+                                               {{ status|urlencode }}{% if q %}&q={{ q|urlencode }}{% endif %}">
+                                        {{ num }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="?page={{ page_obj.next_page_number }}&status=
+                                           {{ status|urlencode }}{% if q %}&q={{ q|urlencode }}{% endif %}">
+                                    بعدی
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled"><span class="page-link">بعدی</span></li>
+                        {% endif %}
+
+                    </ul>
+                </nav>
+            {% endif %}
+        </div>
+
+    </section>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        (function () {
+            // ✅ تایید ثانویه قبل از آرشیو / بازگردانی
+            document.querySelectorAll(".archive-form").forEach((form) => {
+                form.addEventListener("submit", function (e) {
+                    const btn = form.querySelector("button[type='submit']");
+                    const msg = btn?.dataset?.confirm || "آیا مطمئن هستید؟";
+                    if (!confirm(msg)) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                });
+            });
+        })();
+    </script>
+{% endblock %}

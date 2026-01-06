@@ -1,0 +1,75 @@
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}نقش‌های پروژه{% endblock %}
+{% block menu_portfolio %}active{% endblock %}
+
+{% block content %}
+
+<div class="detail-header">
+  <div>
+    <h2 class="page-title mb-1">نقش‌های آنام در پروژه‌ها</h2>
+    <p class="detail-subtitle">
+      نقش‌هایی که می‌تونن به پروژه‌های پورتفوی اختصاص داده بشن
+    </p>
+  </div>
+
+  <div class="detail-header-actions">
+    <a href="{% url 'admin_panel:portfolio_role_create' %}" class="btn btn-success btn-sm">
+      <i class="bi bi-plus-lg ms-1"></i>
+      افزودن نقش جدید
+    </a>
+  </div>
+</div>
+
+<div class="panel-box">
+
+  {% if roles %}
+    <div class="table-responsive">
+      <table class="table table-dark table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>عنوان نقش</th>
+            <th class="dir-ltr">Slug</th>
+            <th style="width: 160px;">عملیات</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for role in roles %}
+            <tr>
+              <td>
+                <strong>{{ role.title }}</strong>
+              </td>
+
+              <td class="dir-ltr">
+                <code>{{ role.slug }}</code>
+              </td>
+
+              <td>
+                <div class="d-flex gap-2">
+                  <a href="{% url 'admin_panel:portfolio_role_edit' role.pk %}"
+                     class="btn btn-outline-warning btn-sm">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+
+                  <a href="{% url 'admin_panel:portfolio_role_delete' role.pk %}"
+                     class="btn btn-outline-danger btn-sm">
+                    <i class="bi bi-trash3"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="text-center py-4" style="color: var(--muted);">
+      <i class="bi bi-info-circle me-1"></i>
+      هنوز هیچ نقشی ثبت نشده است.
+    </div>
+  {% endif %}
+
+</div>
+
+{% endblock %}

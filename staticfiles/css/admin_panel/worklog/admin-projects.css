@@ -1,0 +1,195 @@
+/* static/css/admin_panel/admin-projects.css */
+
+/* --- Utilities --- */
+.bg-white-05 { background: rgba(255, 255, 255, 0.05); }
+.border-white-10 { border-color: rgba(255, 255, 255, 0.1) !important; }
+
+.fs-09 { font-size: 0.9rem; }
+
+.super-small {
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+/* --- Table & Container --- */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.admin-table {
+  --bs-table-bg: transparent;
+  --bs-table-color: #eee;
+}
+
+.admin-table thead th {
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 18px 20px;
+  white-space: nowrap;
+}
+
+.admin-table tbody td {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background 0.2s;
+  vertical-align: middle;
+}
+
+.admin-table tbody tr:hover td { background: rgba(255, 255, 255, 0.03); }
+
+.row-index {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* --- Avatar Group (Team Stack) --- */
+.avatar-group {
+  display: flex;
+  align-items: center;
+}
+
+.avatar-sm {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid #1a1a1a;
+  margin-left: -10px;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.avatar-sm:first-child { margin-left: 0; }
+
+.avatar-sm:hover {
+  transform: translateY(-4px);
+  z-index: 2;
+  border-color: var(--gold);
+}
+
+.manager-border { border-color: var(--gold) !important; }
+
+.more-count {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  border: 2px solid #1a1a1a;
+  margin-left: -10px;
+}
+
+/* --- Sheet Badge --- */
+.sheet-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  background: rgba(33, 115, 70, 0.15);
+  color: #2ecc71;
+  border: 1px solid rgba(33, 115, 70, 0.3);
+  text-decoration: none;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+
+.sheet-badge:hover {
+  background: rgba(33, 115, 70, 0.25);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.sheet-badge.disabled {
+  filter: grayscale(100%);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- Status Badge --- */
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-badge.active {
+  background: rgba(46, 213, 115, 0.15);
+  color: #2ed573;
+  border: 1px solid rgba(46, 213, 115, 0.3);
+  box-shadow: 0 0 10px rgba(46, 213, 115, 0.1);
+}
+
+.status-badge.inactive {
+  background: rgba(255, 255, 255, 0.1);
+  color: #aaa;
+}
+
+/* --- Actions --- */
+.btn-icon-sm {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: #ccc;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.hover-gold:hover { background: var(--gold); color: #000; }
+.hover-info:hover { background: #0dcaf0; color: #000; }
+.hover-danger:hover { background: #ff6b6b; color: #fff; }
+
+/* --- Inactive Row Style --- */
+.inactive-row {
+  opacity: 0.65;
+  background: rgba(0, 0, 0, 0.2) !important;
+}
+
+.inactive-row:hover { opacity: 1; }
+
+.avatar-group.grayscale { filter: grayscale(100%); }
+
+/* --- Filter Buttons --- */
+.btn-filter {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #aaa;
+  border-radius: 8px;
+}
+
+.btn-filter.active {
+  background: var(--gold);
+  color: #000;
+  border-color: var(--gold);
+}
+
+/* Premium */
+.btn-premium-gold {
+  background: linear-gradient(135deg, #d4af37, #C5A059);
+  color: #000;
+  border: none;
+  font-weight: 700;
+  border-radius: 12px;
+}
+
+.btn-premium-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(199, 160, 99, 0.4);
+}

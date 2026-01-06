@@ -1,0 +1,342 @@
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}جزئیات پروژه | {{ project.name_fa }}{% endblock %}
+{% block menu_portfolio %}active{% endblock %}
+
+{% block content %}
+
+<div class="detail-header">
+  <div>
+    <h2 class="page-title mb-1">
+      {{ project.name_fa }}
+      {% if project.name_en %}<span class="dir-ltr" style="font-size:.95rem;color:#90a7a5;">({{ project.name_en }})</span>{% endif %}
+    </h2>
+    <p class="detail-subtitle">
+      اسلاگ: <span class="dir-ltr">/{{ project.slug }}/</span>
+      {% if project.category %} • دسته‌بندی: {{ project.category.name }}{% endif %}
+    </p>
+  </div>
+
+  <div class="detail-header-actions">
+    <a href="{% url 'admin_panel:portfolio_projects' %}" class="detail-back-btn">
+      <i class="bi bi-arrow-right-short"></i>
+      بازگشت
+    </a>
+
+    <a href="{% url 'admin_panel:portfolio_project_edit' project.slug %}" class="btn btn-sm btn-outline-warning">
+      <i class="bi bi-pencil-square ms-1"></i>
+      ویرایش پروژه
+    </a>
+
+    <a href="{% url 'admin_panel:portfolio_project_delete' project.slug %}" class="btn btn-sm btn-outline-danger">
+      <i class="bi bi-trash3 ms-1"></i>
+      حذف
+    </a>
+
+    {% if project.is_featured_home %}
+      <span class="detail-badge detail-badge-success"><i class="bi bi-star-fill"></i> Featured</span>
+    {% endif %}
+
+    {% if project.status == "active" %}
+      <span class="detail-badge detail-badge-success"><i class="bi bi-check2-circle"></i> فعال</span>
+    {% elif project.status == "paused" %}
+      <span class="detail-badge detail-badge-warning"><i class="bi bi-pause-circle"></i> متوقف</span>
+    {% elif project.status == "exited" %}
+      <span class="detail-badge detail-badge-info"><i class="bi bi-box-arrow-up-right"></i> خروج</span>
+    {% else %}
+      <span class="detail-badge"><i class="bi bi-dot"></i> {{ project.get_status_display }}</span>
+    {% endif %}
+  </div>
+</div>
+
+
+<!-- Main Project Card -->
+<div class="detail-card">
+
+  <div class="detail-grid">
+
+    <div class="detail-item">
+      <span class="detail-label">نام فارسی</span>
+      <div class="detail-value">{{ project.name_fa }}</div>
+    </div>
+
+    <div class="detail-item">
+      <span class="detail-label">نام انگلیسی</span>
+      <div class="detail-value dir-ltr">{% if project.name_en %}{{ project.name_en }}{% else %}—{% endif %}</div>
+    </div>
+
+    <div class="detail-item">
+      <span class="detail-label">اسلاگ</span>
+      <div class="detail-value dir-ltr">{{ project.slug }}</div>
+    </div>
+
+    <div class="detail-item">
+      <span class="detail-label">مدل همکاری</span>
+      <div class="detail-value">{{ project.get_collaboration_model_display }}</div>
+    </div>
+
+    <div class="detail-item">
+      <span class="detail-label">نمایش در صفحه اصلی</span>
+      <div class="detail-value">{% if project.is_featured_home %}بله{% else %}خیر{% endif %}</div>
+    </div>
+
+    <div class="detail-item">
+      <span class="detail-label">ترتیب‌ها</span>
+      <div class="detail-value">
+        home: <span class="dir-ltr">{{ project.home_order }}</span> •
+        list: <span class="dir-ltr">{{ project.list_order }}</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Image -->
+  <div class="detail-item" style="padding:14px;">
+    <span class="detail-label">تصویر</span>
+    {% if project.image %}
+      <div style="margin-top:8px; width:100%; max-width:520px; border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,0.08); background:rgba(0,0,0,0.35);">
+        <img src="{{ project.image.url }}" alt="{{ project.name_fa }}" style="width:100%;height:auto;display:block;object-fit:cover;">
+      </div>
+    {% else %}
+      <div class="detail-value mt-2">—</div>
+    {% endif %}
+  </div>
+
+  <!-- Text blocks -->
+  <div class="detail-description">
+    <div class="detail-description-header">
+      <i class="bi bi-card-text"></i>
+      تگ‌لاین کوتاه (لیست/کارت)
+    </div>
+    <p>{% if project.short_tagline %}{{ project.short_tagline }}{% else %}—{% endif %}</p>
+  </div>
+
+  <div class="detail-description">
+    <div class="detail-description-header">
+      <i class="bi bi-type"></i>
+      زیرتیتر هدر (صفحه جزئیات)
+    </div>
+    <p>{% if project.hero_subtitle %}{{ project.hero_subtitle }}{% else %}—{% endif %}</p>
+  </div>
+
+  <div class="detail-description">
+    <div class="detail-description-header">
+      <i class="bi bi-text-left"></i>
+      خلاصه صفحه لیست
+    </div>
+    <p>{% if project.list_summary %}{{ project.list_summary }}{% else %}—{% endif %}</p>
+  </div>
+
+  <div class="detail-description">
+    <div class="detail-description-header">
+      <i class="bi bi-file-text"></i>
+      چکیده اصلی صفحه جزئیات
+    </div>
+    <p>{% if project.detail_summary %}{{ project.detail_summary }}{% else %}—{% endif %}</p>
+  </div>
+
+</div>
+
+
+<!-- ===== Highlights ===== -->
+<div class="panel-box mt-4">
+  <div class="panel-header">
+    <h6 class="box-title mb-0">
+      هایلایت‌ها
+      <span class="panel-badge ms-2">{{ highlights|length }}</span>
+    </h6>
+    <a class="btn btn-sm btn-warning"
+       href="{% url 'admin_panel:portfolio_child_create' project.slug 'highlight' %}">
+      <i class="bi bi-plus-circle ms-1"></i>
+      افزودن هایلایت
+    </a>
+  </div>
+
+  <ul class="activity-list mt-3">
+    {% for h in highlights %}
+      <li class="activity-item">
+        <div class="activity-icon neutral">
+          {% if h.icon_class %}<i class="bi {{ h.icon_class }}"></i>{% else %}<i class="bi bi-lightning-charge"></i>{% endif %}
+        </div>
+
+        <div class="activity-content">
+          <div class="activity-title">{{ h.text }}</div>
+          <div class="activity-meta">
+            order: <span class="dir-ltr">{{ h.order }}</span>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 flex-wrap">
+          <a class="btn btn-sm btn-outline-warning"
+             href="{% url 'admin_panel:portfolio_child_edit' 'highlight' h.id %}">
+            <i class="bi bi-pencil-square ms-1"></i> ویرایش
+          </a>
+          <a class="btn btn-sm btn-outline-danger"
+             href="{% url 'admin_panel:portfolio_child_delete' 'highlight' h.id %}">
+            <i class="bi bi-trash3 ms-1"></i> حذف
+          </a>
+        </div>
+      </li>
+    {% empty %}
+      <li class="activity-item">
+        <div class="activity-content">
+          <div class="activity-title" style="color:#90a7a5;">هایلایتی ثبت نشده.</div>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+
+<!-- ===== Metrics ===== -->
+<div class="panel-box mt-4">
+  <div class="panel-header">
+    <h6 class="box-title mb-0">
+      متریک‌ها
+      <span class="panel-badge ms-2">{{ metrics|length }}</span>
+    </h6>
+    <a class="btn btn-sm btn-warning"
+       href="{% url 'admin_panel:portfolio_child_create' project.slug 'metric' %}">
+      <i class="bi bi-plus-circle ms-1"></i>
+      افزودن متریک
+    </a>
+  </div>
+
+  <ul class="activity-list mt-3">
+    {% for m in metrics %}
+      <li class="activity-item">
+        <div class="activity-icon info">
+          <i class="bi bi-graph-up"></i>
+        </div>
+
+        <div class="activity-content">
+          <div class="activity-title">{{ m.label }}</div>
+          <div class="activity-meta">
+            مقدار: <span class="dir-ltr">{{ m.value }}</span> • order: <span class="dir-ltr">{{ m.order }}</span>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 flex-wrap">
+          <a class="btn btn-sm btn-outline-warning"
+             href="{% url 'admin_panel:portfolio_child_edit' 'metric' m.id %}">
+            <i class="bi bi-pencil-square ms-1"></i> ویرایش
+          </a>
+          <a class="btn btn-sm btn-outline-danger"
+             href="{% url 'admin_panel:portfolio_child_delete' 'metric' m.id %}">
+            <i class="bi bi-trash3 ms-1"></i> حذف
+          </a>
+        </div>
+      </li>
+    {% empty %}
+      <li class="activity-item">
+        <div class="activity-content">
+          <div class="activity-title" style="color:#90a7a5;">متریکی ثبت نشده.</div>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+
+<!-- ===== Journey Steps ===== -->
+<div class="panel-box mt-4">
+  <div class="panel-header">
+    <h6 class="box-title mb-0">
+      مراحل مسیر همکاری
+      <span class="panel-badge ms-2">{{ journey_steps|length }}</span>
+    </h6>
+    <a class="btn btn-sm btn-warning"
+       href="{% url 'admin_panel:portfolio_child_create' project.slug 'step' %}">
+      <i class="bi bi-plus-circle ms-1"></i>
+      افزودن مرحله
+    </a>
+  </div>
+
+  <ul class="activity-list mt-3">
+    {% for s in journey_steps %}
+      <li class="activity-item">
+        <div class="activity-icon warning">
+          <i class="bi bi-diagram-3"></i>
+        </div>
+
+        <div class="activity-content">
+          <div class="activity-title">
+            مرحله <span class="dir-ltr">{{ s.step_number }}</span> — {{ s.title }}
+          </div>
+          <div class="activity-meta">{{ s.description|truncatechars:140 }}</div>
+        </div>
+
+        <div class="d-flex gap-2 flex-wrap">
+          <a class="btn btn-sm btn-outline-warning"
+             href="{% url 'admin_panel:portfolio_child_edit' 'step' s.id %}">
+            <i class="bi bi-pencil-square ms-1"></i> ویرایش
+          </a>
+          <a class="btn btn-sm btn-outline-danger"
+             href="{% url 'admin_panel:portfolio_child_delete' 'step' s.id %}">
+            <i class="bi bi-trash3 ms-1"></i> حذف
+          </a>
+        </div>
+      </li>
+    {% empty %}
+      <li class="activity-item">
+        <div class="activity-content">
+          <div class="activity-title" style="color:#90a7a5;">مرحله‌ای ثبت نشده.</div>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+
+<!-- ===== Role Assignments ===== -->
+<div class="panel-box mt-4">
+  <div class="panel-header">
+    <h6 class="box-title mb-0">
+      نقش‌های پروژه
+      <span class="panel-badge ms-2">{{ role_assignments|length }}</span>
+    </h6>
+    <a class="btn btn-sm btn-warning"
+       href="{% url 'admin_panel:portfolio_child_create' project.slug 'role_assign' %}">
+      <i class="bi bi-plus-circle ms-1"></i>
+      افزودن نقش
+    </a>
+  </div>
+
+  <ul class="activity-list mt-3">
+    {% for ra in role_assignments %}
+      <li class="activity-item">
+        <div class="activity-icon success">
+          <i class="bi bi-person-check"></i>
+        </div>
+
+        <div class="activity-content">
+          <div class="activity-title">{{ ra.role.title }}</div>
+          <div class="activity-meta">
+            order: <span class="dir-ltr">{{ ra.order }}</span>
+            • slug: <span class="dir-ltr">{{ ra.role.slug }}</span>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 flex-wrap">
+          <a class="btn btn-sm btn-outline-warning"
+             href="{% url 'admin_panel:portfolio_child_edit' 'role_assign' ra.id %}">
+            <i class="bi bi-pencil-square ms-1"></i> ویرایش
+          </a>
+          <a class="btn btn-sm btn-outline-danger"
+             href="{% url 'admin_panel:portfolio_child_delete' 'role_assign' ra.id %}">
+            <i class="bi bi-trash3 ms-1"></i> حذف
+          </a>
+        </div>
+      </li>
+    {% empty %}
+      <li class="activity-item">
+        <div class="activity-content">
+          <div class="activity-title" style="color:#90a7a5;">نقشی ثبت نشده.</div>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

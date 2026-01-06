@@ -1,0 +1,253 @@
+{% extends "users_panel/users_panel_base.html" %}
+{% load static %}
+
+{% block title %}Anam Portal | لیست گزارشات{% endblock %}
+{% block nav_reports_active %}active{% endblock %}
+{% block page_title %}مدیریت گزارشات{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/users_panel/report_list.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jalalidatepicker/dist/jalalidatepicker.min.css">
+{% endblock %}
+
+{% block content %}
+
+  <div class="d-flex flex-column flex-xl-row justify-content-between align-items-xl-center gap-3 mb-5 animate-fade-in-up">
+    <div>
+      <h1 class="h3 fw-bold text-white mb-1">لیست گزارشات</h1>
+      <p class="text-white-50 small mb-0">مدیریت و ثبت عملکرد روزانه</p>
+    </div>
+
+    <div class="d-flex flex-column flex-md-row align-items-md-center gap-3">
+      <div class="date-search-wrapper">
+        <div class="input-group glass-input-group">
+          <span class="input-group-text bg-transparent border-0 text-gold ps-3">
+            <i class="bi bi-search"></i>
+          </span>
+
+          <input
+            type="text"
+            class="form-control bg-transparent border-0 text-white shadow-none"
+            placeholder="جستجو در تاریخ..."
+            id="reportDateSearch"
+            data-jdp
+            autocomplete="off"
+          >
+        </div>
+      </div>
+
+      <div class="vr d-none d-md-block bg-white-10 mx-1" style="height: 30px;"></div>
+
+      <div class="filter-glass p-1 rounded-4 d-inline-flex">
+        <button class="btn btn-sm text-white-50 filter-btn active" data-filter="all">همه</button>
+        <button class="btn btn-sm text-white-50 filter-btn" data-filter="pending">اقدام</button>
+        <button class="btn btn-sm text-white-50 filter-btn" data-filter="completed">آرشیو</button>
+      </div>
+    </div>
+  </div>
+
+  {# ------------------ Priority Today Card ------------------ #}
+  {% if priority %}
+    <div class="row justify-content-center mb-5 animate-fade-in-up delay-1">
+      <div class="col-12 col-md-8 col-xl-5">
+
+        <div class="d-flex align-items-center justify-content-center mb-3">
+          <span class="text-gold super-small text-uppercase letter-spacing-1">
+            <i class="bi bi-circle-fill super-small me-2"></i>اولویت اصلی شما
+          </span>
+        </div>
+
+        <div class="report-card glass-card active-today hover-lift-special w-100 shadow-lg border-gold"
+             style="border-width: 1px;"
+             data-status="{{ priority.status }}"
+             data-jalali="{{ priority.jalali_full }}">
+          <div class="card-status-line bg-gold"></div>
+
+          <div class="report-header d-flex justify-content-between align-items-start mb-4">
+            <div class="date-box active bg-gold text-dark border-0">
+              <span class="day fw-bold">{{ priority.day_num }}</span>
+              <span class="month small fw-bold">{{ priority.month_name }}</span>
+            </div>
+            <span class="badge bg-gold text-dark rounded-pill fw-bold px-3 py-2">
+              <i class="bi bi-star-fill me-1"></i> امروز
+            </span>
+          </div>
+
+          <div class="report-body mb-4 text-center">
+            <h4 class="plan-title text-white h4 fw-bold mb-2">{{ priority.title }}</h4>
+            <p class="text-white-50 small mb-4">
+              {{ priority.ach_count }} دستاورد کلیدی برای ثبت در سیستم وجود دارد.
+            </p>
+
+            <div class="time-progress-wrapper bg-white-05 p-3 text-start"
+                 id="todayTimer"
+                 data-now="{{ today_now_iso }}"
+                 data-locked="{{ today_locked_at_iso }}">
+
+              <div class="d-flex justify-content-between text-white small mb-2">
+                <span>زمان باقی‌مانده:</span>
+                <span class="text-warning fw-bold" id="remainingText">—</span>
+              </div>
+
+              <div class="progress bg-white-10 rounded-pill" style="height: 10px;">
+                <div class="progress-bar bg-gradient-warning" id="progressBar" style="width: 0%"></div>
+              </div>
+
+              <small class="text-white-50 super-small mt-1 d-block text-end">
+                بسته شدن: <span id="lockTimeText">—</span>
+              </small>
+            </div>
+          </div>
+
+          <div class="report-footer mt-auto pt-2">
+            {% if priority.status == "pending" %}
+              <a href="{% url 'worklog:report' plan_id=priority.plan_id %}"
+                 class="btn btn-gold w-100 py-3 fw-bold shadow-gold">
+                ثبت گزارش عملکرد امروز
+                <i class="bi bi-pencil-square ms-2"></i>
+              </a>
+            {% else %}
+              <a href="{% url 'worklog:report' plan_id=priority.plan_id %}"
+                 class="btn btn-luxury-secondary w-100 py-3">
+                مشاهده و ویرایش گزارش امروز
+              </a>
+            {% endif %}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="d-flex align-items-center mb-4 animate-fade-in-up delay-2">
+    <span class="text-white-50 small fw-bold">سایر روزها (آینده و گذشته)</span>
+    <div class="flex-grow-1 ms-3 border-bottom border-white-10"></div>
+  </div>
+
+  <div class="row g-4 animate-fade-in-up delay-2" id="reportsGrid">
+
+    {% for r in reports %}
+      <div class="col-xl-3 col-lg-4 col-md-6 report-item"
+           data-status="{{ r.status }}"
+           data-jalali="{{ r.jalali_full }}">
+
+        {% if r.status == "future" %}
+          {# --- FUTURE (قفل) --- #}
+          <div class="report-card glass-card locked h-100">
+            <div class="report-header d-flex justify-content-between align-items-start mb-3">
+              <div class="date-box">
+                <span class="day fw-bold text-white-50">{{ r.day_num }}</span>
+                <span class="month text-white-50 small">{{ r.month_name }}</span>
+              </div>
+              <span class="badge bg-white-10 text-white-50 border border-white-10 rounded-pill">آینده</span>
+            </div>
+
+            <div class="report-body mb-4 d-flex flex-column align-items-center justify-content-center text-center py-3">
+              <i class="bi bi-lock-fill fs-2 text-white-50 mb-2"></i>
+              <h4 class="text-white-50 h6 fw-bold">قفل شده</h4>
+              <p class="text-white-50 super-small mb-0">امکان ثبت گزارش فقط در همان روز.</p>
+            </div>
+
+            <div class="report-footer mt-auto">
+              <button class="btn btn-luxury-secondary w-100 disabled" disabled>در انتظار</button>
+            </div>
+          </div>
+
+        {% elif r.status == "completed" %}
+          {# --- COMPLETED (مشاهده) --- #}
+          <div class="report-card glass-card completed hover-lift-special h-100">
+            <div class="card-status-line bg-success"></div>
+
+            <div class="report-header d-flex justify-content-between align-items-start mb-3">
+              <div class="date-box">
+                <span class="day fw-bold text-white-50">{{ r.day_num }}</span>
+                <span class="month text-white-50 small">{{ r.month_name }}</span>
+              </div>
+              <span class="badge bg-success-subtle text-success border border-success border-opacity-25 rounded-pill">
+                تکمیل
+              </span>
+            </div>
+
+            <div class="report-body mb-4">
+              <h4 class="plan-title text-white-50 h6 fw-bold mb-2">{{ r.title }}</h4>
+              <span class="text-success small"><i class="bi bi-graph-up me-1"></i> ثبت شده</span>
+            </div>
+
+            <div class="report-footer mt-auto">
+              <a href="{% url 'worklog:report_view' plan_id=r.plan_id %}"
+                 class="btn btn-link text-white-50 w-100 text-decoration-none small hover-text-white">
+                مشاهده
+              </a>
+            </div>
+          </div>
+
+        {% elif r.status == "locked_past" %}
+          {# --- PAST WITHOUT REPORT (مثل مشاهده ولی غیرفعال) --- #}
+          <div class="report-card glass-card completed h-100">
+            <div class="card-status-line bg-secondary"></div>
+
+            <div class="report-header d-flex justify-content-between align-items-start mb-3">
+              <div class="date-box">
+                <span class="day fw-bold text-white-50">{{ r.day_num }}</span>
+                <span class="month text-white-50 small">{{ r.month_name }}</span>
+              </div>
+              <span class="badge bg-white-10 text-white-50 border border-white-10 rounded-pill">
+                گذشته
+              </span>
+            </div>
+
+            <div class="report-body mb-4">
+              <h4 class="plan-title text-white-50 h6 fw-bold mb-2">{{ r.title }}</h4>
+              <span class="text-white-50 small">
+                <i class="bi bi-dash-circle me-1"></i> گزارشی ثبت نشده
+              </span>
+            </div>
+
+            <div class="report-footer mt-auto">
+              <button class="btn btn-luxury-secondary w-100 disabled" disabled>بدون گزارش</button>
+            </div>
+          </div>
+
+        {% else %}
+          {# --- PENDING (فقط امروز) --- #}
+          <div class="report-card glass-card active-today hover-lift-special h-100 border-gold" style="border-width:1px;">
+            <div class="card-status-line bg-gold"></div>
+
+            <div class="report-header d-flex justify-content-between align-items-start mb-3">
+              <div class="date-box active">
+                <span class="day fw-bold">{{ r.day_num }}</span>
+                <span class="month small">{{ r.month_name }}</span>
+              </div>
+              <span class="badge bg-gold text-dark rounded-pill fw-bold">اقدام</span>
+            </div>
+
+            <div class="report-body mb-4">
+              <h4 class="plan-title text-white h6 fw-bold mb-2">{{ r.title }}</h4>
+              <p class="text-white-50 super-small mb-0">گزارش امروز هنوز ثبت نشده.</p>
+            </div>
+
+            <div class="report-footer mt-auto">
+              <a href="{% url 'worklog:report' plan_id=r.plan_id %}"
+                 class="btn btn-gold w-100 py-2 fw-bold shadow-gold">
+                ثبت گزارش
+                <i class="bi bi-pencil-square ms-2"></i>
+              </a>
+            </div>
+          </div>
+        {% endif %}
+
+      </div>
+    {% empty %}
+      <div class="col-12">
+        <div class="text-center py-5 text-white-50">هنوز گزارشی برای نمایش ندارید.</div>
+      </div>
+    {% endfor %}
+
+  </div>
+
+{% endblock %}
+
+{% block extra_js %}
+  <script src="https://cdn.jsdelivr.net/npm/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
+  <script src="{% static 'js/users_panel/report_list.js' %}"></script>
+{% endblock %}

@@ -42,10 +42,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     # ---- رول‌ها ----
     ROLE_ADMIN = "admin"
     ROLE_STAFF = "staff"
-
+    ROLE_WATCHER_ADMIN = "watcher_admin"
     ROLE_CHOICES = (
         (ROLE_ADMIN, "مدیر سیستم"),
         (ROLE_STAFF, "کارشناس"),
+        (ROLE_WATCHER_ADMIN, "ادمین بیننده"),
     )
 
     # ---- اطلاعات اصلی ----

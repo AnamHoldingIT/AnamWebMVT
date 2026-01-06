@@ -28,7 +28,8 @@
         href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" />
 </head>
 
-<body>
+<body {% if messages %}data-login-error="{% for m in messages %}{{ m|escapejs }} {% endfor %}"{% endif %}>
+
   <!-- دکمه شناور بازگشت -->
   <a href="{% url 'home:home' %}" class="btn-floating-home">
     <i class="bi bi-house-door-fill"></i>

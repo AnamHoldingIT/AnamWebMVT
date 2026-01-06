@@ -13,8 +13,14 @@
         <i class="bi bi-search"></i>
         <input type="text"
                name="q"
-               placeholder="جستجو بر اساس نام، نام خانوادگی یا شماره..."
+               placeholder="جستجو بر اساس نام، شماره، ایمیل، شهر یا معرف..."
                value="{{ query }}">
+        {% if current_status %}
+            <input type="hidden" name="status" value="{{ current_status }}">
+        {% endif %}
+        {% if current_ref %}
+            <input type="hidden" name="ref" value="{{ current_ref }}">
+        {% endif %}
     </form>
 </header>
 
@@ -29,20 +35,32 @@
 
     <!-- فیلتر وضعیت -->
     <div class="mb-3 d-flex flex-wrap gap-2">
-        <a href="?{% if query %}q={{ query }}&{% endif %}"
+        <a href="?{% if query %}q={{ query }}&{% endif %}{% if current_ref %}ref={{ current_ref }}&{% endif %}"
            class="badge rounded-pill {% if not current_status %}bg-warning text-dark{% else %}bg-dark text-light{% endif %}">
             همه وضعیت‌ها
         </a>
 
         {% for value, label in status_choices %}
-            <a href="?status={{ value }}{% if query %}&q={{ query }}{% endif %}"
-               class="badge rounded-pill
-                    {% if current_status == value %}
-                        bg-warning text-dark
-                    {% else %}
-                        bg-dark text-light
-                    {% endif %}">
+            <a href="?status={{ value }}{% if query %}&q={{ query }}{% endif %}{% if current_ref %}&ref={{ current_ref }}{% endif %}"
+               class="badge rounded-pill {% if current_status == value %}bg-warning text-dark{% else %}bg-dark text-light{% endif %}">
                 {{ label }}
+            </a>
+        {% endfor %}
+    </div>
+
+    <!-- ✅ فیلتر معرف -->
+    <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+        <span class="text-muted small">فیلتر معرف:</span>
+
+        <a href="?{% if query %}q={{ query }}&{% endif %}{% if current_status %}status={{ current_status }}&{% endif %}"
+           class="badge rounded-pill {% if not current_ref %}bg-warning text-dark{% else %}bg-dark text-light{% endif %}">
+            همه
+        </a>
+
+        {% for r in referrers %}
+            <a href="?ref={{ r.code }}{% if query %}&q={{ query }}{% endif %}{% if current_status %}&status={{ current_status }}{% endif %}"
+               class="badge rounded-pill {% if current_ref == r.code %}bg-warning text-dark{% else %}bg-dark text-light{% endif %}">
+                {{ r.name }}
             </a>
         {% endfor %}
     </div>
@@ -54,6 +72,9 @@
                 <th style="width: 40px;">#</th>
                 <th>نام و نام خانوادگی</th>
                 <th>شماره تماس</th>
+                <th>ایمیل</th>
+                <th>شهر</th>
+                <th>معرف</th>
                 <th>وضعیت</th>
                 <th>تاریخ ثبت</th>
                 <th></th>
@@ -65,17 +86,24 @@
                     <td>{{ forloop.counter0|add:page_obj.start_index }}</td>
                     <td>{{ obj.full_name }}</td>
                     <td class="dir-ltr">{{ obj.phone }}</td>
+                    <td class="dir-ltr">{{ obj.email|default:"—" }}</td>
+                    <td>{{ obj.city|default:"—" }}</td>
+                    <td>
+                        {% if obj.referrer %}
+                            {{ obj.referrer.name }}
+                            <span class="text-muted small">({{ obj.referrer.code }})</span>
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
                     <td>
                         <span class="badge bg-secondary">
                             {{ obj.get_status_display }}
                         </span>
                     </td>
-                    <td>
-                        {{ obj.created_at|date:"Y/m/d H:i" }}
-                    </td>
+                    <td>{{ obj.created_at|date:"Y/m/d H:i" }}</td>
                     <td class="text-start">
-                        <a href="{% url 'admin_panel:recode_detail' obj.pk %}"
-                           class="detail-back-btn">
+                        <a href="{% url 'admin_panel:recode_detail' obj.pk %}" class="detail-back-btn">
                             مشاهده جزئیات
                             <i class="bi bi-arrow-left-short"></i>
                         </a>
@@ -83,7 +111,7 @@
                 </tr>
             {% empty %}
                 <tr>
-                    <td colspan="6" class="text-center text-muted py-4">
+                    <td colspan="9" class="text-center text-muted py-4">
                         هنوز هیچ درخواستی ثبت نشده است.
                     </td>
                 </tr>
@@ -100,7 +128,7 @@
                     {% if page_obj.has_previous %}
                         <li class="page-item">
                             <a class="page-link bg-dark text-light border-secondary"
-                               href="?page={{ page_obj.previous_page_number }}{% if current_status %}&status={{ current_status }}{% endif %}{% if query %}&q={{ query }}{% endif %}">
+                               href="?page={{ page_obj.previous_page_number }}{% if current_status %}&status={{ current_status }}{% endif %}{% if query %}&q={{ query }}{% endif %}{% if current_ref %}&ref={{ current_ref }}{% endif %}">
                                 قبلی
                             </a>
                         </li>
@@ -114,7 +142,7 @@
                         {% else %}
                             <li class="page-item">
                                 <a class="page-link bg-dark text-light border-secondary"
-                                   href="?page={{ num }}{% if current_status %}&status={{ current_status }}{% endif %}{% if query %}&q={{ query }}{% endif %}">
+                                   href="?page={{ num }}{% if current_status %}&status={{ current_status }}{% endif %}{% if query %}&q={{ query }}{% endif %}{% if current_ref %}&ref={{ current_ref }}{% endif %}">
                                     {{ num }}
                                 </a>
                             </li>
@@ -124,7 +152,7 @@
                     {% if page_obj.has_next %}
                         <li class="page-item">
                             <a class="page-link bg-dark text-light border-secondary"
-                               href="?page={{ page_obj.next_page_number }}{% if current_status %}&status={{ current_status }}{% endif %}{% if query %}&q={{ query }}{% endif %}">
+                               href="?page={{ page_obj.next_page_number }}{% if current_status %}&status={{ current_status }}{% endif %}{% if query %}&q={{ query }}{% endif %}{% if current_ref %}&ref={{ current_ref }}{% endif %}">
                                 بعدی
                             </a>
                         </li>

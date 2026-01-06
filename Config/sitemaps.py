@@ -9,7 +9,9 @@ class StaticViewSitemap(Sitemap):
     def items(self):
         return [
             "home:home",      # صفحه اصلی
-            "zlink:recode",   # صفحه Mode X / ReCode
+            "zlink:recode",
+            "portfolio:portfolio_list"
+
         ]
 
     def location(self, item):

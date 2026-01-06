@@ -1,0 +1,237 @@
+{# admin-panel/worklog/admin_plans_list.html #}
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}Anam Admin | بررسی برنامه‌های روزانه{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jalalidatepicker/dist/jalalidatepicker.min.css">
+    <link rel="stylesheet" href="{% static 'css/admin_panel/worklog/admin-plans.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <header class="topbar mb-5">
+        <div>
+            <h2 class="h4 fw-bold text-white mb-1">بررسی برنامه‌های روزانه</h2>
+            <span class="text-white-50 small">مشاهده و کنترل فعالیت پرسنل بر اساس تاریخ</span>
+        </div>
+
+        <form id="dateForm" method="get" class="date-navigator d-flex align-items-center gap-2">
+            <input type="hidden" name="q" value="{{ q }}">
+            <input type="hidden" name="user" value="{{ user_id }}">
+            <input type="hidden" name="status" value="{{ status }}">
+            <input type="hidden" name="nav" id="navField" value="">
+
+            <button type="button" id="todayBtn" class="btn btn-sm btn-gold">امروز</button>
+
+            <button type="button" id="prevDay" class="btn btn-icon-sm hover-gold" title="روز قبل">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+
+            <div class="date-search-wrapper">
+                <div class="input-group glass-input-group">
+        <span class="input-group-text bg-transparent border-0 text-gold ps-3">
+          <i class="bi bi-calendar-event"></i>
+        </span>
+                    <input
+                            type="text"
+                            class="form-control bg-transparent border-0 text-white shadow-none"
+                            id="date_j"
+                            name="date_j"
+                            data-jdp
+                            autocomplete="off"
+                            value="{{ date_j }}"
+                            placeholder="انتخاب تاریخ..."
+                    >
+                </div>
+
+                <small class="text-white-50 super-small mt-1 d-block">
+                    <span id="dateTitle">{{ selected_date_title }}</span>
+                </small>
+            </div>
+
+            <button type="button" id="nextDay" class="btn btn-icon-sm hover-gold" title="روز بعد">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+        </form>
+    </header>
+
+    <section class="row g-3 mb-5">
+        <div class="col-md-3">
+            <div class="stat-box glass-panel p-3 d-flex align-items-center gap-3">
+                <div class="icon-box bg-info-subtle text-info"><i class="bi bi-list-task"></i></div>
+                <div class="d-flex flex-column">
+                    <h5 class="mb-0 fw-bold text-white">{{ stat_total }}</h5>
+                    <span class="super-small text-white-50">کل پرسنل</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-box glass-panel p-3 d-flex align-items-center gap-3">
+                <div class="icon-box bg-success-subtle text-success"><i class="bi bi-check-lg"></i></div>
+                <div class="d-flex flex-column">
+                    <h5 class="mb-0 fw-bold text-white">{{ stat_done }}</h5>
+                    <span class="super-small text-white-50">تکمیل شده</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-box glass-panel p-3 d-flex align-items-center gap-3">
+                <div class="icon-box bg-warning-subtle text-warning"><i class="bi bi-hourglass-split"></i></div>
+                <div class="d-flex flex-column">
+                    <h5 class="mb-0 fw-bold text-white">{{ stat_waiting }}</h5>
+                    <span class="super-small text-white-50">در انتظار گزارش</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-box glass-panel p-3 d-flex align-items-center gap-3">
+                <div class="icon-box bg-danger-subtle text-danger"><i class="bi bi-x-circle"></i></div>
+                <div class="d-flex flex-column">
+                    <h5 class="mb-0 fw-bold text-white">{{ stat_absent }}</h5>
+                    <span class="super-small text-white-50">ثبت نشده</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+        <div class="d-flex align-items-center gap-2">
+            <h5 class="text-white h6 mb-0 border-end border-3 border-gold pe-3 ms-2">لیست پرسنل</h5>
+            <span class="text-white-50 super-small">نمایش وضعیت کاری بر اساس تاریخ</span>
+        </div>
+
+        {# ✅ فیلتر فرم #}
+        <form id="filtersForm" method="get" class="d-flex gap-3">
+            <input type="hidden" name="date_j" value="{{ date_j }}">
+            <input type="hidden" name="user" value="{{ user_id }}">
+            <input type="hidden" name="page" value="1">
+
+            <div class="search-box">
+                <i class="bi bi-search text-gold"></i>
+                <input type="text" name="q" value="{{ q }}" placeholder="جستجوی نام کاربر..." autocomplete="off">
+            </div>
+
+            <select class="form-select admin-select w-auto" name="status">
+                <option value="" {% if not status %}selected{% endif %}>همه وضعیت‌ها</option>
+                <option value="done" {% if status == "done" %}selected{% endif %}>تکمیل شده</option>
+                <option value="waiting" {% if status == "waiting" %}selected{% endif %}>منتظر گزارش</option>
+                <option value="planned" {% if status == "planned" %}selected{% endif %}>برنامه‌ریزی شده</option>
+                <option value="absent" {% if status == "absent" %}selected{% endif %}>ثبت نشده</option>
+            </select>
+
+            <button class="btn btn-icon-sm hover-gold" type="submit" title="اعمال">
+                <i class="bi bi-funnel"></i>
+            </button>
+        </form>
+    </div>
+
+    <section class="plans-list d-flex flex-column gap-3">
+        {% for r in rows %}
+            <div class="plan-item glass-panel p-3 {% if r.status_key == 'absent' %}border-end border-3 border-danger{% endif %}">
+                <div class="row align-items-center g-3">
+
+                    <div class="col-md-5 col-12">
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="{{ r.avatar_url }}" class="avatar-md {% if r.is_inactive %}grayscale{% endif %}">
+                            <div>
+              <span class="{% if r.is_inactive %}text-white-50{% else %}text-white{% endif %} fw-bold d-block fs-09">
+                {{ r.user_name }}
+              </span>
+                                <span class="text-white-50 super-small">{{ r.user_role }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 col-6 text-md-center">
+                        <div class="d-flex flex-column align-items-md-center">
+                            <span class="super-small text-white-50 mb-1">وضعیت</span>
+
+                            {% if r.status_key == "done" %}
+                                <span class="status-pill success"><i
+                                        class="bi bi-check-all"></i> {{ r.status_label }}</span>
+                            {% elif r.status_key == "waiting" %}
+                                <span class="status-pill warning"><i
+                                        class="bi bi-hourglass-split"></i> {{ r.status_label }}</span>
+                            {% elif r.status_key == "planned" %}
+                                <span class="status-pill info"><i
+                                        class="bi bi-calendar"></i> {{ r.status_label }}</span>
+                            {% else %}
+                                <span class="status-pill danger"><i
+                                        class="bi bi-x-circle"></i> {{ r.status_label }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 col-12 text-end">
+                        {% if r.plan_id %}
+                            <a class="btn btn-luxury-outline btn-sm w-100 w-md-auto"
+                               href="{% url 'admin_panel:worklog_plan_detail' r.plan_id %}">
+                                مشاهده <i class="bi bi-arrow-left ms-2"></i>
+                            </a>
+                        {% else %}
+                            <button class="btn btn-luxury-outline btn-sm w-100 w-md-auto opacity-50" disabled>
+                                مشاهده <i class="bi bi-arrow-left ms-2"></i>
+                            </button>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        {% empty %}
+            <div class="glass-panel p-4 text-center text-white-50">
+                موردی برای نمایش وجود ندارد.
+            </div>
+        {% endfor %}
+    </section>
+
+    {# ✅ Pagination اضافه شد #}
+    {% if is_paginated %}
+        <div class="d-flex justify-content-center mt-4">
+            <nav aria-label="Plans pagination">
+                <ul class="pagination pagination-custom mb-0">
+
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=
+                                    {{ page_obj.previous_page_number }}{% if query_params %}&{{ query_params }}{% endif %}">قبلی</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled"><span class="page-link">قبلی</span></li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if num == page_obj.number %}
+                            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                        {% elif num >= page_obj.number|add:-2 and num <= page_obj.number|add:2 %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=
+                                        {{ num }}{% if query_params %}&{{ query_params }}{% endif %}">{{ num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=
+                                    {{ page_obj.next_page_number }}{% if query_params %}&{{ query_params }}{% endif %}">بعدی</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled"><span class="page-link">بعدی</span></li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="https://cdn.jsdelivr.net/npm/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
+    <script src="{% static 'js/admin_panel/worklog/admin-plans.js' %}"></script>
+{% endblock %}

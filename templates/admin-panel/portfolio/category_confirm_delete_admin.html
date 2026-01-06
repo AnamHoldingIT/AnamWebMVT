@@ -1,0 +1,75 @@
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}حذف دسته‌بندی{% endblock %}
+{% block menu_portfolio %}active{% endblock %}
+
+{% block content %}
+
+<div class="detail-header">
+  <div>
+    <h2 class="page-title mb-1">حذف دسته‌بندی</h2>
+    <p class="detail-subtitle">
+      این عملیات برگشت‌پذیر نیست.
+    </p>
+  </div>
+
+  <div class="detail-header-actions">
+    <a href="{% url 'admin_panel:portfolio_categories' %}" class="detail-back-btn">
+      <i class="bi bi-arrow-right-short"></i>
+      بازگشت
+    </a>
+  </div>
+</div>
+
+<div class="detail-card">
+
+  <div class="panel-box" style="margin-top:0;">
+    <div class="panel-header">
+      <h3 class="box-title">تأیید حذف</h3>
+      <span class="panel-badge">هشدار</span>
+    </div>
+
+    <p class="mb-0" style="color: var(--muted); line-height: 1.9;">
+      آیا مطمئن هستید که می‌خواهید دسته‌بندی زیر را حذف کنید؟
+    </p>
+
+    <div class="detail-grid mt-3">
+      <div class="detail-item">
+        <span class="detail-label">نام</span>
+        <div class="detail-value">{{ object.name }}</div>
+      </div>
+
+      <div class="detail-item dir-ltr">
+        <span class="detail-label">اسلاگ</span>
+        <div class="detail-value">{{ object.slug }}</div>
+      </div>
+
+      <div class="detail-item dir-ltr">
+        <span class="detail-label">آیکن</span>
+        <div class="detail-value">
+          {% if object.icon_class %}
+            <i class="bi {{ object.icon_class }}"></i>
+            <span class="ms-2">{{ object.icon_class }}</span>
+          {% else %}
+            <span style="color: var(--muted);">ندارد</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <form method="post" class="mt-4 d-flex gap-2 flex-wrap">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">
+        <i class="bi bi-trash3 ms-1"></i>
+        حذف قطعی
+      </button>
+      <a href="{% url 'admin_panel:portfolio_categories' %}" class="btn btn-outline-light">
+        انصراف
+      </a>
+    </form>
+  </div>
+
+</div>
+
+{% endblock %}

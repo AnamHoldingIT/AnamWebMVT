@@ -1,0 +1,271 @@
+{#project_create.html#}
+
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}Anam Admin | ایجاد پروژه جدید{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/admin_panel/worklog/admin-create-project.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <header class="topbar mb-5">
+        <div class="d-flex align-items-center gap-3">
+            <a href="{{ back_url }}" class="btn btn-icon-glass"><i class="bi bi-arrow-right"></i></a>
+            <div>
+                <h2 class="h4 fw-bold text-white mb-1">ایجاد پروژه جدید</h2>
+                <span class="text-white-50 small">تعریف فضای کاری و تشکیل تیم</span>
+            </div>
+        </div>
+
+        <button form="createProjectForm" type="submit" class="btn btn-premium-gold shadow-gold px-4">
+            <i class="bi bi-plus-lg me-2"></i> ثبت نهایی پروژه
+        </button>
+    </header>
+
+    <form id="createProjectForm" method="post" novalidate>
+        {% csrf_token %}
+
+        <div class="row g-4">
+
+            <!-- Left: Base Info -->
+            <div class="col-lg-5">
+                <div class="glass-panel h-100">
+                    <div class="panel-header mb-4 border-bottom border-white-10 pb-3">
+                        <h5 class="text-white fw-bold mb-0">
+                            <i class="bi bi-sliders text-gold me-2"></i>اطلاعات پایه
+                        </h5>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-white-50 small">عنوان پروژه</label>
+                        <input id="titleInput" name="title" type="text" class="form-control luxury-input"
+                               placeholder="نام پروژه را وارد کنید..." required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-white-50 small">لینک گوگل شیت</label>
+                        <div class="input-group-luxury">
+                            <input id="sheetInput" name="sheet_url" type="url" class="form-control luxury-input"
+                                   placeholder="https://docs.google.com/spreadsheets/..." required>
+                            <span class="input-icon-link text-white-50"><i class="bi bi-link-45deg"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="p-3 rounded-3 bg-white-05 border border-white-10 d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="text-white d-block fw-bold fs-09">وضعیت اولیه</span>
+                            <span class="text-white-50 super-small">پروژه به صورت پیش‌فرض فعال باشد؟</span>
+                        </div>
+                        <label class="switch">
+                            <input name="is_active" type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Right: Team Building -->
+            <div class="col-lg-7">
+                <div class="glass-panel h-100 d-flex flex-column">
+
+                    <div class="panel-header mb-4 border-bottom border-white-10 pb-3">
+                        <h5 class="text-white fw-bold mb-0">
+                            <i class="bi bi-people text-gold me-2"></i>تیم‌سازی
+                        </h5>
+                    </div>
+
+                    <!-- Add member box -->
+                    <div class="add-member-box p-3 rounded-3 mb-4">
+                        <h6 class="text-gold super-small fw-bold mb-2">افزودن عضو به تیم</h6>
+
+                        <div class="d-flex gap-2 flex-wrap">
+                            <select id="memberUserSelect" class="form-select admin-select flex-grow-1"
+                                    style="min-width: 170px;">
+                                <option selected disabled value="">انتخاب کاربر...</option>
+                                {% for u in available_users %}
+                                    <option value="{{ u.id }}">{{ u.full_name|default:u.username }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <select id="memberRoleSelect" class="form-select admin-select w-auto"
+                                    style="min-width: 120px;">
+                                <option value="{{ ROLE_MEMBER }}">عضو عادی</option>
+                                <option value="{{ ROLE_MANAGER }}">مدیر پروژه</option>
+                            </select>
+
+                            <button id="addMemberBtn" type="button" class="btn btn-gold icon-btn flex-shrink-0">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+
+                        <div class="mt-2 text-white-50 super-small">
+                            نکته: می‌تونی پروژه رو بدون عضو هم بسازی، بعداً از صفحه ویرایش عضو اضافه کن.
+                        </div>
+                    </div>
+
+                    <!-- Members list -->
+                    <div id="membersList"
+                         class="members-list custom-scrollbar flex-grow-1 p-2"
+                         style="max-height: 400px; overflow-y: auto; background: rgba(0,0,0,0.2); border-radius: 12px;">
+
+                        <div class="empty-state text-center py-5 text-white-50">
+                            <i class="bi bi-person-plus display-6 mb-3 d-block opacity-50"></i>
+                            <span class="small">هنوز عضوی به این پروژه اضافه نشده است.</span>
+                        </div>
+
+                    </div>
+
+                    <!-- hidden inputs are appended here -->
+                    <div id="membersHiddenInputs"></div>
+
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <!-- ✅ Toast / Popup -->
+    <div id="toast" class="lux-toast" aria-live="polite" aria-atomic="true">
+        <div class="lux-toast-inner">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <div class="lux-toast-text">
+                <div class="lux-toast-title">خطا</div>
+                <div id="toastMsg" class="lux-toast-msg">...</div>
+            </div>
+            <button type="button" class="lux-toast-close" id="toastClose" aria-label="بستن">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            console.log("Create Project JS Loaded ✅");
+
+            const addBtn = document.getElementById("addMemberBtn");
+            const userSelect = document.getElementById("memberUserSelect");
+            const roleSelect = document.getElementById("memberRoleSelect");
+
+            const list = document.getElementById("membersList");
+            const hiddenBox = document.getElementById("membersHiddenInputs");
+
+            if (!addBtn || !userSelect || !roleSelect || !list || !hiddenBox) {
+                console.error("❌ Some elements not found!", {
+                    addBtn, userSelect, roleSelect, list, hiddenBox
+                });
+                alert("JS اجرا شد ولی المنت‌ها پیدا نشدن. block extra_js احتمالاً قبل از HTML لود میشه یا id ها اشتباهه.");
+                return;
+            }
+
+            const selectedUsers = new Set();
+
+            function roleLabel(roleVal) {
+                if (roleVal === "{{ ROLE_MANAGER }}") return "مدیر پروژه";
+                return "عضو عادی";
+            }
+
+            function removeEmptyState() {
+                const es = list.querySelector(".empty-state");
+                if (es) es.remove();
+            }
+
+            function addEmptyStateIfNeeded() {
+                if (list.querySelector(".member-item")) return;
+                list.innerHTML = `
+      <div class="empty-state text-center py-5 text-white-50">
+        <i class="bi bi-person-plus display-6 mb-3 d-block opacity-50"></i>
+        <span class="small">هنوز عضوی به این پروژه اضافه نشده است.</span>
+      </div>
+    `;
+            }
+
+            function addHiddenInputs(uid, role) {
+                const wrap = document.createElement("div");
+                wrap.className = "member-hidden-row";
+                wrap.dataset.uid = String(uid);
+
+                wrap.innerHTML = `
+      <input type="hidden" name="member_user_id" value="${uid}">
+      <input type="hidden" name="member_role" value="${role}">
+    `;
+                hiddenBox.appendChild(wrap);
+            }
+
+            function removeHiddenInputs(uid) {
+                const row = hiddenBox.querySelector(`.member-hidden-row[data-uid="${uid}"]`);
+                if (row) row.remove();
+            }
+
+            function addMemberToUI(uid, name, role) {
+                removeEmptyState();
+
+                const isManager = (role === "{{ ROLE_MANAGER }}");
+                const bg = isManager ? "C5A059" : "333";
+                const color = isManager ? "000" : "fff";
+                const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=${bg}&color=${color}`;
+
+                const item = document.createElement("div");
+                item.className = "member-item d-flex justify-content-between align-items-center p-3 mb-2 rounded-3 bg-white-05 border border-white-10 animate-fade-in";
+                item.dataset.uid = String(uid);
+
+                item.innerHTML = `
+      <div class="d-flex align-items-center gap-3">
+        <img src="${avatarUrl}" class="avatar-md ${isManager ? "manager-border" : ""}" alt="">
+        <div>
+          <span class="text-white fw-bold d-block fs-09">${name}</span>
+          <span class="badge bg-white-10 text-white-50 super-small">${roleLabel(role)}</span>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-icon-sm hover-danger text-white-50" title="حذف">
+        <i class="bi bi-trash"></i>
+      </button>
+    `;
+
+                item.querySelector("button").addEventListener("click", () => {
+                    selectedUsers.delete(String(uid));
+                    removeHiddenInputs(uid);
+                    item.remove();
+                    addEmptyStateIfNeeded();
+                });
+
+                list.appendChild(item);
+            }
+
+            addBtn.addEventListener("click", function () {
+                console.log("addMemberBtn clicked ✅");
+
+                const uid = userSelect.value;
+                const role = roleSelect.value;
+
+                if (!uid) {
+                    alert("لطفاً یک کاربر انتخاب کنید.");
+                    return;
+                }
+
+                if (selectedUsers.has(uid)) {
+                    alert("این کاربر قبلاً اضافه شده.");
+                    return;
+                }
+
+                const name = userSelect.options[userSelect.selectedIndex].text;
+
+                selectedUsers.add(uid);
+                addMemberToUI(uid, name, role);
+                addHiddenInputs(uid, role);
+
+                userSelect.value = "";
+                roleSelect.value = "{{ ROLE_MEMBER }}";
+            });
+
+        });
+    </script>
+{% endblock %}

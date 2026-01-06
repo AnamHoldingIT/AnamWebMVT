@@ -4,7 +4,6 @@
 {% block title %}آنام | بستر رشد و شتاب‌دهی کسب‌وکارها{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/_extra.css' %}">
     <!-- SEO META TAGS -->
     <meta name="description"
@@ -12,6 +11,9 @@
     <meta name="robots" content="index, follow">
 
     <!-- FAVICONS -->
+
+    <link rel="icon" href="{% static 'favicon.ico' %}" sizes="any">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'image/favicon/favicon-16x16.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'image/favicon/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="192x192" href="{% static 'image/favicon/android-chrome-192x192.png' %}">
@@ -26,7 +28,8 @@
     <meta property="og:title" content="آنام | بستر رشد و شتاب‌دهی کسب‌وکارها">
     <meta property="og:description"
           content="آنام؛ همراه کسب‌وکارها در کشف فرصت‌ها، بهبود عملکرد و شتاب‌دهی استارتاپ‌ها.">
-    <meta property="og:image" content="{% static 'image/favicon/android-chrome-512x512.png' %}">
+    <meta property="og:image" content="https://anamholding.com{% static 'image/favicon/android-chrome-512x512.png' %}">
+    <meta name="twitter:image" content="https://anamholding.com{% static 'image/favicon/android-chrome-512x512.png' %}">
     <meta property="og:image:alt" content="آنام - بستر رشد و شتاب‌دهی کسب‌وکارها">
 
     <!-- TWITTER CARD -->
@@ -748,6 +751,7 @@
         </section>
 
         <!-- WHY US (تایم‌لاین) -->
+        <!-- WHY US -->
         <section class="why-us-section py-5 position-relative overflow-hidden" id="why-us">
 
             <div class="hero-glow start-0 top-50 translate-middle-y opacity-25"
@@ -755,6 +759,7 @@
 
             <div class="container py-5 position-relative z-1">
 
+                <!-- هدر بالا -->
                 <div class="why-header text-center mb-5" data-aos="fade-up" data-aos-duration="700">
                     <h2 class="why-main-title text-gold">
                         چرا آنام؟
@@ -770,15 +775,17 @@
                     </p>
                 </div>
 
+
+                <!-- بدنه سکشن -->
                 <div class="row justify-content-center">
                     <div class="col-xl-11">
 
                         <div class="why-layout">
 
-                            <!-- کارت‌های سمت چپ -->
+                            <!-- ستون کارت‌های سمت چپ -->
                             <div class="why-left">
-
                                 <div class="why-card" data-aos="fade-left" data-aos-delay="100">
+                                    <div class="chart-index why-number">1</div>
                                     <h3 class="why-card-title">دیدگاه بلندمدت و پایدار</h3>
                                     <p class="why-card-text">
                                         در آنام، هر همکاری یک رابطه کوتاه‌مدت نیست؛ ما مسیر رشد را طراحی می‌کنیم و تا
@@ -788,6 +795,7 @@
                                 </div>
 
                                 <div class="why-card" data-aos="fade-left" data-aos-delay="200">
+                                    <div class="chart-index why-number">2</div>
                                     <h3 class="why-card-title">اکوسیستمی که رشد را ممکن می‌کند</h3>
                                     <p class="why-card-text">
                                         دپارتمان‌های تخصصی ما مستقل عمل می‌کنند اما تحت یک راهبرد واحد در جریان هستند؛
@@ -796,6 +804,7 @@
                                 </div>
 
                                 <div class="why-card" data-aos="fade-left" data-aos-delay="300">
+                                    <div class="chart-index why-number">3</div>
                                     <h3 class="why-card-title">نگاه ترکیبی؛ هم حل مسئله، هم ساختن آینده</h3>
                                     <p class="why-card-text">
                                         ما صرفاً به حل مسئله امروز نمی‌پردازیم؛ هم‌زمان با رفع گلوگاه‌ها، مسیر جهش و
@@ -804,6 +813,7 @@
                                 </div>
 
                                 <div class="why-card" data-aos="fade-left" data-aos-delay="350">
+                                    <div class="chart-index why-number">4</div>
                                     <h3 class="why-card-title">تجربه عملی؛ نه فقط مشاوره</h3>
                                     <p class="why-card-text">
                                         آنچه ارائه می‌کنیم حاصل تجربه عملی در طراحی، توسعه و رشد طیف متنوعی از
@@ -812,6 +822,7 @@
                                 </div>
 
                                 <div class="why-card" data-aos="fade-left" data-aos-delay="400">
+                                    <div class="chart-index why-number">5</div>
                                     <h3 class="why-card-title">دیدن ظرفیت‌های پنهان</h3>
                                     <p class="why-card-text">
                                         رویکرد آنام مبتنی بر کشف لایه‌های کمتر دیده‌شده ارزش و فرصت است؛ جاهایی که
@@ -822,11 +833,12 @@
 
                             </div>
 
-                            <!-- وسط: خط و شماره‌ها -->
+                            <!-- ستون وسط: خط و شماره‌ها -->
                             <div class="why-center">
 
                                 <div class="why-line" data-aos="fade-down" data-aos-duration="800"></div>
 
+                                <!-- شماره ها -->
                                 <div class="why-step" data-aos="zoom-in" data-aos-delay="100"><span>۱</span></div>
                                 <div class="why-step" data-aos="zoom-in" data-aos-delay="200"><span>۲</span></div>
                                 <div class="why-step" data-aos="zoom-in" data-aos-delay="300"><span>۳</span></div>
@@ -872,6 +884,7 @@
 
             </div>
         </section>
+
 
         <!-- ACCELERATION -->
         <section class="acceleration-section py-5 position-relative" id="acceleration">
@@ -979,6 +992,121 @@
 
             </div>
         </section>
+
+
+
+        {% if featured_projects %}
+            <section class="portfolio-section anam-portfolio position-relative py-5" id="portfolio">
+                <!-- لاین انیمیشنی دائمی زیر سکشن -->
+                <div class="anam-portfolio-line"></div>
+
+                <div class="container py-5 position-relative z-1">
+
+                    <!-- HEADER -->
+                    <div class="row justify-content-between align-items-end mb-4" data-aos="fade-up">
+                        <div class="col-lg-7">
+                        <span
+                                class="text-gold small fw-bold text-uppercase letter-spacing-2 d-inline-flex align-items-center mb-2">
+                            <i class="bi bi-briefcase-fill ms-2"></i>
+                            پورتفوی آنام
+                        </span>
+                            <h2 class="h1 text-white fw-bold mb-3">
+                                پروژه‌هایی که <span class="text-gradient-gold">ارزش می‌سازند</span>
+                            </h2>
+                            <p class="text-white opacity-75 mb-0" style="max-width: 520px;">
+                                انتخابی از استارتاپ‌ها و کسب‌وکارهایی که آنام در رشد، ساختاردهی و سرمایه‌گذاری آن‌ها نقش
+                                فعال دارد.
+                            </p>
+                        </div>
+
+                        <div class="col-lg-4 text-lg-end text-center mt-3 mt-lg-0">
+                        <span class="anam-portfolio-eyebrow">
+                            از ایده تا رشد پایدار
+                        </span>
+                        </div>
+                    </div>
+
+                    <!-- GRID -->
+                    <div class="row g-4">
+
+                        {% for project in featured_projects %}
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up"
+                                 data-aos-delay="{{ forloop.counter0|add:'1' }}0">
+                                <article class="anam-pf-card">
+                                    <div class="anam-pf-media">
+                                        {% if project.image %}
+                                            <img src="{{ project.image.url }}" alt="{{ project.name_fa }}"
+                                                 class="anam-pf-img">
+                                        {% else %}
+                                            <div class="d-flex align-items-center justify-content-center h-100 text-muted small">
+                                                بدون تصویر
+                                            </div>
+                                        {% endif %}
+
+                                        {% if project.category %}
+                                            <span class="anam-pf-tag">
+                                                {% if project.category.icon_class %}
+                                                    <i class="bi {{ project.category.icon_class }} ms-1"></i>
+                                                {% else %}
+                                                    <i class="bi bi-credit-card ms-1"></i>
+                                                {% endif %}
+                                                {{ project.category.name }}
+                                            </span>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="anam-pf-content">
+                                        <h3 class="anam-pf-title">
+                                            {{ project.name_fa }}
+                                            {% if project.name_en %}
+                                                <span class="small text-white-50 d-block mt-1">{{ project.name_en }}</span>
+                                            {% endif %}
+                                        </h3>
+
+                                        <p class="anam-pf-text">
+                                            {{ project.short_tagline }}
+                                        </p>
+
+                                        <div class="anam-pf-bottom">
+                                        <span class="anam-pf-stage">
+                                            {{ project.get_status_display }}
+                                        </span>
+
+                                            <a href="{{ project.get_absolute_url }}" class="anam-pf-link">
+                                                جزئیات بیشتر
+                                                <i class="bi bi-arrow-left-short"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <!-- BOTTOM ROW -->
+                    <div class="row mt-4 pt-3 border-top border-white border-opacity-10" data-aos="fade-up"
+                         data-aos-delay="220">
+                        <div class="col-md-7 text-center text-md-start mb-3 mb-md-0">
+                            <p class="text-white-50 small mb-0">
+                                این تنها بخشی از پورتفوی آنام است؛ پروژه‌های دیگری در مراحل طراحی، توسعه و شتاب‌دهی قرار
+                                دارند.
+                            </p>
+                        </div>
+                        <div class="col-md-5 text-center text-md-end">
+                            {# TODO: وقتی view لیست را ساختی این URL را درست کن #}
+                            {# اگر هنوز نداری، می‌تونی موقتاً href="#" بگذاری #}
+                            <a href="{% url 'portfolio:portfolio_list' %}" class="portfolio-more-btn">
+                                مشاهده تمام پروژه‌ها
+                                <i class="bi bi-arrow-left ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+
+
 
         <!-- APPLY / REQUEST COLLAB (وصل به بک‌اند) -->
         <section class="apply-section position-relative" id="apply">
@@ -1253,7 +1381,7 @@
                     <h5 class="text-white fw-bold mb-4">تماس با آنام</h5>
                     <p class="footer-desc small mb-3">
                         برای هماهنگی جلسه اولیه، ارسال پیشنهاد همکاری یا دریافت اطلاعات بیشتر،
-                        از راه‌های زیر با ما در ارتباط باشید.
+                        از راه‌های ذیل با ما در ارتباط باشید.
                     </p>
 
                     <ul class="list-unstyled footer-contact-list mb-3">

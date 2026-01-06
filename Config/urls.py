@@ -25,7 +25,6 @@ from django.conf.urls import handler404
 from .sitemaps import StaticViewSitemap
 from django.contrib.sitemaps.views import sitemap
 
-
 sitemaps = {
     'static': StaticViewSitemap,
 }
@@ -37,6 +36,8 @@ urlpatterns = [
     path('admin_panal/', include('admin_panel.urls', namespace='admin_panel')),
     path('zlinks/', include('zlink.urls', namespace='zlink')),
     path('core/', include('errors.urls', namespace='core')),
+    path('portfolio/', include('portfolio.urls', namespace='portfolio')),
+    path('users_panel/', include('worklog.urls', namespace='worklog')),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django_sitemap"),
 
 ]
@@ -45,7 +46,6 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = errors_view.PageNotFound.as_view()
-
 
 urlpatterns += [
     path("robots.txt", TemplateView.as_view(

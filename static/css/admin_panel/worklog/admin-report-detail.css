@@ -1,0 +1,341 @@
+/* --- Utilities --- */
+.bg-white-05 {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.text-danger-light {
+    color: #ffadad;
+}
+
+.bg-danger-subtle-glass {
+    background: rgba(220, 53, 69, 0.1);
+    border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+/* --- Back Button --- */
+.btn-luxury-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.btn-luxury-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+/* --- User Info Card --- */
+.avatar-box-lg {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(199, 160, 99, 0.1);
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 20px rgba(199, 160, 99, 0.2);
+    margin: 0 auto;
+}
+
+/* روبان وضعیت گوشه کارت */
+.status-ribbon {
+    position: absolute;
+    top: 15px;
+    left: -30px;
+    transform: rotate(-45deg);
+    background: #198754;
+    color: #fff;
+    padding: 5px 30px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.info-grid {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.info-item .label {
+    color: #aaa;
+    display: flex;
+    align-items: center;
+}
+
+.info-item .value {
+    color: #fff;
+    font-weight: 600;
+    font-family: 'Vazirmatn';
+}
+
+/* --- Achievements --- */
+.achieve-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    transition: 0.2s;
+    /* RTL: بردر رنگی سمت راست */
+    border-right: 3px solid transparent;
+}
+
+.achieve-item.success {
+    background: linear-gradient(270deg, rgba(25, 135, 84, 0.1), transparent);
+    border-right-color: #198754;
+}
+
+.achieve-item.failed {
+    background: linear-gradient(270deg, rgba(220, 53, 69, 0.1), transparent);
+    border-right-color: #dc3545;
+}
+
+.achieve-item .icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.achieve-item.success .icon {
+    background: #198754;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(25, 135, 84, 0.4);
+}
+
+.achieve-item.failed .icon {
+    background: #dc3545;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.4);
+}
+
+.achieve-item .title {
+    color: #eee;
+}
+
+/* --- RTL Timeline --- */
+.report-timeline-container {
+    position: relative;
+    padding: 10px 0;
+}
+
+/* خط عمودی اتصال - سمت راست */
+.report-timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    right: 78px;
+    /* مکان خط نسبت به لبه راست */
+    width: 2px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.rt-item {
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.rt-time {
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 5px;
+    color: #aaa;
+    font-family: monospace;
+    font-size: 0.85rem;
+    font-weight: bold;
+    flex-shrink: 0;
+    /* فاصله از خط برای RTL */
+    padding-left: 10px;
+}
+
+.rt-time .dash {
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 0.7rem;
+    margin: 2px 0;
+}
+
+/* نقطه روی خط */
+.rt-marker {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    border: 2px solid #555;
+    /* مکان مارکر */
+    position: absolute;
+    right: 72px;
+    /* دقیقا روی خط */
+    top: 8px;
+    z-index: 2;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.rt-item.done .rt-marker {
+    background: #198754;
+    border-color: #198754;
+    box-shadow: 0 0 10px rgba(25, 135, 84, 0.6);
+}
+
+.rt-item.blocked .rt-marker {
+    background: #dc3545;
+    border-color: #dc3545;
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.6);
+}
+
+.rt-item.progress-task .rt-marker {
+    background: #0dcaf0;
+    border-color: #0dcaf0;
+    box-shadow: 0 0 10px rgba(13, 202, 240, 0.6);
+}
+
+.rt-item.extra .rt-marker {
+    background: #ffc107;
+    border-color: #ffc107;
+}
+
+/* کارت محتوا */
+.rt-card {
+    flex-grow: 1;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 16px;
+    position: relative;
+    transition: transform 0.2s;
+    margin-right: 30px;
+    /* فاصله از مارکر */
+
+    /* خط رنگی سمت راست کارت (RTL Standard) */
+    border-right: 3px solid transparent;
+}
+
+.rt-card:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* رنگ بردر سمت راست کارت */
+.rt-item.done .rt-card {
+    border-right-color: #198754;
+}
+
+.rt-item.blocked .rt-card {
+    border-right-color: #dc3545;
+    background: rgba(220, 53, 69, 0.03);
+}
+
+.rt-item.progress-task .rt-card {
+    border-right-color: #0dcaf0;
+}
+
+.rt-item.extra .rt-card {
+    border-right-color: #ffc107;
+}
+
+/* Status Pills */
+.status-pill {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.status-pill.success {
+    background: rgba(25, 135, 84, 0.2);
+    color: #2ecc71;
+    border: 1px solid rgba(25, 135, 84, 0.2);
+}
+
+.status-pill.danger {
+    background: rgba(220, 53, 69, 0.2);
+    color: #ff6b6b;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+.status-pill.info {
+    background: rgba(13, 202, 240, 0.2);
+    color: #0dcaf0;
+    border: 1px solid rgba(13, 202, 240, 0.2);
+}
+
+.status-pill.warning {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+.task-title {
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+
+.task-plan-desc {
+    color: #888;
+    font-size: 0.8rem;
+}
+
+.user-note {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: #ccc;
+    margin-top: 10px;
+}
+
+/* Divider */
+.rt-divider {
+    text-align: center;
+    margin: 30px 0;
+    position: relative;
+}
+
+.rt-divider span {
+    background: rgba(199, 160, 99, 0.15);
+    border: 1px solid rgba(199, 160, 99, 0.3);
+    padding: 6px 16px;
+    border-radius: 20px;
+    color: var(--gold);
+    font-size: 0.8rem;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+}

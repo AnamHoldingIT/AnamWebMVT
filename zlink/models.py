@@ -2,6 +2,25 @@ from django.db import models
 from home.models import STATUS_CHOICES, STATUS_NEW
 
 
+
+
+class Referrer(models.Model):
+    name = models.CharField("نام معرف", max_length=150)
+    code = models.SlugField("کد معرف", max_length=50, unique=True)  # مثل anam3
+    is_active = models.BooleanField("فعال", default=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "معرف"
+        verbose_name_plural = "معرف‌ها"
+
+    def __str__(self):
+        return f"{self.name} ({self.code})"
+
+
+
+
 class ReCode(models.Model):
     first_name = models.CharField(
         'نام',
@@ -16,6 +35,33 @@ class ReCode(models.Model):
         max_length=14,
         db_index=True,
         help_text='مثال: 09xxxxxxxxx'
+    )
+
+    email = models.EmailField(
+        'ایمیل',
+        max_length=254,
+        null=True,
+        blank=True,
+        db_index=True,
+        help_text='مثال: name@example.com'
+    )
+
+    # ✅ NEW
+    city = models.CharField(
+        'شهر',
+        max_length=80,
+        null=True,
+        blank=True,
+        db_index=True,
+    )
+
+    referrer = models.ForeignKey(
+        Referrer,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="recode_requests",
+        verbose_name="معرف"
     )
 
     status = models.CharField(
@@ -52,6 +98,8 @@ class ReCode(models.Model):
         indexes = [
             models.Index(fields=['phone']),
             models.Index(fields=['status', 'created_at']),
+            models.Index(fields=['email']),  # ✅ NEW
+            models.Index(fields=['city']),
         ]
 
     def __str__(self):

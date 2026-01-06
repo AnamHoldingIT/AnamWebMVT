@@ -1,0 +1,90 @@
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}حذف پروژه | {{ project.name_fa }}{% endblock %}
+{% block menu_portfolio %}active{% endblock %}
+
+{% block content %}
+<div class="detail-header">
+  <div>
+    <h2 class="page-title">حذف پروژه</h2>
+    <p class="detail-subtitle">
+      این عملیات قابل بازگشت نیست. لطفاً قبل از حذف، مطمئن شوید.
+    </p>
+  </div>
+
+  <div class="detail-header-actions">
+    <a class="detail-back-btn" href="{% url 'admin_panel:portfolio_project_detail' slug=object.slug %}">
+      <i class="bi bi-arrow-right"></i>
+      بازگشت به جزئیات
+    </a>
+    <a class="detail-back-btn" href="{% url 'admin_panel:portfolio_projects' %}">
+      <i class="bi bi-list"></i>
+      لیست پروژه‌ها
+    </a>
+  </div>
+</div>
+
+<div class="detail-card">
+  <div class="detail-grid">
+    <div class="detail-item">
+      <span class="detail-label">نام پروژه</span>
+      <div class="detail-value">{{ object.name_fa }}</div>
+    </div>
+
+    <div class="detail-item">
+      <span class="detail-label">اسلاگ</span>
+      <div class="detail-value dir-ltr">{{ object.slug }}</div>
+    </div>
+
+    <div class="detail-item">
+      <span class="detail-label">دسته‌بندی</span>
+      <div class="detail-value">
+        {% if object.category %}{{ object.category.name }}{% else %}-{% endif %}
+      </div>
+    </div>
+
+    <div class="detail-item">
+      <span class="detail-label">وضعیت</span>
+      <div class="detail-value">{{ object.get_status_display }}</div>
+    </div>
+  </div>
+
+  {% if object.short_tagline %}
+    <div class="detail-description">
+      <div class="detail-description-header">
+        <i class="bi bi-quote"></i>
+        توضیح کوتاه
+      </div>
+      <p>{{ object.short_tagline }}</p>
+    </div>
+  {% endif %}
+
+  {% if object.image %}
+    <div class="detail-description">
+      <div class="detail-description-header">
+        <i class="bi bi-image"></i>
+        تصویر فعلی
+      </div>
+      <img
+        src="{{ object.image.url }}"
+        alt="{{ object.name_fa }}"
+        style="width: 100%; max-width: 520px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08);"
+      >
+    </div>
+  {% endif %}
+
+  <form method="post" class="d-flex flex-wrap gap-2 justify-content-end">
+    {% csrf_token %}
+
+    <a class="btn btn-outline-light" href="{% url 'admin_panel:portfolio_project_detail' slug=object.slug %}">
+      انصراف
+    </a>
+
+    <button type="submit" class="btn btn-danger">
+      <i class="bi bi-trash3 ms-1"></i>
+      بله، حذفش کن
+    </button>
+  </form>
+</div>
+{% endblock %}

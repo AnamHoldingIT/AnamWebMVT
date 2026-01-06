@@ -1,0 +1,394 @@
+/* static/css/users_panel/report.css */
+
+/* --- Header Date Badge --- */
+.date-badge {
+    background: rgba(197, 160, 89, 0.15);
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    border-radius: 12px;
+    padding: 6px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    color: var(--gold);
+}
+
+.date-badge .day {
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.date-badge .month {
+    font-size: 0.8rem;
+}
+
+/* --- Achievements Checklist --- */
+.achievement-checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.achievement-check-item {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 12px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.achievement-check-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.achieve-checkbox {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    margin-left: 16px;
+    position: relative;
+    transition: 0.2s;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.achieve-checkbox:checked {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.achieve-checkbox:checked::after {
+    content: '✔';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.achievement-check-item:has(.achieve-checkbox:checked) {
+    border-color: rgba(25, 135, 84, 0.3);
+    background: rgba(25, 135, 84, 0.05);
+}
+
+.check-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.check-text {
+    font-size: 0.95rem;
+    color: #fff;
+}
+
+.check-status {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* --- Timeline --- */
+.timeline-header-row {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 12px 20px;
+    font-size: 0.8rem;
+    color: #aaa;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    gap: 10px;
+}
+
+.col-time {
+    width: 120px;
+}
+
+.col-plan {
+    flex: 1;
+}
+
+.col-status {
+    width: 160px;
+}
+
+.col-desc {
+    flex: 1.2;
+}
+
+.report-row {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: transparent;
+    transition: background 0.3s;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.report-row:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.report-row.failed-bg {
+    background: rgba(220, 53, 69, 0.08);
+    border-left: 3px solid #dc3545;
+}
+
+.report-row.blocked-bg {
+    background: rgba(255, 193, 7, 0.08);
+    border-left: 3px solid #ffc107;
+}
+
+.report-row .time-col {
+    width: 120px;
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.report-row .plan-col {
+    flex: 1;
+    min-width: 200px;
+}
+
+.report-row .status-col {
+    width: 160px;
+    min-width: 140px;
+}
+
+.report-row .desc-col {
+    flex: 1.2;
+    min-width: 200px;
+}
+
+/* Select */
+.luxury-select {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 0.85rem;
+    border-radius: 8px;
+}
+
+.luxury-select:focus {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: var(--gold);
+    color: #fff;
+    box-shadow: none;
+}
+
+/* Transparent input */
+.luxury-input-transparent {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ddd;
+    font-size: 0.9rem;
+    padding: 5px 0;
+    border-radius: 0;
+}
+
+.luxury-input-transparent:focus {
+    background: transparent;
+    color: #fff;
+    border-bottom-color: var(--gold);
+    box-shadow: none;
+}
+
+/* Extras */
+.dashed-border {
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.luxury-input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 10px;
+}
+
+.luxury-input:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--gold);
+    color: #fff;
+    box-shadow: none;
+}
+
+.btn-close-white {
+    background: transparent;
+    border: none;
+    opacity: 0.9;
+}
+
+.btn-close-white:hover {
+    opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .timeline-header-row {
+        display: none !important;
+    }
+
+    .report-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .report-row .time-col,
+    .report-row .plan-col,
+    .report-row .status-col,
+    .report-row .desc-col {
+        width: 100%;
+    }
+}
+
+/* =========================
+   Premium Gold Button
+   ========================= */
+
+.btn-premium-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-hover) 100%);
+    color: #07110f !important;
+    border: 1px solid rgba(197, 160, 89, 0.55);
+    border-radius: 14px;
+    font-weight: 800;
+    letter-spacing: .2px;
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+}
+
+.btn-premium-gold i {
+    color: #07110f;
+}
+
+/* Shine effect */
+.btn-premium-gold::before {
+    content: "";
+    position: absolute;
+    top: -60%;
+    left: -40%;
+    width: 60%;
+    height: 220%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .35), transparent);
+    transform: rotate(20deg);
+    opacity: .0;
+    transition: opacity var(--transition-fast), transform var(--transition-slow);
+    pointer-events: none;
+}
+
+.btn-premium-gold:hover::before {
+    opacity: .9;
+    transform: translateX(220%) rotate(20deg);
+}
+
+.btn-premium-gold:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.03);
+}
+
+.shadow-gold {
+    box-shadow: 0 10px 28px rgba(0, 0, 0, .45),
+    0 0 22px var(--gold-glow);
+}
+
+.hover-scale {
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.hover-scale:hover {
+    transform: translateY(-2px) scale(1.01);
+}
+
+/* Disabled state (خیلی مهم که مثل متن بی‌حال نشه) */
+.btn-premium-gold:disabled,
+.btn-premium-gold.disabled {
+    opacity: .45 !important;
+    filter: saturate(.2) grayscale(.2);
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+/* اگر تو هدر/پس‌زمینه تیره محو میشه این کمک می‌کنه */
+.btn-premium-gold:focus {
+    box-shadow: 0 0 0 .25rem rgba(197, 160, 89, .18),
+    0 10px 28px rgba(0, 0, 0, .45),
+    0 0 22px var(--gold-glow);
+    outline: none;
+}
+input::placeholder{
+    color: #00f6ff;
+    opacity: 50%;
+}
+
+
+/* -------------------------------------------
+   1. اصلاح پلیس‌هلدر (Input Placeholders)
+   ------------------------------------------- */
+/* رنگ آبی نئونی قبلی با تم طلایی تضاد بدی داشت.
+   اینجا از سفید با شفافیت کم استفاده می‌کنیم که شیک‌تر است */
+input::placeholder,
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.3) !important; /* سفید محو */
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+/* وقتی روی اینپوت کلیک میشه، پلیس‌هلدر کمی محوتر بشه */
+input:focus::placeholder,
+textarea:focus::placeholder {
+    color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* -------------------------------------------
+   2. استایل دکمه افزودن مورد (Add Button)
+   ------------------------------------------- */
+/* کلاسی که در HTML استفاده کردید: btn-luxury-outline */
+.btn-luxury-outline {
+    background: transparent;
+    border: 1px dashed rgba(197, 160, 89, 0.6); /* حاشیه خط‌چین طلایی */
+    color: #c5a059; /* رنگ متن طلایی */
+    border-radius: 10px;
+    padding: 6px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-luxury-outline:hover {
+    background: rgba(197, 160, 89, 0.1); /* پس‌زمینه خیلی محو هنگام هاور */
+    border-color: #c5a059; /* حاشیه توپر یا روشن‌تر */
+    border-style: solid; /* تبدیل خط‌چین به خط صاف */
+    color: #fff; /* متن سفید */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-luxury-outline:active {
+    transform: translateY(0);
+}
+
+/* حالت غیرفعال برای دکمه افزودن */
+.btn-luxury-outline:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.3);
+}

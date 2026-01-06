@@ -1,0 +1,86 @@
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}
+  {% if object %}ویرایش نقش{% else %}افزودن نقش جدید{% endif %}
+{% endblock %}
+
+{% block menu_portfolio %}active{% endblock %}
+
+{% block content %}
+
+<div class="detail-header">
+  <div>
+    <h2 class="page-title mb-1">
+      {% if object %}
+        ویرایش نقش
+      {% else %}
+        افزودن نقش جدید
+      {% endif %}
+    </h2>
+
+    <p class="detail-subtitle">
+      نقش‌هایی که در پروژه‌ها به عنوان «نقش آنام» استفاده می‌شوند
+    </p>
+  </div>
+
+  <div class="detail-header-actions">
+    <a href="{% url 'admin_panel:portfolio_roles' %}" class="detail-back-btn">
+      <i class="bi bi-arrow-right"></i>
+      بازگشت به لیست نقش‌ها
+    </a>
+  </div>
+</div>
+
+<div class="detail-card">
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    <div class="detail-grid">
+
+      <!-- عنوان نقش -->
+      <div class="detail-item">
+        <label class="detail-label">
+          عنوان نقش
+        </label>
+        {{ form.title }}
+        {% if form.title.errors %}
+          <div class="text-danger small mt-1">
+            {{ form.title.errors|striptags }}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- اسلاگ -->
+      <div class="detail-item">
+        <label class="detail-label">
+          Slug
+        </label>
+        {{ form.slug }}
+        {% if form.slug.errors %}
+          <div class="text-danger small mt-1">
+            {{ form.slug.errors|striptags }}
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mt-3">
+      <a href="{% url 'admin_panel:portfolio_roles' %}"
+         class="btn btn-outline-secondary btn-sm">
+        انصراف
+      </a>
+
+      <button type="submit" class="btn btn-success btn-sm">
+        <i class="bi bi-check2-circle ms-1"></i>
+        ذخیره
+      </button>
+    </div>
+
+  </form>
+
+</div>
+
+{% endblock %}

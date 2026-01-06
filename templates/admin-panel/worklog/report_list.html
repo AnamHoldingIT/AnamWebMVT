@@ -1,0 +1,291 @@
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}آنام ادمین | بررسی گزارشات{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jalalidatepicker/dist/jalalidatepicker.min.css">
+  <link rel="stylesheet" href="{% static 'css/admin_panel/worklog/admin-daily-reports.css' %}">
+
+{% endblock %}
+
+{% block menu_worklog_reports %}active{% endblock %}
+
+{% block content %}
+
+  <header class="topbar mb-5 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+    <div>
+      <h2 class="h4 fw-bold text-white mb-1">بررسی گزارشات عملکرد</h2>
+      <span class="text-white-50 small">مشاهده نتایج و خروجی کار پرسنل</span>
+    </div>
+
+    <form id="dateForm" method="get" class="date-navigator d-flex align-items-center gap-2">
+      <input type="hidden" name="q" value="{{ q }}">
+      <input type="hidden" name="status" value="{{ filter_status }}">
+      <input type="hidden" name="nav" id="navField" value="">
+
+      <button type="button" id="todayBtn" class="btn btn-sm btn-gold">امروز</button>
+      <button type="button" id="prevDay" class="btn btn-icon-sm hover-gold">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+
+      <div class="date-search-wrapper" style="min-width:210px;">
+        <div class="input-group glass-input-group">
+          <span class="input-group-text bg-transparent border-0 text-gold ps-3">
+            <i class="bi bi-calendar-event"></i>
+          </span>
+          <input
+            type="text"
+            class="form-control bg-transparent border-0 text-white shadow-none"
+            id="date_j"
+            name="date_j"
+            data-jdp
+            autocomplete="off"
+            value="{{ date_j }}"
+            placeholder="انتخاب تاریخ..."
+          >
+        </div>
+        <small class="text-white-50 super-small mt-1 d-block text-center">
+          <span id="dateTitle">{{ selected_date_title }}</span>
+        </small>
+      </div>
+
+      <button type="button" id="nextDay" class="btn btn-icon-sm hover-gold">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+    </form>
+  </header>
+
+  {# ===== Stats ===== #}
+  <section class="row g-3 mb-5">
+    <div class="col-xl-3 col-md-6">
+      <div class="stat-box glass-panel p-3 d-flex align-items-center gap-3 h-100">
+        <div class="icon-box bg-info-subtle text-info"><i class="bi bi-people"></i></div>
+        <div class="d-flex flex-column">
+          <h5 class="mb-0 fw-bold text-white fs-4">{{ stats.total }}</h5>
+          <span class="super-small text-white-50">کل پرسنل</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="stat-box glass-panel p-3 d-flex align-items-center gap-3 h-100">
+        <div class="icon-box bg-success-subtle text-success"><i class="bi bi-check-all"></i></div>
+        <div class="d-flex flex-column">
+          <h5 class="mb-0 fw-bold text-white fs-4">{{ stats.registered }}</h5>
+          <span class="super-small text-white-50">ثبت شده</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="stat-box glass-panel p-3 d-flex align-items-center gap-3 h-100">
+        <div class="icon-box bg-warning-subtle text-warning"><i class="bi bi-hourglass-split"></i></div>
+        <div class="d-flex flex-column">
+          <h5 class="mb-0 fw-bold text-white fs-4">{{ stats.waiting }}</h5>
+          <span class="super-small text-white-50">در انتظار ثبت</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="stat-box glass-panel p-3 d-flex align-items-center gap-3 h-100">
+        <div class="icon-box bg-danger-subtle text-danger"><i class="bi bi-x-circle"></i></div>
+        <div class="d-flex flex-column">
+          <h5 class="mb-0 fw-bold text-white fs-4">{{ stats.not_registered }}</h5>
+          <span class="super-small text-white-50">ثبت نشده</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {# ===== Filters ===== #}
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+    <div class="d-flex align-items-center gap-2">
+      <h5 class="text-white h6 mb-0 border-end border-3 border-gold pe-3 ms-2">لیست گزارشات</h5>
+      <span class="text-white-50 super-small d-none d-md-inline">| بر اساس تاریخ انتخاب شده</span>
+    </div>
+
+    <form method="get" class="d-flex gap-3 w-100 w-md-auto">
+      <input type="hidden" name="date_j" value="{{ date_j }}">
+
+      <div class="search-box flex-grow-1 flex-md-grow-0">
+        <i class="bi bi-search text-gold"></i>
+        <input type="text" name="q" value="{{ q }}" placeholder="نام کاربر...">
+      </div>
+
+      <select class="form-select admin-select w-auto" name="status">
+        <option value="" {% if not filter_status %}selected{% endif %}>همه وضعیت‌ها</option>
+        <option value="registered" {% if filter_status == 'registered' %}selected{% endif %}>ثبت شده</option>
+        <option value="waiting" {% if filter_status == 'waiting' %}selected{% endif %}>در انتظار ثبت</option>
+        <option value="not_registered" {% if filter_status == 'not_registered' %}selected{% endif %}>ثبت نشده</option>
+      </select>
+
+      <button class="btn btn-icon-sm hover-gold" type="submit" title="اعمال">
+        <i class="bi bi-funnel"></i>
+      </button>
+    </form>
+  </div>
+
+  {# ===== List ===== #}
+  <section class="reports-list d-flex flex-column gap-3">
+    {% for row in rows %}
+
+      {% if row.status_key == 'not_registered' %}
+        <div class="report-item glass-panel p-3 report-border-danger bg-danger-subtle-glass">
+          <div class="row align-items-center g-3">
+            <div class="col-md-4 col-12">
+              <div class="d-flex align-items-center gap-3">
+                <img src="{{ row.avatar_url }}" class="avatar-box grayscale">
+                <div>
+                  <span class="text-white-50 fw-bold d-block fs-09">{{ row.user.full_name|default:row.user.username }}</span>
+                  <span class="text-white-50 super-small">{{ row.role_label }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3 col-6 text-center">
+              <div class="d-flex flex-column align-items-center">
+                <span class="super-small text-white-50 mb-1">وضعیت</span>
+                <span class="status-pill danger"><i class="bi bi-x-octagon"></i> ثبت نشده</span>
+              </div>
+            </div>
+
+            <div class="col-md-3 col-6 text-center">
+              <span class="text-white-50 small fst-italic">بدون فعالیت</span>
+            </div>
+
+            <div class="col-md-2 col-12 d-flex justify-content-end">
+              <button class="btn btn-icon-sm hover-danger" title="پیگیری">
+                <i class="bi bi-bell-fill"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      {% elif row.status_key == 'waiting' %}
+        <div class="report-item glass-panel p-3 report-border-warning">
+          <div class="row align-items-center g-3">
+            <div class="col-md-4 col-12">
+              <div class="d-flex align-items-center gap-3">
+                <img src="{{ row.avatar_url }}" class="avatar-box">
+                <div>
+                  <span class="text-white fw-bold d-block fs-09">{{ row.user.full_name|default:row.user.username }}</span>
+                  <span class="text-gold super-small">{{ row.role_label }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3 col-6 text-center">
+              <div class="d-flex flex-column align-items-center">
+                <span class="super-small text-white-50 mb-1">وضعیت</span>
+                <span class="status-pill warning"><i class="bi bi-hourglass-split"></i> در انتظار ثبت</span>
+              </div>
+            </div>
+
+            <div class="col-md-3 col-6 text-center">
+              <span class="text-white-50 small">هنوز گزارشی ارسال نشده</span>
+            </div>
+
+            <div class="col-md-2 col-12 d-flex justify-content-end">
+              <button class="btn btn-luxury-outline btn-sm px-4 opacity-50" disabled>بررسی</button>
+            </div>
+          </div>
+        </div>
+
+      {% else %}
+        <div class="report-item glass-panel p-3">
+          <div class="row align-items-center g-3">
+            <div class="col-md-4 col-12">
+              <div class="d-flex align-items-center gap-3">
+                <img src="{{ row.avatar_url }}" class="avatar-box">
+                <div>
+                  <span class="text-white fw-bold d-block fs-09">{{ row.user.full_name|default:row.user.username }}</span>
+                  <span class="text-gold super-small">{{ row.role_label }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3 col-6 text-center">
+              <div class="d-flex flex-column align-items-center">
+                <span class="super-small text-white-50 mb-1">نتیجه عملکرد</span>
+                <span class="status-pill success"><i class="bi bi-check-all"></i> ثبت شده ({{ row.percent }}٪)</span>
+              </div>
+            </div>
+
+            <div class="col-md-3 col-6 text-center">
+              <div class="d-flex flex-column align-items-center">
+                <span class="super-small text-white-50 mb-1">دستاوردها</span>
+                <span class="text-white fs-09 fw-bold">{{ row.achievements_done }} از {{ row.achievements_total }} محقق شد</span>
+              </div>
+            </div>
+
+            <div class="col-md-2 col-12 d-flex justify-content-end">
+              <a href="{% url 'admin_panel:worklog_report_detail' row.report_id %}"
+                 class="btn btn-luxury-outline btn-sm px-4">
+                بررسی
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+    {% empty %}
+      <div class="glass-panel p-5 text-center text-white-50">
+        موردی یافت نشد.
+      </div>
+    {% endfor %}
+  </section>
+
+  {# ===== Pagination (مثل Plans) ===== #}
+  <div class="d-flex justify-content-center mt-4" id="paginationWrap">
+    {% if is_paginated %}
+      <nav aria-label="Reports pagination">
+        <ul class="pagination pagination-custom mb-0">
+
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link"
+                 href="?page={{ page_obj.previous_page_number }}&date_j={{ date_j|urlencode }}&q={{ q|urlencode }}&status={{ filter_status|urlencode }}">
+                قبلی
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled"><span class="page-link">قبلی</span></li>
+          {% endif %}
+
+          {% for num in paginator.page_range %}
+            {% if num == page_obj.number %}
+              <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+            {% elif num >= page_obj.number|add:-2 and num <= page_obj.number|add:2 %}
+              <li class="page-item">
+                <a class="page-link"
+                   href="?page={{ num }}&date_j={{ date_j|urlencode }}&q={{ q|urlencode }}&status={{ filter_status|urlencode }}">
+                  {{ num }}
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link"
+                 href="?page={{ page_obj.next_page_number }}&date_j={{ date_j|urlencode }}&q={{ q|urlencode }}&status={{ filter_status|urlencode }}">
+                بعدی
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled"><span class="page-link">بعدی</span></li>
+          {% endif %}
+
+        </ul>
+      </nav>
+    {% endif %}
+  </div>
+
+{% endblock %}
+
+{% block extra_js %}
+  <script src="https://cdn.jsdelivr.net/npm/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
+  <script src="{% static 'js/admin_panel/worklog/admin-reports.js' %}"></script>
+{% endblock %}

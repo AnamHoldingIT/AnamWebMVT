@@ -1,0 +1,173 @@
+/* static/css/admin_panel/worklog/admin-plan-detail.css */
+
+/* --- Utilities --- */
+.bg-white-05 { background: rgba(255,255,255,0.05); }
+.super-small { font-size: 0.75rem; opacity: 0.8; }
+.btn-icon-glass {
+    width: 40px; height: 40px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: 0.2s;
+}
+.btn-icon-glass:hover {
+    background: var(--gold);
+    color: #000;
+}
+
+/* --- User Info Card --- */
+.avatar-lg {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    border: 3px solid rgba(199, 160, 99, 0.3);
+    padding: 3px;
+    object-fit: cover;
+}
+
+.status-badge-corner {
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem;
+    border: 2px solid #1a1a1a;
+    color: #000;
+}
+
+.bg-gold { background-color: var(--gold) !important; }
+
+.info-grid {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex; flex-direction: column; gap: 10px;
+}
+
+.info-item {
+    display: flex; justify-content: space-between;
+    font-size: 0.85rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 8px;
+}
+.info-item:last-child { border-bottom: none; padding-bottom: 0; }
+.info-item .label { color: #aaa; }
+.info-item .value { color: #fff; font-weight: 500; }
+
+/* --- Achievement List --- */
+.achievement-list {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 10px;
+}
+.achievement-list li {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    color: #eee; font-size: 0.9rem;
+    transition: 0.2s;
+}
+.achievement-list li:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* --- Timeline Styles --- */
+.timeline-container {
+    position: relative;
+    padding-right: 20px; /* RTL */
+    border-right: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 25px;
+    padding-right: 25px;
+}
+
+/* Timeline Dot */
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    right: -27px; /* تنظیم دقیق */
+    top: 5px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: 0.3s;
+    z-index: 1;
+}
+
+.timeline-item:hover::before {
+    background: var(--gold);
+    border-color: var(--gold);
+    box-shadow: 0 0 10px rgba(199, 160, 99, 0.5);
+}
+
+.timeline-item.highlight::before {
+    background: var(--gold);
+    border-color: var(--gold);
+}
+
+/* Time Column */
+.timeline-item .time-col {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 6px;
+}
+.time-col .time {
+    font-weight: 700; color: #fff; font-size: 1.1rem;
+}
+.time-col .duration {
+    font-size: 0.75rem; color: #aaa; background: rgba(255,255,255,0.05); padding: 2px 8px; border-radius: 6px;
+}
+
+/* Content Column */
+.content-col {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: 0.2s;
+}
+.timeline-item:hover .content-col {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.content-col .title {
+    font-size: 0.95rem; font-weight: 600; color: #f0f0f0; margin-bottom: 6px;
+}
+.content-col .desc {
+    font-size: 0.85rem; color: #bbb; margin-bottom: 0; line-height: 1.6;
+}
+
+/* Divider */
+.timeline-divider {
+    text-align: center;
+    margin: 30px 0 10px;
+    position: relative;
+    right: -20px;
+}
+.timeline-divider span {
+    background: rgba(255, 255, 255, 0.05);
+    color: #aaa;
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.section-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+    font-size: 0.95rem; color: #fff;
+}
+.text-gold { color: var(--gold) !important; }
+.btn-premium-gold {
+    background: linear-gradient(135deg, #d4af37, #C5A059);
+    color: #000; border: none; font-weight: 700;
+}
+.btn-premium-gold:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(199, 160, 99, 0.3); }

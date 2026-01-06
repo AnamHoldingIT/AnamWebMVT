@@ -14,16 +14,28 @@
             ایجاد کاربر جدید
         </a>
     </div>
-    <div class="search-box mt-3 mb-4">
+
+    <div class="search-box mt-3 mb-3">
         <i class="bi bi-search"></i>
-        <input type="text" id="searchInput" placeholder="جستجو بر اساس نام، شماره تماس یا استارتاپ...">
+        <input
+                type="text"
+                id="searchInput"
+                value="{{ query|default:'' }}"
+                placeholder="جستجو بر اساس نام، شماره تماس، ایمیل یا استارتاپ..."
+                autocomplete="off"
+        >
+        <div class="search-loading d-none" id="searchLoading"></div>
+    </div>
+
+    <div class="small text-muted mb-3" id="usersCount">
+        تعداد کل: {{ paginator.count }}
     </div>
 
     <div class="table-responsive contract-table-wrapper">
         <table class="table table-dark table-striped table-hover align-middle contract-table">
             <thead>
             <tr>
-                <th>یوزر نیم</th>
+                <th>یوزرنیم</th>
                 <th>نام و نام خانوادگی</th>
                 <th>شماره تماس</th>
                 <th>ایمیل</th>
@@ -32,24 +44,24 @@
             </tr>
             </thead>
 
-            <tbody>
+            <tbody id="usersTbody">
             {% for user in users %}
                 <tr>
                     <td>{{ user.username }}</td>
                     <td>{{ user.full_name|default:"-" }}</td>
                     <td>{{ user.phone|default:"-" }}</td>
                     <td>{{ user.email|default:"-" }}</td>
-
                     <td>
                         {% if user.is_superuser %}
                             <span class="badge bg-danger">سوپرادمین</span>
                         {% elif user.role == "admin" %}
                             <span class="badge bg-success">مدیر سیستم</span>
+                        {% elif user.role == "watcher_admin" %}
+                            <span class="badge bg-warning text-dark">ادمین بیننده</span>
                         {% else %}
                             <span class="badge bg-info text-dark">کارشناس</span>
                         {% endif %}
                     </td>
-
                     <td>
                         <a href="{% url 'admin_panel:user_detail' user.pk %}" class="btn btn-sm btn-outline-light">
                             ویرایش
@@ -58,11 +70,233 @@
                 </tr>
             {% empty %}
                 <tr>
-                    <td colspan="6" class="text-center text-muted">هیچ درخواستی ثبت نشده است.</td>
+                    <td colspan="6" class="text-center text-muted">کاربری یافت نشد.</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
 
+    <div class="d-flex justify-content-center mt-3" id="paginationWrap">
+        {% if is_paginated %}
+            <nav aria-label="Users pagination">
+                <ul class="pagination pagination-custom mb-0">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="?page={{ page_obj.previous_page_number }}&q={{ query|urlencode }}"
+                               data-page="{{ page_obj.previous_page_number }}">قبلی</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled"><span class="page-link">قبلی</span></li>
+                    {% endif %}
+
+                    {% for num in paginator.page_range %}
+                        {% if num == page_obj.number %}
+                            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                        {% elif num >= page_obj.number|add:-2 and num <= page_obj.number|add:2 %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ num }}&q={{ query|urlencode }}"
+                                   data-page="{{ num }}">{{ num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}&q={{ query|urlencode }}"
+                               data-page="{{ page_obj.next_page_number }}">بعدی</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled"><span class="page-link">بعدی</span></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    </div>
+
+
+
+
 {% endblock %}
+
+
+
+{% block extra_js %}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const searchInput = document.getElementById("searchInput");
+            const tbody = document.getElementById("usersTbody");
+            const paginationWrap = document.getElementById("paginationWrap");
+            const usersCount = document.getElementById("usersCount");
+            const loading = document.getElementById("searchLoading");
+
+            if (!searchInput || !tbody || !paginationWrap) return;
+
+            // لینک user_detail
+            const USER_DETAIL_BASE = "{% url 'admin_panel:user_detail' 999999 %}".replace("999999", "__ID__");
+
+            const setLoading = (state) => {
+                if (!loading) return;
+                loading.classList.toggle("d-none", !state);
+            };
+
+            const escapeHtml = (s) => String(s ?? "")
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+
+            const roleBadge = (u) => {
+                if (u.is_superuser) return `<span class="badge bg-danger">سوپرادمین</span>`;
+                if (u.role === "admin") return `<span class="badge bg-success">مدیر سیستم</span>`;
+                if (u.role === "watcher_admin") return `<span class="badge bg-warning text-dark">ادمین بیننده</span>`;
+                return `<span class="badge bg-info text-dark">کارشناس</span>`;
+            };
+
+            const buildRow = (u) => {
+                const fullName = u.full_name ? escapeHtml(u.full_name) : "-";
+                const phone = u.phone ? escapeHtml(u.phone) : "-";
+                const email = u.email ? escapeHtml(u.email) : "-";
+
+                return `
+      <tr>
+        <td>${escapeHtml(u.username)}</td>
+        <td>${fullName}</td>
+        <td>${phone}</td>
+        <td>${email}</td>
+        <td>${roleBadge(u)}</td>
+        <td>
+          <a href="${escapeHtml(USER_DETAIL_BASE.replace("__ID__", u.id))}" class="btn btn-sm btn-outline-light">
+            ویرایش
+          </a>
+        </td>
+      </tr>
+    `;
+            };
+
+            const buildPagination = (meta, q) => {
+                if (!meta || meta.num_pages <= 1) return "";
+
+                const encQ = encodeURIComponent(q || "");
+                const cur = meta.page;
+
+                const mkLink = (page, label, disabled = false, active = false) => {
+                    if (disabled) return `<li class="page-item disabled"><span class="page-link">${label}</span></li>`;
+                    if (active) return `<li class="page-item active"><span class="page-link">${label}</span></li>`;
+                    const href = `?page=${page}${encQ ? `&q=${encQ}` : ""}`;
+                    return `<li class="page-item"><a class="page-link" href="${href}" data-page="${page}">${label}</a></li>`;
+                };
+
+                let html = `<nav aria-label="Users pagination"><ul class="pagination pagination-custom mb-0">`;
+                html += mkLink(meta.prev_page, "قبلی", !meta.has_previous);
+
+                const start = Math.max(1, cur - 2);
+                const end = Math.min(meta.num_pages, cur + 2);
+
+                if (start > 1) {
+                    html += mkLink(1, "1");
+                    if (start > 2) html += `<li class="page-item disabled"><span class="page-link">…</span></li>`;
+                }
+
+                for (let p = start; p <= end; p++) html += mkLink(p, String(p), false, p === cur);
+
+                if (end < meta.num_pages) {
+                    if (end < meta.num_pages - 1) html += `<li class="page-item disabled"><span class="page-link">…</span></li>`;
+                    html += mkLink(meta.num_pages, String(meta.num_pages));
+                }
+
+                html += mkLink(meta.next_page, "بعدی", !meta.has_next);
+                html += `</ul></nav>`;
+                return html;
+            };
+
+            const buildUrl = (page, q) => {
+                const url = new URL(window.location.href);
+                if (page) url.searchParams.set("page", page);
+                else url.searchParams.delete("page");
+
+                if (q && q.trim()) url.searchParams.set("q", q.trim());
+                else url.searchParams.delete("q");
+
+                return url.toString();
+            };
+
+            let controller = null; // برای جلوگیری از ریسپانس‌های عقب‌افتاده
+
+            const fetchUsers = async ({page = 1, q = ""} = {}) => {
+                const url = buildUrl(page, q);
+
+                // درخواست قبلی کنسل
+                if (controller) controller.abort();
+                controller = new AbortController();
+
+                setLoading(true);
+                try {
+                    const res = await fetch(url, {
+                        headers: {"X-Requested-With": "XMLHttpRequest"},
+                        signal: controller.signal,
+                    });
+                    if (!res.ok) throw new Error("Request failed");
+
+                    const data = await res.json();
+
+                    if (!data.results || data.results.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="6" class="text-center text-muted">کاربری یافت نشد.</td></tr>`;
+                    } else {
+                        tbody.innerHTML = data.results.map(buildRow).join("");
+                    }
+
+                    paginationWrap.innerHTML = buildPagination(data, q);
+                    if (usersCount) usersCount.textContent = `تعداد کل: ${data.count}`;
+
+                    window.history.replaceState({}, "", url);
+                } catch (e) {
+                    if (e.name !== "AbortError") console.error(e);
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            // Debounce واقعی
+            let t = null;
+            const debounce = (fn, delay = 250) => {
+                clearTimeout(t);
+                t = setTimeout(fn, delay);
+            };
+
+            // ✅ سرچ حین تایپ
+            searchInput.addEventListener("input", () => {
+                const q = searchInput.value || "";
+                debounce(() => fetchUsers({page: 1, q}), 250);
+            });
+
+            // Enter => فوری سرچ
+            searchInput.addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    fetchUsers({page: 1, q: searchInput.value || ""});
+                }
+            });
+
+            // ✅ پیجینیشن با Ajax
+            paginationWrap.addEventListener("click", (e) => {
+                const a = e.target.closest("a[data-page]");
+                if (!a) return;
+                e.preventDefault();
+                const page = parseInt(a.dataset.page, 10) || 1;
+                fetchUsers({page, q: searchInput.value || ""});
+            });
+
+            // اگر با q اومدی تو صفحه، همون اول جدول رو sync کن
+            const initialQ = new URL(window.location.href).searchParams.get("q") || "";
+            if (initialQ) {
+                searchInput.value = initialQ;
+                fetchUsers({page: 1, q: initialQ});
+            }
+        });
+    </script>
+{% endblock %}
+
+

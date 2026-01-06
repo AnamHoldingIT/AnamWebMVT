@@ -1,0 +1,85 @@
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}
+  {% if mode == "edit" %}ویرایش {{ item_title }}{% else %}افزودن {{ item_title }}{% endif %}
+{% endblock %}
+
+{% block menu_portfolio %}active{% endblock %}
+
+{% block content %}
+
+<div class="detail-header">
+  <div>
+    <h2 class="page-title mb-1">
+      {% if mode == "edit" %}
+        ویرایش {{ item_title }}
+      {% else %}
+        افزودن {{ item_title }}
+      {% endif %}
+    </h2>
+    <p class="detail-subtitle mb-0">
+      برای پروژه:
+      <strong>{{ project.name_fa }}</strong>
+      <span class="dir-ltr text-muted">({{ project.slug }})</span>
+    </p>
+  </div>
+
+  <div class="detail-header-actions">
+    <a href="{% url 'admin_panel:portfolio_project_detail' slug=project.slug %}" class="detail-back-btn">
+      <i class="bi bi-arrow-right"></i>
+      بازگشت به جزئیات پروژه
+    </a>
+  </div>
+</div>
+
+<div class="detail-card">
+
+  {% if form.non_field_errors %}
+    <div class="alert alert-danger py-2 mb-2">
+      {{ form.non_field_errors }}
+    </div>
+  {% endif %}
+
+  <form method="post" class="row g-3">
+    {% csrf_token %}
+
+    {% for field in form %}
+      <div class="col-12">
+        <label class="detail-label mb-1" for="{{ field.id_for_label }}">
+          {{ field.label }}
+          {% if field.field.required %}
+            <span class="text-danger">*</span>
+          {% endif %}
+        </label>
+
+        {{ field }}
+
+        {% if field.help_text %}
+          <div class="form-text text-white opacity-25 mt-1">{{ field.help_text }}</div>
+        {% endif %}
+
+        {% if field.errors %}
+          <div class="text-danger mt-1 small">
+            {{ field.errors }}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <div class="col-12 d-flex justify-content-end gap-2 mt-2">
+      <a href="{% url 'admin_panel:portfolio_project_detail' slug=project.slug %}"
+         class="btn btn-outline-secondary btn-sm">
+        انصراف
+      </a>
+
+      <button type="submit" class="btn btn-success btn-sm">
+        <i class="bi bi-check2 ms-1"></i>
+        ذخیره
+      </button>
+    </div>
+  </form>
+
+</div>
+
+{% endblock %}

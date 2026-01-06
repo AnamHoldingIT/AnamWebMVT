@@ -1,5 +1,6 @@
 from django.views.generic import *
 from django.http import JsonResponse
+from portfolio.models import PortfolioProject
 from .forms import ContractForm
 from .models import *
 from .utils import increase_views_cached
@@ -16,6 +17,14 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['contract_form'] = ContractForm()
+
+        # 🔹 پروژه‌های ویژه برای صفحه اصلی (مثلا 3 تا اول)
+        context['featured_projects'] = (
+            PortfolioProject.active
+            .filter(is_featured_home=True)
+            .select_related('category')
+            .order_by('home_order', '-created_at')[:3]
+        )
         return context
 
 

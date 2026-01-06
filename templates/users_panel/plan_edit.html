@@ -1,0 +1,82 @@
+{% extends "users_panel/users_panel_base.html" %}
+{% load static %}
+
+{% block title %}Anam Portal | ویرایش برنامه{% endblock %}
+{% block nav_plan_active %}active{% endblock %}
+{% block page_title %}ویرایش برنامه{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/users_panel/plan_edit.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="plan-edit-wrap">
+
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+    <div>
+      <h1 class="h4 fw-bold text-white mb-1">ویرایش برنامه روزانه</h1>
+      <p class="text-white-50 small mb-0">
+        {{ weekday }} · {{ day_num }} {{ month_name }} {{ year_num }}
+      </p>
+    </div>
+
+    <div class="d-flex gap-2">
+      <a href="{{ back_url }}" class="btn btn-luxury-secondary">
+        <i class="bi bi-arrow-right me-2"></i> بازگشت
+      </a>
+
+      {% if is_locked %}
+        <button class="btn btn-secondary" disabled>
+          <i class="bi bi-lock-fill me-2"></i> قفل شده
+        </button>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="edit-card">
+    <div class="edit-card-head">
+      <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-pencil-square text-gold"></i>
+        <span class="text-white fw-bold">فقط عنوان ساعت‌ها قابل ویرایش است</span>
+      </div>
+      <span class="text-white-50 small">ساعات اصلی و اضافه</span>
+    </div>
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ formset.management_form }}
+
+      <div class="blocks-list">
+        {% for f in formset %}
+          {% with obj=f.instance %}
+          <div class="block-row">
+            <div class="time-chip">
+              {{ obj.start_time|time:"H:i" }} - {{ obj.end_time|time:"H:i" }}
+            </div>
+
+            <div class="flex-grow-1">
+              {{ f.task_title }}
+              {% if f.task_title.errors %}
+                <div class="text-danger small mt-1">{{ f.task_title.errors|join:", " }}</div>
+              {% endif %}
+            </div>
+
+            <div class="kind-chip {% if obj.is_required %}req{% else %}extra{% endif %}">
+              {% if obj.is_required %}اصلی{% else %}اضافه{% endif %}
+            </div>
+          </div>
+          {% endwith %}
+        {% endfor %}
+      </div>
+
+      <div class="d-flex justify-content-end gap-2 mt-4">
+        <a href="{{ back_url }}" class="btn btn-luxury-secondary">انصراف</a>
+        <button type="submit" class="btn btn-gold px-4" {% if is_locked %}disabled{% endif %}>
+          ذخیره تغییرات <i class="bi bi-check-lg ms-2"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+
+</div>
+{% endblock %}

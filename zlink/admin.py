@@ -1,48 +1,70 @@
 # zlink/admin.py
 
 from django.contrib import admin
-
-from .models import ReCode
+from .models import ReCode, Referrer
 
 
 @admin.register(ReCode)
 class ReCodeAdmin(admin.ModelAdmin):
-    # چی‌ها تو لیست اصلی نشون داده بشه
+    # =========================
+    # لیست اصلی
+    # =========================
     list_display = (
         "full_name",
         "phone",
+        "email",
+        "city",
+        "referrer",  # ✅ معرف
         "status",
         "created_at",
         "updated_at",
     )
 
-    # روی اینا کلیک می‌کنی می‌ره صفحه جزئیات
     list_display_links = ("full_name", "phone")
 
+    # =========================
     # فیلترهای سایدبار
+    # =========================
     list_filter = (
         "status",
+        "city",
+        "referrer",  # ✅ فیلتر بر اساس معرف
         "created_at",
     )
 
-    # سرچ
+    # =========================
+    # جستجو
+    # =========================
     search_fields = (
         "first_name",
         "last_name",
         "phone",
+        "email",
+        "city",
+        "referrer__name",  # ✅ جستجو روی نام معرف
+        "referrer__code",  # ✅ جستجو روی کد معرف
     )
-    search_help_text = "جستجو بر اساس نام، نام خانوادگی یا شماره تماس"
 
-    # ترتیب پیش‌فرض
+    search_help_text = (
+        "جستجو بر اساس نام، شماره، ایمیل، شهر یا معرف"
+    )
+
+    # =========================
+    # ترتیب
+    # =========================
     ordering = ("-created_at",)
 
+    # =========================
     # فیلدهای فقط‌خواندنی
+    # =========================
     readonly_fields = (
         "created_at",
         "updated_at",
     )
 
-    # چیدمان فرم داخل پنل ادمین
+    # =========================
+    # فرم جزئیات
+    # =========================
     fieldsets = (
         (
             "اطلاعات متقاضی",
@@ -50,6 +72,9 @@ class ReCodeAdmin(admin.ModelAdmin):
                 "fields": (
                     ("first_name", "last_name"),
                     "phone",
+                    "email",
+                    "city",
+                    "referrer",  # ✅ نمایش معرف
                 )
             },
         ),
@@ -69,23 +94,67 @@ class ReCodeAdmin(admin.ModelAdmin):
                     "created_at",
                     "updated_at",
                 ),
-                "classes": ("collapse",),  # این بخش جمع‌شونده باشه
+                "classes": ("collapse",),
             },
         ),
     )
 
-    # اکشن‌ها (بالای لیست)
+    # =========================
+    # اکشن‌ها
+    # =========================
     actions = ("reset_status_to_new",)
 
     @admin.action(description="بازگردانی وضعیت به «جدید» برای موارد انتخاب‌شده")
     def reset_status_to_new(self, request, queryset):
-        """
-        همه موارد انتخاب‌شده رو برمی‌گردونه به وضعیت اولیه (STATUS_NEW)
-        """
-        from home.models import STATUS_NEW  # این‌جا ایمپورتش می‌کنیم که حلقه‌ای نشه
-
+        from home.models import STATUS_NEW
         updated = queryset.update(status=STATUS_NEW)
         self.message_user(
             request,
             f"وضعیت {updated} درخواست با موفقیت به «جدید» تغییر کرد.",
         )
+
+
+# ==================================================
+# ادمین معرف‌ها (خیلی مهم برای مدیریت لینک‌ها)
+# ==================================================
+
+@admin.register(Referrer)
+class ReferrerAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "code",
+        "is_active",
+        "created_at",
+        "recode_count",
+    )
+
+    list_filter = ("is_active", "created_at")
+    search_fields = ("name", "code")
+    ordering = ("-created_at",)
+
+    readonly_fields = ("created_at",)
+
+    fieldsets = (
+        (
+            "اطلاعات معرف",
+            {
+                "fields": (
+                    "name",
+                    "code",
+                    "is_active",
+                )
+            },
+        ),
+        (
+            "متادیتا",
+            {
+                "fields": ("created_at",),
+                "classes": ("collapse",),
+            },
+        ),
+    )
+
+    def recode_count(self, obj):
+        return obj.recode_requests.count()
+
+    recode_count.short_description = "تعداد ثبت‌نام"

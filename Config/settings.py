@@ -1,31 +1,27 @@
 # Config/settings.py
 from pathlib import Path
 import os
+from pickle import FALSE
+
+from decouple import config, Csv
+from django.template.response import TemplateResponse
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # -------------------------
 # SECURITY
 # -------------------------
-SECRET_KEY = 'django-@ana$RadyasIn%adfnj2$Sj3vj1!jndjrjbfha'
-DEBUG = True  # ❗ سرور = False
+# config("DEBUG", default=True, cast=bool)
+DEBUG = True
 
-ALLOWED_HOSTS = [
-    '91.107.251.83',
-    'anamholding.com',
-    'www.anamholding.com',
-    'localhost',
-    '127.0.0.1',
-]
+SECRET_KEY = config("SECRET_KEY")
 
-CSRF_TRUSTED_ORIGINS = [
-    'http://91.107.251.83',
-    'http://anamholding.com',
-    'http://www.anamholding.com',
-    'https://anamholding.com',
-    'https://www.anamholding.com',
-]
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost,127.0.0.1", cast=Csv())
 
+CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", cast=Csv())
+
+GHASEDAK_API_KEY = config("GHASEDAK_API_KEY", default="")
+GHASEDAK_LINE_NUMBER = config("GHASEDAK_LINE_NUMBER", default="")
 # -------------------------
 # INSTALLED APPS
 # -------------------------
@@ -38,10 +34,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "django.contrib.sitemaps",
     'admin_panel.apps.AdminPanelConfig',
+    'worklog.apps.WorklogConfig',
     'errors.apps.ErrorsConfig',
     'accounts.apps.AccountsConfig',
     'home.apps.HomeConfig',
     'zlink.apps.ZlinkConfig',
+    'portfolio.apps.PortfolioConfig',
 ]
 
 ROOT_URLCONF = 'Config.urls'
@@ -92,22 +90,19 @@ WSGI_APPLICATION = 'Config.wsgi.application'
 # DATABASE (MySQL)
 # -------------------------
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'AnamFirstStep',
-        'USER': 'anamuser',
-        'PASSWORD': 'raYasANaM$1',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-
-        # بهترین حالت برای سرور
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-            'init_command': "SET sql_mode='STRICT_ALL_TABLES'"
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": config("DB_NAME"),
+        "USER": config("DB_USER"),
+        "PASSWORD": config("DB_PASSWORD"),
+        "HOST": config("DB_HOST", default="127.0.0.1"),
+        "PORT": config("DB_PORT", default="3306"),
+        "OPTIONS": {
+            "charset": "utf8mb4",
+            "init_command": "SET sql_mode='STRICT_ALL_TABLES'"
         }
     }
 }
-
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",

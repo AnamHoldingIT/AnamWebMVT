@@ -1,0 +1,191 @@
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}
+  {% if form.instance.pk %}ویرایش پروژه{% else %}ایجاد پروژه{% endif %}
+{% endblock %}
+{% block menu_portfolio %}active{% endblock %}
+
+{% block content %}
+
+<div class="detail-header">
+  <div>
+    <h2 class="page-title mb-1">
+      {% if form.instance.pk %}ویرایش پروژه{% else %}ایجاد پروژه جدید{% endif %}
+    </h2>
+    <p class="detail-subtitle">
+      {% if form.instance.pk %}
+        پروژه: {{ form.instance.name_fa }} • اسلاگ: <span class="dir-ltr">{{ form.instance.slug }}</span>
+      {% else %}
+        اطلاعات پروژه رو وارد کن.
+      {% endif %}
+    </p>
+  </div>
+
+  <div class="detail-header-actions">
+    <a href="{% url 'admin_panel:portfolio_projects' %}" class="detail-back-btn">
+      <i class="bi bi-arrow-right-short"></i>
+      بازگشت
+    </a>
+
+    {% if form.instance.pk %}
+      <a href="{% url 'admin_panel:portfolio_project_detail' form.instance.slug %}" class="btn btn-sm btn-outline-info">
+        <i class="bi bi-eye ms-1"></i>
+        مشاهده
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+
+<div class="detail-card">
+
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger">
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+
+    <div class="detail-grid">
+
+      <!-- name_fa -->
+      <div class="detail-item">
+        <label class="detail-label" for="{{ form.name_fa.id_for_label }}">{{ form.name_fa.label }}</label>
+        {{ form.name_fa }}
+        {% if form.name_fa.errors %}<div class="text-danger small mt-1">{{ form.name_fa.errors }}</div>{% endif %}
+      </div>
+
+      <!-- name_en -->
+      <div class="detail-item">
+        <label class="detail-label" for="{{ form.name_en.id_for_label }}">{{ form.name_en.label }}</label>
+        {{ form.name_en }}
+        {% if form.name_en.errors %}<div class="text-danger small mt-1">{{ form.name_en.errors }}</div>{% endif %}
+      </div>
+
+      <!-- slug -->
+      <div class="detail-item">
+        <label class="detail-label" for="{{ form.slug.id_for_label }}">{{ form.slug.label }}</label>
+        {{ form.slug }}
+        {% if form.slug.help_text %}<div class="small" style="color:#90a7a5;">{{ form.slug.help_text }}</div>{% endif %}
+        {% if form.slug.errors %}<div class="text-danger small mt-1">{{ form.slug.errors }}</div>{% endif %}
+      </div>
+
+      <!-- category -->
+      <div class="detail-item">
+        <label class="detail-label" for="{{ form.category.id_for_label }}">{{ form.category.label }}</label>
+        {{ form.category }}
+        {% if form.category.errors %}<div class="text-danger small mt-1">{{ form.category.errors }}</div>{% endif %}
+      </div>
+
+      <!-- status -->
+      <div class="detail-item">
+        <label class="detail-label" for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
+        {{ form.status }}
+        {% if form.status.errors %}<div class="text-danger small mt-1">{{ form.status.errors }}</div>{% endif %}
+      </div>
+
+      <!-- collaboration_model -->
+      <div class="detail-item">
+        <label class="detail-label" for="{{ form.collaboration_model.id_for_label }}">{{ form.collaboration_model.label }}</label>
+        {{ form.collaboration_model }}
+        {% if form.collaboration_model.errors %}<div class="text-danger small mt-1">{{ form.collaboration_model.errors }}</div>{% endif %}
+      </div>
+
+      <!-- is_featured_home -->
+      <div class="detail-item">
+        <span class="detail-label d-block">{{ form.is_featured_home.label }}</span>
+        <div class="form-check">
+          {{ form.is_featured_home }}
+          <label class="form-check-label" for="{{ form.is_featured_home.id_for_label }}">
+            نمایش در صفحه اصلی
+          </label>
+        </div>
+        {% if form.is_featured_home.errors %}<div class="text-danger small mt-1">{{ form.is_featured_home.errors }}</div>{% endif %}
+      </div>
+
+      <!-- home_order -->
+      <div class="detail-item">
+        <label class="detail-label" for="{{ form.home_order.id_for_label }}">{{ form.home_order.label }}</label>
+        {{ form.home_order }}
+        {% if form.home_order.help_text %}<div class="small" style="color:#90a7a5;">{{ form.home_order.help_text }}</div>{% endif %}
+        {% if form.home_order.errors %}<div class="text-danger small mt-1">{{ form.home_order.errors }}</div>{% endif %}
+      </div>
+
+      <!-- list_order -->
+      <div class="detail-item">
+        <label class="detail-label" for="{{ form.list_order.id_for_label }}">{{ form.list_order.label }}</label>
+        {{ form.list_order }}
+        {% if form.list_order.help_text %}<div class="small" style="color:#90a7a5;">{{ form.list_order.help_text }}</div>{% endif %}
+        {% if form.list_order.errors %}<div class="text-danger small mt-1">{{ form.list_order.errors }}</div>{% endif %}
+      </div>
+
+    </div>
+
+    <!-- Textareas -->
+    <div class="detail-description mt-3">
+      <div class="detail-description-header"><i class="bi bi-card-text"></i> {{ form.short_tagline.label }}</div>
+      {{ form.short_tagline }}
+      {% if form.short_tagline.help_text %}<div class="small" style="color:#90a7a5;">{{ form.short_tagline.help_text }}</div>{% endif %}
+      {% if form.short_tagline.errors %}<div class="text-danger small mt-1">{{ form.short_tagline.errors }}</div>{% endif %}
+    </div>
+
+    <div class="detail-description mt-3">
+      <div class="detail-description-header"><i class="bi bi-type"></i> {{ form.hero_subtitle.label }}</div>
+      {{ form.hero_subtitle }}
+      {% if form.hero_subtitle.help_text %}<div class="small" style="color:#90a7a5;">{{ form.hero_subtitle.help_text }}</div>{% endif %}
+      {% if form.hero_subtitle.errors %}<div class="text-danger small mt-1">{{ form.hero_subtitle.errors }}</div>{% endif %}
+    </div>
+
+    <div class="detail-description mt-3">
+      <div class="detail-description-header"><i class="bi bi-text-left"></i> {{ form.list_summary.label }}</div>
+      {{ form.list_summary }}
+      {% if form.list_summary.help_text %}<div class="small" style="color:#90a7a5;">{{ form.list_summary.help_text }}</div>{% endif %}
+      {% if form.list_summary.errors %}<div class="text-danger small mt-1">{{ form.list_summary.errors }}</div>{% endif %}
+    </div>
+
+    <div class="detail-description mt-3">
+      <div class="detail-description-header"><i class="bi bi-file-text"></i> {{ form.detail_summary.label }}</div>
+      {{ form.detail_summary }}
+      {% if form.detail_summary.help_text %}<div class="small" style="color:#90a7a5;">{{ form.detail_summary.help_text }}</div>{% endif %}
+      {% if form.detail_summary.errors %}<div class="text-danger small mt-1">{{ form.detail_summary.errors }}</div>{% endif %}
+    </div>
+
+    <!-- Image -->
+    <div class="detail-item mt-3" style="padding:14px;">
+      <label class="detail-label d-block" for="{{ form.image.id_for_label }}">{{ form.image.label }}</label>
+      {{ form.image }}
+      {% if form.image.errors %}<div class="text-danger small mt-1">{{ form.image.errors }}</div>{% endif %}
+
+      {% if form.instance.pk and form.instance.image %}
+        <div class="small mt-2" style="color:#90a7a5;">تصویر فعلی:</div>
+        <div style="margin-top:8px; width:100%; max-width:520px; border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,0.08); background:rgba(0,0,0,0.35);">
+          <img src="{{ form.instance.image.url }}" alt="{{ form.instance.name_fa }}" style="width:100%;height:auto;display:block;object-fit:cover;">
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Actions -->
+    <div class="d-flex gap-2 flex-wrap mt-4">
+      <button type="submit" class="btn btn-warning">
+        <i class="bi bi-check2-circle ms-1"></i>
+        ذخیره
+      </button>
+
+      {% if form.instance.pk %}
+        <a class="btn btn-outline-info" href="{% url 'admin_panel:portfolio_project_detail' form.instance.slug %}">
+          انصراف
+        </a>
+      {% else %}
+        <a class="btn btn-outline-info" href="{% url 'admin_panel:portfolio_projects' %}">
+          انصراف
+        </a>
+      {% endif %}
+    </div>
+
+  </form>
+</div>
+
+{% endblock %}

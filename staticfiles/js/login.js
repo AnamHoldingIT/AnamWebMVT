@@ -19,13 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
       passwordInput.setAttribute("type", isPassword ? "text" : "password");
 
       const icon = togglePasswordBtn.querySelector("i");
-      icon.classList.toggle("bi-eye");
-      icon.classList.toggle("bi-eye-slash");
+      if (icon) {
+        icon.classList.toggle("bi-eye");
+        icon.classList.toggle("bi-eye-slash");
+      }
     });
   }
 
   // --- Toast خطای بالای صفحه ---
-  const form = document.querySelector("form"); // ساده و مطمئن
   const globalError = document.getElementById("global-error");
   const globalErrorText = document.getElementById("global-error-text");
 
@@ -34,27 +35,19 @@ document.addEventListener("DOMContentLoaded", () => {
   function showGlobalError(message) {
     if (!globalError || !globalErrorText) return;
 
-    globalErrorText.textContent = message;
+    globalErrorText.textContent = message || "نام کاربری یا رمز عبور صحیح نیست";
 
-    // نمایش
     globalError.classList.add("is-visible");
 
-    // اگر تایمر قبلی هست، خنثی کن
-    if (errorTimeoutId) {
-      clearTimeout(errorTimeoutId);
-    }
+    if (errorTimeoutId) clearTimeout(errorTimeoutId);
 
-    // بعد از چند ثانیه مخفی کن
     errorTimeoutId = setTimeout(() => {
       globalError.classList.remove("is-visible");
     }, 4000);
   }
 
-  // چون بک‌اند نداریم، هر بار کلیک روی "ورود به پرتال" → خطا
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault(); // جلو گیری از رفرش صفحه
-      showGlobalError("ایمیل یا رمز عبور صحیح نیست");
-    });
-  }
+  // ✅ اینجا دیگه فرم رو خراب نمی‌کنیم (نه preventDefault نه ارور فیک)
+  // فقط اگر از سرور پیام خطا اومده بود (از طریق data-attribute)، نمایش بده.
+  const msg = document.body?.dataset?.loginError;
+  if (msg) showGlobalError(msg);
 });

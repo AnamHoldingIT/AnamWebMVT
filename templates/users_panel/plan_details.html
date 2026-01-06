@@ -1,0 +1,131 @@
+{% extends "users_panel/users_panel_base.html" %}
+{% load static %}
+
+{% block title %}Anam Portal | ثبت برنامه مرحله‌ای{% endblock %}
+{% block nav_plan_active %}active{% endblock %}
+{% block page_title %}ثبت برنامه{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/users_panel/plan_details.css' %}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jalalidatepicker/dist/jalalidatepicker.min.css">
+
+{% endblock %}
+
+{% block content %}
+    <div class="content-body overflow-auto p-0 custom-scrollbar d-flex flex-column h-100 justify-content-center align-items-center">
+
+        <div class="wizard-card glass-card">
+
+            <div class="wizard-header">
+                <div class="step-indicator active" data-step="1">
+                    <div class="circle">۱</div>
+                    <span class="label">اهداف</span>
+                </div>
+                <div class="line"></div>
+                <div class="step-indicator" data-step="2">
+                    <div class="circle">۲</div>
+                    <span class="label">ساعات اصلی</span>
+                </div>
+                <div class="line"></div>
+                <div class="step-indicator" data-step="3">
+                    <div class="circle">۳</div>
+                    <span class="label">ساعات اضافه</span>
+                </div>
+            </div>
+
+            <form id="wizardForm" class="wizard-body custom-scrollbar" method="post" novalidate>
+                {% csrf_token %}
+
+                {# ✅ hidden ها برای ارسال payload #}
+                <input type="hidden" name="achievements_json" id="achievements_json">
+                <input type="hidden" name="blocks_json" id="blocks_json">
+                <input type="hidden" name="extras_json" id="extras_json">
+
+                {# ✅ فیلد فرم: jalali_date (شمسی) #}
+                <div class="step-content active" id="step1">
+                    <h3 class="step-title">تاریخ و دستاوردها</h3>
+                    <p class="step-desc">ابتدا تاریخ برنامه و اهداف کلیدی خود را مشخص کنید.</p>
+
+                    <div class="row g-4 mt-2">
+                        <div class="col-md-5">
+                            <label class="form-label text-gold small fw-bold">تاریخ برنامه (شمسی)</label>
+
+                            {# این input شمسیه؛ بک‌اند با parse_jalali_date تبدیلش می‌کنه #}
+                            <input
+                                    type="text"
+                                    class="form-control luxury-input"
+                                    name="jalali_date"
+                                    id="jalali_date"
+                                    placeholder="مثلاً 1404-09-26"
+                                    required
+                                    data-jdp
+                            >
+                            {# اگر خواستی خطاهای فرم رو هم نشون بدی (بدون بهم زدن استایل): #}
+                            {% if form.errors %}
+                                <div class="text-danger small mt-2">{{ form.non_field_errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="form-label text-gold small fw-bold">دستاوردها (Achievements)</label>
+                            <div class="d-flex gap-2 mb-3">
+                                <input type="text" id="achieveInput" class="form-control luxury-input"
+                                       placeholder="مثلاً: تکمیل داکیومنت API...">
+                                <button type="button" id="addAchieveBtn" class="btn btn-gold icon-btn">
+                                    <i class="bi bi-plus-lg"></i>
+                                </button>
+                            </div>
+                            <ul class="achievements-list" id="achievementsList"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-content" id="step2">
+                    <h3 class="step-title">برنامه ساعات اصلی (اجباری)</h3>
+                    <p class="step-desc">برای بازه ۸ صبح تا ۲۰ شب، فعالیت‌های خود را وارد کنید.</p>
+
+                    <div class="core-hours-list mt-3" id="coreHoursList">
+                        {# ✅ اینجا رو با JS لوپ می‌کنیم 08-20 #}
+                    </div>
+                </div>
+
+                <div class="step-content" id="step3">
+                    <h3 class="step-title">ساعات اضافه (اختیاری)</h3>
+                    <p class="step-desc">اگر خارج از تایم اداری فعالیتی دارید، اینجا اضافه کنید.</p>
+
+                    <button type="button" id="addExtraBtn" class="btn btn-luxury-outline w-100 mb-4 dashed-border">
+                        <i class="bi bi-plus-circle me-2"></i> افزودن بازه زمانی جدید
+                    </button>
+
+                    <div id="extraHoursContainer" class="d-flex flex-column gap-3"></div>
+                </div>
+            </form>
+
+            <div class="wizard-footer">
+                <a href="{{ back_url }}" class="btn btn-luxury-secondary">
+                    <i class="bi bi-arrow-right me-2"></i> بازگشت
+                </a>
+
+                <button type="button" id="prevBtn" class="btn btn-luxury-secondary disabled">
+                    <i class="bi bi-arrow-right me-2"></i> مرحله قبل
+                </button>
+
+                <button type="button" id="nextBtn" class="btn btn-gold px-4">
+                    مرحله بعد <i class="bi bi-arrow-left ms-2"></i>
+                </button>
+
+                <button type="button" id="submitBtn" class="btn btn-success px-4 d-none">
+                    ثبت نهایی برنامه <i class="bi bi-check-lg ms-2"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="https://cdn.jsdelivr.net/npm/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
+
+    <script src="{% static 'js/users_panel/plan_details.js' %}"></script>
+{% endblock %}

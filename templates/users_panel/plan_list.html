@@ -1,0 +1,172 @@
+{% extends "users_panel/users_panel_base.html" %}
+{% load static %}
+
+{% block title %}Anam Portal | مدیریت برنامه‌ها{% endblock %}
+
+{% block nav_plan_active %}active{% endblock %}
+{% block page_title %}برنامه‌های من{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jalalidatepicker/dist/jalalidatepicker.min.css">
+    <link rel="stylesheet" href="{% static 'css/users_panel/plan_list.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-5 animate-fade-in-up">
+        <div>
+            <h1 class="h3 fw-bold text-white mb-1">تقویم برنامه‌ریزی</h1>
+            <p class="text-white-50 small mb-0">انتخاب تاریخ جهت مشاهده و ویرایش برنامه روزانه</p>
+        </div>
+
+        <div class="d-flex flex-column flex-md-row gap-3 align-items-md-center">
+            <div class="date-search-wrapper">
+                <div class="input-group glass-input-group">
+          <span class="input-group-text bg-transparent border-0 text-gold ps-3">
+            <i class="bi bi-search"></i>
+          </span>
+
+                    <input
+                            type="text"
+                            id="planDateSearch"
+                            class="form-control bg-transparent border-0 text-white shadow-none"
+                            placeholder="جستجو بر اساس تاریخ..."
+                            data-jdp
+                            autocomplete="off"
+                    >
+                </div>
+            </div>
+
+            <div class="vr d-none d-md-block bg-white-10 mx-2" style="height: 30px;"></div>
+
+            {% if default_member_id %}
+                <a class="btn btn-premium-gold d-flex align-items-center gap-2 px-4 py-2"
+                   href="{% url 'worklog:plan_wizard' member_id=default_member_id %}">
+                    <i class="bi bi-plus-lg"></i>
+                    <span>تعریف تاریخ جدید</span>
+                </a>
+            {% else %}
+                <button type="button" class="btn btn-premium-gold d-flex align-items-center gap-2 px-4 py-2 disabled"
+                        disabled
+                        title="برای ساخت برنامه باید حداقل یک عضویت فعال در پروژه داشته باشید">
+                    <i class="bi bi-plus-lg"></i>
+                    <span>تعریف تاریخ جدید</span>
+                </button>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row g-4" id="plansGrid">
+
+        {% for p in plans %}
+            <div class="col-xl-3 col-lg-4 col-md-6 animate-fade-in-up delay-1"
+                 data-jalali="{{ p.jalali_full }}"
+                 data-can-edit="{% if p.can_edit %}1{% else %}0{% endif %}">
+
+                <div class="plan-card glass-card {% if p.is_today %}active-today{% endif %} hover-lift-special h-100">
+
+                    {# ✅ دکمه حذف فقط برای آینده #}
+                    {% if p.is_future %}
+                        <form method="post"
+                              action="{% url 'worklog:plan_delete' plan_id=p.id %}"
+                              class="plan-delete-action"
+                              onsubmit="return confirm('این برنامه مربوط به آینده است. حذف شود؟');">
+                            {% csrf_token %}
+                            <button type="submit" class="plan-delete-btn" title="حذف برنامه" aria-label="حذف برنامه">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </form>
+                    {% endif %}
+
+                    {% if p.is_today %}
+                        <div class="today-badge">امروز</div>
+                    {% endif %}
+
+                    {% if not p.can_edit %}
+                        <div class="today-badge"
+                             style="top: 16px; left: 16px; right:auto; background: rgba(255,255,255,0.08); color:#aaa; border:1px solid rgba(255,255,255,0.12);">
+                            قفل
+                        </div>
+                    {% endif %}
+
+                    <div class="plan-header text-center">
+            <span class="plan-weekday {% if p.is_today %}text-gold{% else %}text-white-50{% endif %}">
+              {{ p.weekday }}
+            </span>
+
+                        <div class="plan-date text-white">
+                            <span class="day">{{ p.day_num }}</span>
+                            <span class="month">{{ p.month_name }}</span>
+                        </div>
+                    </div>
+
+                    <div class="plan-body w-100">
+                        <div class="achievements-preview mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="text-white-50 super-small">دستاوردها</span>
+                                <span class="badge bg-gold text-dark rounded-pill" style="font-size: 0.65rem;">
+                  {{ p.ach_count }} مورد
+                </span>
+                            </div>
+
+                            <ul class="achievement-dots">
+                                {% for a in p.ach_list %}
+                                    <li>{{ a }}</li>
+                                {% empty %}
+                                    <li>...</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <div class="time-blocks-row">
+                            {% if p.has_extra %}
+                                <div class="time-block extra w-100" title="دارای ساعات اضافه کاری">
+                                    <i class="bi bi-moon-stars-fill"></i>
+                                    <span>ساعات اضافه ثبت شده</span>
+                                </div>
+                            {% else %}
+                                <div class="time-block filled w-100" title="برنامه ثبت شده">
+                                    <i class="bi bi-check-all"></i>
+                                    <span>برنامه ثبت شده</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="plan-footer mt-3">
+                        {% if p.can_edit %}
+                            <a href="{% url 'worklog:plan_edit' plan_id=p.id %}"
+                               class="btn btn-card-action w-100">
+                                ویرایش برنامه
+                                <i class="bi bi-pencil-square ms-2"></i>
+                            </a>
+                        {% else %}
+                            <button type="button"
+                                    class="btn btn-luxury-secondary w-100 disabled"
+                                    disabled
+                                    title="مهلت ویرایش این برنامه به پایان رسیده است">
+                                قفل شده
+                                <i class="bi bi-lock-fill ms-2"></i>
+                            </button>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+
+        {% empty %}
+            <div class="col-12">
+                <div class="text-center py-5 text-white-50">
+                    هنوز برنامه‌ای ثبت نشده است.
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="https://cdn.jsdelivr.net/npm/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
+    <script src="{% static 'js/users_panel/plan_list.js' %}"></script>
+{% endblock %}

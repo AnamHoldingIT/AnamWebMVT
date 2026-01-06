@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Anam Holding | پورتفوی پروژه‌ها</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap RTL -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.rtl.min.css"
+          integrity="sha384-CfCrinSRH2IR6a4e6fy2q6ioOX7O6Mtm1L9vRvFZ1trBncWmMePhzvafv7oIcWiW"
+          crossorigin="anonymous">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <!-- AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+
+    <!-- استایل کلی سایت -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <!-- استایل اختصاصی این صفحه -->
+    <link rel="stylesheet" href="{% static 'css/portfolio/portfolio-list.css' %}">
+</head>
+
+<body>
+
+
+    <main>
+        <!-- HERO / HEADER -->
+        <section class="portfolio-archive-hero position-relative">
+            <div class="portfolio-hero-glow"></div>
+
+            <div class="container py-5 position-relative z-1">
+
+                <!-- نوار بالای هدر: برگشت + breadcrumb -->
+                <div class="archive-topbar d-flex justify-content-between align-items-center mb-4">
+                    <!-- لینک برگشت به صفحه اصلی -->
+                    <a href="{% url 'home:home' %}" class="archive-back-link">
+                        <i class="bi bi-arrow-right-short"></i>
+                        بازگشت به صفحه اصلی
+                    </a>
+
+                    <!-- breadcrumb -->
+                    <nav class="archive-breadcrumb d-none d-sm-flex" aria-label="breadcrumb">
+                        <ol>
+                            <li>
+                                <a href="{% url 'home:home' %}">صفحه اصلی</a>
+                            </li>
+                            <li class="separator">/</li>
+                            <li class="current">پورتفوی پروژه‌ها</li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <div class="row align-items-center gy-4 mt-3">
+                    <div class="col-lg-7" data-aos="fade-up">
+                        <span class="archive-badge">
+                            <i class="bi bi-briefcase ms-1"></i>
+                            پورتفوی سرمایه‌گذاری آنام
+                        </span>
+                        <h1 class="archive-title mt-3 mb-3">
+                            تمام پروژه‌ها و استارتاپ‌های
+                            <span class="text-gradient-gold">زیر چتر آنام</span>
+                        </h1>
+                        <p class="archive-subtitle mb-0">
+                            نگاهی یکپارچه به کسب‌وکارهایی که آنام در طراحی مسیر رشد، ساختاردهی و سرمایه‌گذاری آن‌ها
+                            نقش فعال دارد.
+                        </p>
+                    </div>
+
+                    <div class="col-lg-5" data-aos="fade-left" data-aos-delay="80">
+                        <div class="archive-meta-panel">
+                            <div class="archive-meta-row">
+                                <div>
+                                    <span class="meta-label">پروژه‌های فعال</span>
+                                    <div class="meta-value">{{ active_count }}</div>
+                                </div>
+                                <div>
+                                    <span class="meta-label">حوزه‌های اصلی</span>
+                                    <div class="meta-value">
+                                        {% for cat in categories %}
+                                            {{ cat.name }}{% if not forloop.last %}، {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="archive-meta-foot">
+                                <i class="bi bi-info-circle ms-1"></i>
+                                این صفحه در حال توسعه است و به‌مرور با پروژه‌های جدید به‌روزرسانی می‌شود.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- خط طلایی زیر هدر -->
+            <div class="archive-divider-line"></div>
+        </section>
+
+        <!-- FILTERS + GRID -->
+        <section class="portfolio-archive-section position-relative">
+            <div class="portfolio-archive-bg-orbit"></div>
+
+            <div class="container py-5 position-relative z-1">
+
+                <!-- FILTER BAR -->
+                <div class="row align-items-center mb-4 g-3">
+                    <div class="col-lg-6" data-aos="fade-up">
+                        <div class="filter-label">
+                            <span class="dot dot-gold"></span>
+                            مشاهده پروژه‌ها بر اساس حوزه
+                        </div>
+                    </div>
+                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="60">
+                        <div class="portfolio-filter-bar justify-content-lg-end">
+                            <button class="filter-chip active" data-filter="all">
+                                همه پروژه‌ها
+                            </button>
+                            {% for cat in categories %}
+                                <button class="filter-chip" data-filter="{{ cat.slug }}">
+                                    {{ cat.name }}
+                                </button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GRID -->
+                <div class="row g-4" id="portfolioGrid">
+
+                    {% for project in projects %}
+                        <div class="col-md-6 col-xl-4 portfolio-item"
+                             data-category="{{ project.category.slug }}"
+                             data-aos="fade-up"
+                             data-aos-delay="{{ forloop.counter|add:'1' }}0">
+                            <article class="project-card">
+                                <div class="project-media">
+                                    {% if project.image %}
+                                        <img src="{{ project.image.url }}"
+                                             alt="{{ project.name_fa }}"
+                                             class="project-img">
+                                    {% endif %}
+                                    <span class="project-tag">
+                                        {% if project.category.icon_class %}
+                                            <i class="bi {{ project.category.icon_class }} ms-1"></i>
+                                        {% endif %}
+                                        {{ project.category.name }}
+                                    </span>
+                                </div>
+                                <div class="project-body">
+                                    <div class="project-header">
+                                        <h3 class="project-title">{{ project.name_fa }}</h3>
+                                        <span class="stage-chip">
+                                            {{ project.get_collaboration_model_display }}
+                                        </span>
+                                    </div>
+                                    <p class="project-text">
+                                        {{ project.short_tagline }}
+                                    </p>
+                                    <div class="project-footer">
+                                        {% with first_h=project.highlights.all|first %}
+                                            {% if first_h %}
+                                                <span class="project-meta">
+                                                    {% if first_h.icon_class %}
+                                                        <i class="bi {{ first_h.icon_class }} ms-1"></i>
+                                                    {% endif %}
+                                                    {{ first_h.text }}
+                                                </span>
+                                            {% endif %}
+                                        {% endwith %}
+                                        <a href="{{ project.get_absolute_url }}" class="project-link">
+                                            مشاهده جزئیات
+                                            <i class="bi bi-arrow-left-short"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    {% empty %}
+                        <div class="col-12">
+                            <p class="text-center text-muted mt-4">
+                                هنوز هیچ پروژه‌ای در پورتفوی ثبت نشده است.
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/portfolio/portfolio-list.js' %}"></script>
+
+    <script>
+        AOS.init({
+            duration: 700,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 100,
+            disable: 'mobile'
+        });
+    </script>
+</body>
+
+</html>

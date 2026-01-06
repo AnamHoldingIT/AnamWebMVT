@@ -1,0 +1,64 @@
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}حذف نقش{% endblock %}
+{% block menu_portfolio %}active{% endblock %}
+
+{% block content %}
+
+<div class="detail-header">
+  <div>
+    <h2 class="page-title mb-1">حذف نقش</h2>
+    <p class="detail-subtitle">
+      این عملیات قابل بازگشت نیست. اگر این نقش در پروژه‌ها استفاده شده باشد، ممکن است حذف آن باعث حذف ارتباط‌ها شود.
+    </p>
+  </div>
+
+  <div class="detail-header-actions">
+    <a href="{% url 'admin_panel:portfolio_roles' %}" class="detail-back-btn">
+      <i class="bi bi-arrow-right"></i>
+      بازگشت به لیست نقش‌ها
+    </a>
+  </div>
+</div>
+
+<div class="detail-card">
+
+  <div class="detail-description">
+    <div class="detail-description-header">
+      <i class="bi bi-exclamation-triangle"></i>
+      تایید حذف
+    </div>
+
+    <p>
+      آیا مطمئن هستید که می‌خواهید نقش زیر را حذف کنید؟
+    </p>
+
+    <div class="mt-2">
+      <span class="detail-badge detail-badge-warning">
+        <i class="bi bi-tag ms-1"></i>
+        {{ object.title }}
+      </span>
+
+      <span class="detail-badge detail-badge-info dir-ltr">
+        {{ object.slug }}
+      </span>
+    </div>
+  </div>
+
+  <form method="post" class="d-flex justify-content-end gap-2">
+    {% csrf_token %}
+
+    <a href="{% url 'admin_panel:portfolio_roles' %}" class="btn btn-outline-secondary btn-sm">
+      انصراف
+    </a>
+
+    <button type="submit" class="btn btn-danger btn-sm">
+      <i class="bi bi-trash ms-1"></i>
+      حذف قطعی
+    </button>
+  </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Anam Portal{% endblock %}</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap">
+
+  <link rel="stylesheet" href="{% static 'css/users_panel/users_panel_base.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+  <div class="d-flex overflow-hidden w-100" style="min-height: 100vh;">
+
+    <!-- Sidebar -->
+    <aside class="sidebar bg-glass-dark border-start border-white-10 d-flex flex-column transition-base" id="sidebar">
+      <div class="p-4 border-bottom border-white-10 d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-2">
+          <img src="{% static 'image/logo/AnamLogo.PNG' %}" alt="Logo" width="40"
+               class="img-fluid logo-spin-hover">
+          <div class="d-flex flex-column">
+            <span class="fw-bold text-gold small letter-spacing-1">ANAM HOLDING</span>
+            <span class="text-white-50 super-small">Portal Area</span>
+          </div>
+        </div>
+        <button class="btn btn-sm btn-icon text-white d-lg-none transition-base hover-rotate" id="closeSidebar">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+
+      <!-- User Box -->
+      <div class="p-4 bg-white-05">
+        <div class="d-flex align-items-center gap-3">
+          <div class="position-relative">
+            <img src="https://ui-avatars.com/api/?name={{ request.user.get_full_name|default:request.user.username }}&background=C5A059&color=000"
+                 class="rounded-circle border border-gold transition-base hover-scale"
+                 width="48" height="48" alt="User">
+            <span class="position-absolute bottom-0 start-0 translate-middle p-1 bg-success border border-dark rounded-circle pulse-animation"></span>
+          </div>
+          <div class="d-flex flex-column">
+            <span class="fw-bold text-white small">
+              {{ request.user.get_full_name|default:request.user.username }}
+            </span>
+            <span class="text-white-50 super-small">
+              {% block user_role %}کاربر{% endblock %}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nav -->
+      <nav class="flex-grow-1 overflow-auto p-3 custom-scrollbar">
+        <ul class="nav flex-column gap-2">
+          <li class="nav-header text-white-50 small fw-bold mt-2 mb-2 px-3">منوی اصلی</li>
+
+          <li class="nav-item">
+            <a href="{% url 'worklog:dashboard' %}"
+               class="nav-link d-flex align-items-center gap-3 rounded-3 text-white-50 hover-effect-slide {% block nav_dashboard_active %}{% endblock %}">
+              <i class="bi bi-grid-fill"></i><span>داشبورد</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{% url 'worklog:projects' %}"
+               class="nav-link d-flex align-items-center gap-3 rounded-3 text-white-50 hover-effect-slide {% block nav_projects_active %}{% endblock %}">
+              <i class="bi bi-kanban"></i><span>پروژه‌ها</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{% url 'worklog:plans' %}"
+               class="nav-link d-flex align-items-center gap-3 rounded-3 text-white-50 hover-effect-slide {% block nav_plan_active %}{% endblock %}">
+              <i class="bi bi-calendar-check"></i><span>برنامه‌ریزی</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{% url 'worklog:report_list' %}"{# {% url 'users_panel:reports' %} #}
+               class="nav-link d-flex align-items-center gap-3 rounded-3 text-white-50 hover-effect-slide {% block nav_reports_active %}{% endblock %}">
+              <i class="bi bi-file-earmark-text"></i><span>گزارشات</span>
+            </a>
+          </li>
+
+          <li class="nav-header text-white-50 small fw-bold mt-4 mb-2 px-3">تنظیمات</li>
+
+          <li class="nav-item">
+            <a href="#"{# {% url 'users_panel:profile' %} #}
+               class="nav-link d-flex align-items-center gap-3 rounded-3 text-white-50 hover-effect-slide">
+              <i class="bi bi-person-gear"></i><span>پروفایل کاربری</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{% url 'accounts:logout' %}"
+               class="nav-link d-flex align-items-center gap-3 rounded-3 text-danger hover-danger-bg hover-effect-slide">
+              <i class="bi bi-box-arrow-right"></i><span>خروج</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-grow-1 d-flex flex-column h-100 overflow-hidden position-relative main-content-area transition-base">
+      <header class="navbar navbar-expand bg-glass-dark border-bottom border-white-10 px-4 py-3 sticky-top z-3">
+        <div class="d-flex align-items-center gap-3 w-100">
+          <button class="btn btn-icon text-white d-lg-none p-0 me-2 hover-rotate transition-base" id="openSidebar">
+            <i class="bi bi-list fs-4"></i>
+          </button>
+
+          <h2 class="h5 fw-bold text-white mb-0 animate-fade-in">{% block page_title %}{% endblock %}</h2>
+
+          <div class="ms-auto d-flex align-items-center gap-3">
+            <button class="btn btn-icon-glass position-relative hover-rotate">
+              <i class="bi bi-bell"></i>
+              <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle pulse-animation"></span>
+            </button>
+            <button class="btn btn-icon-glass hover-rotate"><i class="bi bi-gear"></i></button>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-body overflow-auto p-4 custom-scrollbar">
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+  </div>
+
+  <div class="sidebar-overlay position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 z-2 d-none transition-base"
+       id="sidebarOverlay" style="backdrop-filter: blur(5px);"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{% static 'js/users_panel/user_panel_base.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

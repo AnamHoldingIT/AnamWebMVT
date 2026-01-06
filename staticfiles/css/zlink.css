@@ -11,8 +11,8 @@
     --txt: #e8feff;
     --txt-soft: #8cbac0;
 
-    --ui-glass: rgba(255,255,255,0.04);
-    --ui-border: rgba(0,255,255,0.23);
+    --ui-glass: rgba(255, 255, 255, 0.04);
+    --ui-border: rgba(0, 255, 255, 0.23);
 }
 
 /* ---------------- RESET ---------------- */
@@ -40,6 +40,50 @@ body {
     pointer-events: none;
 }
 
+/* ---------------- CITY DROPDOWN ---------------- */
+.city-wrap {
+    position: relative;
+}
+
+.city-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: rgba(0, 10, 16, 0.96);
+    border: 1px solid rgba(0, 255, 255, 0.18);
+    border-radius: 14px;
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.86),
+    0 0 20px rgba(0, 255, 255, 0.12);
+    display: none;
+    max-height: 260px;
+    overflow-y: auto;
+    text-align: right; /* Ensure dropdown items are right aligned */
+}
+
+.city-item {
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: .9rem;
+    color: #dffeff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.city-item:last-child {
+    border-bottom: none;
+}
+
+.city-item:hover {
+    background: rgba(0, 255, 255, 0.06);
+}
+
+.city-hint {
+    margin-top: 6px;
+    font-size: .78rem;
+    color: rgba(140, 186, 192, 0.9);
+}
+
 /* ---------------- CONTAINER ---------------- */
 .container-os {
     position: relative;
@@ -50,6 +94,13 @@ body {
     display: flex;
     justify-content: space-between;
     gap: 60px;
+
+    /* LAYOUT FIX: Start alignment for desktop */
+    align-items: flex-start;
+
+    /* GPU */
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
 }
 
 /* ---------------- LEFT PANEL ---------------- */
@@ -94,8 +145,8 @@ body {
 }
 
 .chip {
-    background: rgba(0,255,255,0.05);
-    border: 1px solid rgba(0,255,255,0.2);
+    background: rgba(0, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 255, 0.2);
     padding: 10px 18px;
     border-radius: 12px;
     width: fit-content;
@@ -103,6 +154,7 @@ body {
     font-size: .92rem;
     backdrop-filter: blur(6px);
     transition: .25s;
+    transform: translateZ(0);
 }
 
 .chip:hover {
@@ -114,6 +166,10 @@ body {
 /* ---------------- RIGHT PANEL (FORM) ---------------- */
 .panel-right {
     width: 48%;
+    /* LAYOUT FIX: STICKY FORM */
+    height: fit-content;
+    position: sticky;
+    top: 40px;
 }
 
 .glass-ui {
@@ -122,16 +178,16 @@ body {
     backdrop-filter: blur(16px);
     padding: 32px;
     border-radius: 22px;
-    box-shadow: 0 0 32px rgba(0,255,255,0.15);
+    box-shadow: 0 0 32px rgba(0, 255, 255, 0.15);
     animation: formIn 1s ease forwards;
     opacity: 0;
-    transform: translateY(20px);
+    transform: translate3d(0, 20px, 0);
 }
 
 @keyframes formIn {
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
     }
 }
 
@@ -155,8 +211,8 @@ label {
     width: 100%;
     padding: 12px 16px;
     margin-top: 6px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(0,255,255,0.18);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(0, 255, 255, 0.18);
     border-radius: 14px;
     color: var(--txt);
     transition: .3s ease;
@@ -171,7 +227,7 @@ label {
 /* Input Error */
 .neo-input-error {
     border-color: #ff4646 !important;
-    box-shadow: 0 0 16px rgba(255,70,70,0.4) !important;
+    box-shadow: 0 0 16px rgba(255, 70, 70, 0.4) !important;
 }
 
 /* Button */
@@ -205,19 +261,19 @@ label {
 
 .recode-message-success {
     display: block;
-    background: rgba(0,255,140,0.1);
-    border: 1px solid rgba(0,255,140,0.4);
+    background: rgba(0, 255, 140, 0.1);
+    border: 1px solid rgba(0, 255, 140, 0.4);
     color: #9affc9;
 }
 
 .recode-message-error {
     display: block;
-    background: rgba(255,80,80,0.12);
-    border: 1px solid rgba(255,80,80,0.45);
+    background: rgba(255, 80, 80, 0.12);
+    border: 1px solid rgba(255, 80, 80, 0.45);
     color: #ffd1d1;
 }
 
-/* ---------------- SOCIAL BUTTONS (LIQUID GLASS) ---------------- */
+/* ---------------- NEW GLOWING SOCIAL BUTTONS ---------------- */
 .social-box {
     margin-top: 36px;
 }
@@ -225,144 +281,142 @@ label {
 .s-title {
     color: var(--txt-soft);
     font-size: .9rem;
+    margin-bottom: 14px;
 }
 
 .social-grid {
-    margin-top: 18px;
     display: flex;
     flex-wrap: wrap;
-    gap: 14px;
+    gap: 12px;
 }
 
 .s-btn {
     position: relative;
-    padding: 12px 18px;
+    flex: 1 1 45%;
+    padding: 14px 18px;
     border-radius: 14px;
-
-    flex: 1 1 220px;
-
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-
-    background: rgba(255,255,255,0.06);
-    backdrop-filter: blur(18px) saturate(180%);
-    border: 1px solid rgba(255,255,255,0.15);
-
-    box-shadow:
-        inset 0 0 22px rgba(255,255,255,0.08),
-        inset 0 0 10px rgba(255,255,255,0.05),
-        0 0 22px rgba(0,255,255,0.15),
-        0 0 40px rgba(0,0,0,0.9);
-
-    color: var(--txt);
+    gap: 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    color: var(--txt-soft);
     text-decoration: none;
     cursor: pointer;
-
     overflow: hidden;
-    transition: .28s ease;
+    transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+/* Brand Colors */
+.instagram {
+    --brand-color: #E1306C;
+}
+
+.telegram {
+    --brand-color: #24A1DE;
+}
+
+.youtube {
+    --brand-color: #FF0000;
+}
+
+.linkedin {
+    --brand-color: #0077b5;
+}
+
+/* HOVER EFFECTS */
 .s-btn:hover {
-    transform: translateY(-2px);
-    box-shadow:
-        inset 0 0 22px rgba(255,255,255,0.10),
-        inset 0 0 12px rgba(255,255,255,0.06),
-        0 0 30px var(--soft-glow),
-        0 0 70px rgba(0,0,0,0.9);
+    border-color: var(--brand-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4),
+    0 0 15px var(--brand-color),
+    inset 0 0 20px rgba(0, 0, 0, 0.5);
+    transform: translateY(-4px) scale(1.02);
+    color: #fff;
 }
 
 .s-btn::before {
     content: "";
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(
-        125deg,
-        rgba(255,255,255,0.25) 0%,
-        rgba(255,255,255,0.05) 40%,
-        transparent 60%
+            120deg,
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            var(--brand-color),
+            rgba(255, 255, 255, 0.1),
+            transparent
     );
-    opacity: 0;
-    transform: translateX(-80%);
-    transition: .45s ease;
+    opacity: 0.1;
+    transform: translateX(-100%);
+    transition: 0.5s;
+    z-index: 0;
 }
 
 .s-btn:hover::before {
-    opacity: .7;
-    transform: translateX(0);
+    transform: translateX(100%);
+    opacity: 0.2;
 }
 
-/* Social Icon */
 .s-icon {
-    width: 34px;
-    height: 34px;
+    position: relative;
+    z-index: 1;
+    width: 36px;
+    height: 36px;
     border-radius: 10px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background: rgba(0,0,0,0.55);
-    box-shadow:
-        inset 0 0 12px rgba(255,255,255,0.09),
-        0 0 18px rgba(0,255,255,0.45);
-
-    transition: .28s ease;
+    background: rgba(0, 0, 0, 0.4);
+    font-size: 1.2rem;
+    transition: 0.3s;
+    color: var(--txt-soft);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .s-btn:hover .s-icon {
-    transform: scale(1.05);
-    box-shadow:
-        inset 0 0 15px rgba(255,255,255,0.12),
-        0 0 26px rgba(0,255,255,0.8);
+    background: var(--brand-color);
+    color: #fff;
+    box-shadow: 0 0 15px var(--brand-color);
+    border-color: transparent;
+    transform: rotateY(180deg);
 }
 
 .s-label {
-    font-size: .85rem;
-    white-space: normal;
-    letter-spacing: .4px;
+    position: relative;
+    z-index: 1;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: 0.3s;
 }
 
-/* Colors */
-.instagram { border-color: #ff4fe5a8; }
-.instagram .s-icon { color:#ff8ff0; box-shadow:0 0 18px #ff4fe580; }
+.s-btn:hover .s-label {
+    text-shadow: 0 0 10px var(--brand-color);
+}
 
-.telegram { border-color:#4fbaffb0; }
-.telegram .s-icon { color:#8fd3ff; box-shadow:0 0 18px #4fbaff80; }
-
-.youtube { border-color:#ff4646b0; }
-.youtube .s-icon { color:#ffb3b3; box-shadow:0 0 18px #ff464680; }
-
-.linkedin { border-color:#33ccffb0; }
-.linkedin .s-icon { color:#b3ecff; box-shadow:0 0 18px #33ccff80; }
-
-/* ---------------- BACK BUTTON (ANAM BRAND) ---------------- */
+/* ---------------- BACK BUTTON ---------------- */
 .recode-back-btn {
     position: absolute;
     top: 22px;
     left: 22px;
     z-index: 200;
-
     padding: 11px 26px;
     border-radius: 999px;
-
     background: #024442;
     color: #fdf8ec;
-
     border: 2px solid #C5A059;
     font-weight: 700;
-
     text-decoration: none;
     font-size: 0.95rem;
-
     display: inline-flex;
     align-items: center;
     gap: 8px;
-
-    box-shadow:
-        0 4px 16px rgba(2, 68, 66, 0.45),
-        0 0 12px rgba(197, 160, 89, 0.45);
-
+    box-shadow: 0 4px 16px rgba(2, 68, 66, 0.45),
+    0 0 12px rgba(197, 160, 89, 0.45);
     transition: .25s;
 }
 
@@ -370,12 +424,9 @@ label {
     background: #03514F;
     color: #fff;
     border-color: #e0c48b;
-
     transform: translateY(-2px) scale(1.04);
-
-    box-shadow:
-        0 12px 30px rgba(197, 160, 89, 0.55),
-        0 0 20px rgba(255, 240, 200, 0.75);
+    box-shadow: 0 12px 30px rgba(197, 160, 89, 0.55),
+    0 0 20px rgba(255, 240, 200, 0.75);
 }
 
 .recode-back-btn i {
@@ -383,23 +434,37 @@ label {
     font-size: 1.05rem;
 }
 
-/* ---------------- RESPONSIVE ---------------- */
+/* ---------------- RESPONSIVE (MOBILE FIXES) ---------------- */
 @media (max-width: 991px) {
     .container-os {
         flex-direction: column;
-        text-align: center;
+        align-items: stretch;
+        /* ✅ text-align: center; REMOVED! */
+        /* حذف سنتر کردن اجباری تا متن‌ها راست‌چین (دیفالت فارسی) بمانند */
         gap: 40px;
         margin-top: 110px;
+    }
+
+    /* تیتر اصلی همچنان وسط باشد زیباست */
+    .hero-title {
+        text-align: center;
     }
 
     .panel-left,
     .panel-right {
         width: 100%;
+        /* اطمینان از راست‌چین بودن محتوا در موبایل */
+        text-align: right;
     }
 
-    .chip {
-        margin-left: auto;
-        margin-right: auto;
+    /* چیپ‌ها وسط‌چین باشند در موبایل (اختیاری) */
+    .stats {
+        align-items: center;
+    }
+
+    /* دکمه‌های سوشال */
+    .social-grid {
+        justify-content: center;
     }
 }
 
@@ -416,26 +481,19 @@ label {
         width: 100%;
     }
 
-    .social-grid {
-        justify-content: center;
-    }
-
     .s-btn {
-        width: 100%;
-        justify-content: center;
+        flex: 1 1 100%;
     }
 }
-
 
 /* ============================================================
    RC sections (ReCode / BLC content boxes)
    ============================================================ */
 
 .hero-text {
-    max-width: 580px; /* فقط یکم عریض‌تر برای ابتدای صفحه */
+    max-width: 580px;
 }
 
-/* کانتینر کلی باکس‌ها */
 .rc-sections {
     margin-top: 28px;
     display: flex;
@@ -443,18 +501,17 @@ label {
     gap: 16px;
 }
 
-/* هر باکس متن */
 .rc-card {
     background: rgba(0, 10, 16, 0.92);
     border-radius: 18px;
     padding: 14px 16px 12px;
-    border: 1px solid rgba(0,255,255,0.18);
-    box-shadow:
-        0 14px 32px rgba(0,0,0,0.86),
-        0 0 20px rgba(0,255,255,0.12);
+    border: 1px solid rgba(0, 255, 255, 0.18);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.86),
+    0 0 20px rgba(0, 255, 255, 0.12);
+    /* اطمینان از راست‌چین بودن متن کارت‌ها */
+    text-align: right;
 }
 
-/* عنوان باکس */
 .rc-card-title {
     font-size: 1rem;
     font-weight: 800;
@@ -462,14 +519,12 @@ label {
     margin-bottom: 6px;
 }
 
-/* متن کوتاه اول هر باکس */
 .rc-card-intro {
     font-size: .9rem;
     line-height: 1.9;
     color: var(--txt-soft);
 }
 
-/* زیرتیتر کوچک داخل باکس */
 .rc-card-subtitle {
     font-size: .86rem;
     font-weight: 700;
@@ -478,10 +533,10 @@ label {
     color: #dffeff;
 }
 
-/* لیست‌ها */
 .rc-list {
     margin: 4px 0 4px;
-    padding-right: 1.1rem; /* چون RTL هستی */
+    padding-right: 1.1rem;
+    text-align: right; /* Explicit Right Align */
 }
 
 .rc-list li {
@@ -490,10 +545,9 @@ label {
     line-height: 1.8;
 }
 
-/* جزئیات تاشونده (برای این‌که طول متن به چشم نیاد) */
 .rc-collapse {
     margin-top: 6px;
-    border-top: 1px solid rgba(255,255,255,0.06);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
     padding-top: 6px;
 }
 
@@ -507,7 +561,6 @@ label {
     gap: 6px;
 }
 
-/* حذف مثلث پیش‌فرض */
 .rc-collapse > summary::-webkit-details-marker {
     display: none;
 }
@@ -519,7 +572,6 @@ label {
     transition: transform .2s ease;
 }
 
-/* وقتی باز است، فلش بچرخد */
 .rc-collapse[open] > summary::before {
     transform: rotate(180deg);
 }
@@ -531,11 +583,11 @@ label {
     color: var(--txt-soft);
 }
 
-/* روی موبایل فاصله‌ها کمی کمتر شود */
 @media (max-width: 575px) {
     .rc-card {
         padding: 12px 12px 10px;
     }
+
     .rc-card-title {
         font-size: .95rem;
     }

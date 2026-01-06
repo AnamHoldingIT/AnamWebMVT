@@ -1,0 +1,71 @@
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}
+  {% if object %}ویرایش دسته‌بندی{% else %}افزودن دسته‌بندی{% endif %}
+{% endblock %}
+
+{% block menu_portfolio %}active{% endblock %}
+
+{% block content %}
+
+<div class="detail-header">
+  <div>
+    <h2 class="page-title mb-1">
+      {% if object %}ویرایش دسته‌بندی{% else %}افزودن دسته‌بندی جدید{% endif %}
+    </h2>
+    <p class="detail-subtitle">
+      دسته‌بندی‌ها برای گروه‌بندی پروژه‌های پورتفوی استفاده می‌شوند.
+    </p>
+  </div>
+
+  <div class="detail-header-actions">
+    <a href="{% url 'admin_panel:portfolio_categories' %}" class="detail-back-btn">
+      <i class="bi bi-arrow-right-short"></i>
+      بازگشت
+    </a>
+  </div>
+</div>
+
+<div class="detail-card">
+
+  <form method="post" class="detail-grid">
+    {% csrf_token %}
+
+    <div class="detail-item">
+      <label class="detail-label">نام دسته‌بندی</label>
+      {{ form.name }}
+    </div>
+
+    <div class="detail-item dir-ltr">
+      <label class="detail-label">اسلاگ</label>
+      {{ form.slug }}
+    </div>
+
+    <div class="detail-item dir-ltr">
+      <label class="detail-label">کلاس آیکن (Bootstrap)</label>
+      {{ form.icon_class }}
+      <small class="text-muted d-block mt-1">
+        مثال: <code>bi-credit-card</code> ، <code>bi-cpu</code>
+      </small>
+    </div>
+
+    <div class="detail-item d-flex align-items-end gap-2">
+      <button type="submit" class="btn btn-success">
+        <i class="bi bi-check2-circle ms-1"></i>
+        ذخیره
+      </button>
+
+      {% if object %}
+        <a href="{% url 'admin_panel:portfolio_category_delete' object.pk %}"
+           class="btn btn-outline-danger">
+          حذف
+        </a>
+      {% endif %}
+    </div>
+
+  </form>
+
+</div>
+
+{% endblock %}

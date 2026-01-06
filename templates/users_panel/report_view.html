@@ -1,0 +1,169 @@
+{% extends "users_panel/users_panel_base.html" %}
+{% load static %}
+
+{% block title %}Anam Portal | جزئیات گزارش{% endblock %}
+{% block nav_reports_active %}active{% endblock %}
+{% block page_title %}جزئیات گزارش{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/users_panel/report.css' %}">
+  <link rel="stylesheet" href="{% static 'css/users_panel/report_view.css' %}">
+{% endblock %}
+
+{% block content %}
+
+  <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4 animate-fade-in-up">
+    <div class="d-flex align-items-center gap-3">
+      <div class="date-badge">
+        <span class="day">{{ day_num }}</span>
+        <span class="month">{{ month_name }}</span>
+      </div>
+
+      <div>
+        <h2 class="h5 fw-bold text-white mb-0">مشاهده گزارش عملکرد</h2>
+        <span class="text-white-50 super-small">ثبت شده در: {{ created_at_text }}</span>
+      </div>
+    </div>
+
+    <a href="{% url 'worklog:report_list' %}" class="btn btn-luxury-secondary px-4">
+      بازگشت به لیست
+    </a>
+  </div>
+
+  <div class="row mb-4 animate-fade-in-up">
+    <div class="col-12">
+      <div class="status-card locked d-flex align-items-center justify-content-between p-3 rounded-3">
+        <div class="d-flex align-items-center gap-3">
+          <div class="icon-box-sm bg-white-10 text-white-50 rounded-circle">
+            <i class="bi bi-eye-fill"></i>
+          </div>
+          <div>
+            <h5 class="h6 text-white fw-bold mb-1">فقط مشاهده</h5>
+            <p class="text-white-50 super-small mb-0">گزارش‌های روزهای قبل قابل ویرایش نیستند.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {# -------- Achievements -------- #}
+  <div class="row mb-5 animate-fade-in-up delay-1">
+    <div class="col-12">
+      <div class="section-header mb-3">
+        <h3 class="h5 text-white fw-bold"><i class="bi bi-trophy text-gold me-2"></i>دستاوردها</h3>
+      </div>
+
+      <div class="glass-card p-4">
+        <div class="achievement-checklist">
+          {% for st in achievement_states %}
+            <label class="achievement-check-item">
+              <input type="checkbox"
+                     class="achieve-checkbox"
+                     {% if st.achieved %}checked{% endif %}
+                     disabled>
+              <div class="check-content">
+                <span class="check-text">{{ st.achievement.title }}</span>
+                <span class="check-status {% if st.achieved %}text-success{% else %}text-white-50{% endif %}">
+                  {% if st.achieved %}محقق شد{% else %}انجام نشد{% endif %}
+                </span>
+              </div>
+            </label>
+          {% empty %}
+            <div class="text-center text-white-50">دستاوردی ثبت نشده است.</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {# -------- Timeline -------- #}
+  <div class="row mb-5 animate-fade-in-up delay-2">
+    <div class="col-12">
+      <div class="section-header mb-3">
+        <h3 class="h5 text-white fw-bold"><i class="bi bi-list-check text-gold me-2"></i>شرح فعالیت‌ها</h3>
+      </div>
+
+      <div class="glass-card p-0 overflow-hidden">
+        <div class="report-timeline">
+          <div class="timeline-header-row d-none d-md-flex">
+            <div class="col-time">زمان</div>
+            <div class="col-plan">برنامه‌ریزی شده</div>
+            <div class="col-status">وضعیت</div>
+            <div class="col-desc">توضیحات</div>
+          </div>
+
+          {% for e in entries %}
+            <div class="report-row {% if e.status == 0 %}failed-bg{% elif e.status == 3 %}blocked-bg{% endif %}">
+              <div class="time-col">
+                <span class="range">{{ e.schedule_block.start_time|time:"H:i" }} - {{ e.schedule_block.end_time|time:"H:i" }}</span>
+              </div>
+
+              <div class="plan-col">
+                <strong class="text-white d-block">{{ e.schedule_block.task_title }}</strong>
+                {% if e.schedule_block.description %}
+                  <small class="text-white-50">{{ e.schedule_block.description }}</small>
+                {% endif %}
+              </div>
+
+              <div class="status-col">
+                <select class="form-select luxury-select status-select" disabled>
+                  <option value="2" {% if e.status == 2 %}selected{% endif %}>انجام شد</option>
+                  <option value="1" {% if e.status == 1 %}selected{% endif %}>در دست انجام</option>
+                  <option value="0" {% if e.status == 0 %}selected{% endif %}>انجام نشد</option>
+                  <option value="3" {% if e.status == 3 %}selected{% endif %}>مسدود</option>
+                  <option value="4" {% if e.status == 4 %}selected{% endif %}>ناقص</option>
+                </select>
+              </div>
+
+              <div class="desc-col">
+                <input type="text"
+                       class="form-control luxury-input-transparent"
+                       value="{{ e.note|default:'' }}"
+                       placeholder="—"
+                       disabled>
+              </div>
+            </div>
+          {% empty %}
+            <div class="p-4 text-center text-white-50">فعالیتی ثبت نشده است.</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {# -------- Extras -------- #}
+  <div class="row mb-5 animate-fade-in-up delay-2">
+    <div class="col-12">
+      <div class="section-header mb-3">
+        <h3 class="h5 text-white fw-bold"><i class="bi bi-lightning-charge text-warning me-2"></i>کارهای خارج از برنامه</h3>
+      </div>
+
+      <div class="glass-card p-4">
+        <div class="d-flex flex-column gap-2">
+          {% for ex in extras %}
+            <div class="extra-item-view p-3 rounded-3 bg-white-05 border border-white-10">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex flex-wrap gap-3 align-items-center">
+                  <span class="text-gold fw-bold">
+                    {% if ex.start_time %}{{ ex.start_time|time:"H:i" }}{% else %}—{% endif %}
+                    -
+                    {% if ex.end_time %}{{ ex.end_time|time:"H:i" }}{% else %}—{% endif %}
+                  </span>
+                  <span class="text-white">{{ ex.title }}</span>
+                </div>
+              </div>
+              {% if ex.description %}
+                <p class="text-white-50 small mb-0 mt-2">{{ ex.description }}</p>
+              {% endif %}
+            </div>
+          {% empty %}
+            <div class="text-center text-white-50">موردی ثبت نشده است.</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

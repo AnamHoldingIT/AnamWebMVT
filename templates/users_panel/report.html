@@ -1,0 +1,214 @@
+{% extends "users_panel/users_panel_base.html" %}
+{% load static %}
+
+{% block title %}Anam Portal | ثبت گزارش عملکرد{% endblock %}
+{% block nav_reports_active %}active{% endblock %}
+{% block page_title %}ثبت گزارش عملکرد روزانه{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/users_panel/report.css' %}">
+{% endblock %}
+
+{% block content %}
+
+  <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4 animate-fade-in-up">
+    <div class="d-flex align-items-center gap-3">
+      <div class="date-badge">
+        <span class="day">{{ day_num }}</span>
+        <span class="month">{{ month_name }}</span>
+      </div>
+
+      <div>
+        <h2 class="h5 fw-bold text-white mb-0">گزارش عملکرد روزانه</h2>
+
+        {% if is_locked %}
+          <span class="text-danger super-small">
+            <i class="bi bi-lock-fill me-1"></i> مهلت ثبت/ویرایش تمام شده است
+          </span>
+        {% else %}
+          <span class="text-warning super-small">
+            <i class="bi bi-clock-history me-1"></i>
+            مهلت ارسال: {{ remaining_text }}
+          </span>
+        {% endif %}
+      </div>
+    </div>
+
+    <button class="btn btn-premium-gold hover-scale shadow-gold px-4 py-2"
+            type="submit"
+            form="reportForm"
+            {% if is_locked %}disabled{% endif %}>
+      <i class="bi bi-send-check me-2"></i>
+      ذخیره گزارش
+    </button>
+  </div>
+
+  <form id="reportForm" method="post" class="animate-fade-in-up delay-1">
+    {% csrf_token %}
+    <input type="hidden" name="extras_json" id="extras_json" value="[]">
+
+    {# ---------------- Achievements ---------------- #}
+    <div class="row mb-5">
+      <div class="col-12">
+        <div class="section-header mb-3">
+          <h3 class="h5 text-white fw-bold">
+            <i class="bi bi-trophy text-gold me-2"></i>تحقق دستاوردها
+          </h3>
+          <p class="text-white-50 super-small mb-0">کدام یک از اهداف امروز محقق شدند؟</p>
+        </div>
+
+        <div class="glass-card p-4">
+          <div class="achievement-checklist">
+
+            {% for st in achievement_states %}
+              <label class="achievement-check-item">
+                <input type="checkbox"
+                       class="achieve-checkbox"
+                       name="ach_{{ st.achievement_id }}"
+                       {% if st.achieved %}checked{% endif %}
+                       {% if is_locked %}disabled{% endif %}>
+
+                <div class="check-content">
+                  <span class="check-text">{{ st.achievement.title }}</span>
+                  <span class="check-status {% if st.achieved %}text-success{% else %}text-white-50{% endif %}">
+                    {% if st.achieved %}محقق شد{% else %}انجام نشد{% endif %}
+                  </span>
+                </div>
+              </label>
+            {% empty %}
+              <div class="text-center text-white-50">دستاوردی برای امروز ثبت نشده است.</div>
+            {% endfor %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {# ---------------- Timeline ---------------- #}
+    <div class="row mb-5">
+      <div class="col-12">
+        <div class="section-header mb-3">
+          <h3 class="h5 text-white fw-bold">
+            <i class="bi bi-list-check text-gold me-2"></i>گزارش فعالیت‌ها
+          </h3>
+          <p class="text-white-50 super-small mb-0">وضعیت انجام هر بازه زمانی را مشخص کنید.</p>
+        </div>
+
+        <div class="glass-card p-0 overflow-hidden">
+          <div class="report-timeline">
+
+            <div class="timeline-header-row d-none d-md-flex">
+              <div class="col-time">زمان</div>
+              <div class="col-plan">برنامه ریزی شده</div>
+              <div class="col-status">وضعیت</div>
+              <div class="col-desc">توضیحات عملکرد (اختیاری)</div>
+            </div>
+
+            {% for e in entries %}
+              <div class="report-row {% if e.status == 0 %}failed-bg{% elif e.status == 3 %}blocked-bg{% endif %}">
+                <div class="time-col">
+                  <span class="range">
+                    {{ e.schedule_block.start_time|time:"H:i" }} - {{ e.schedule_block.end_time|time:"H:i" }}
+                  </span>
+                </div>
+
+                <div class="plan-col">
+                  <strong class="text-white d-block">{{ e.schedule_block.task_title }}</strong>
+                  {% if e.schedule_block.description %}
+                    <small class="text-white-50">{{ e.schedule_block.description }}</small>
+                  {% endif %}
+                </div>
+
+                <div class="status-col">
+                  <select class="form-select luxury-select status-select"
+                          name="status_{{ e.id }}"
+                          onchange="updateRowColor(this)"
+                          {% if is_locked %}disabled{% endif %}>
+                    <option value="2" {% if e.status == 2 %}selected{% endif %}>انجام شد</option>
+                    <option value="1" {% if e.status == 1 %}selected{% endif %}>در دست انجام</option>
+                    <option value="0" {% if e.status == 0 %}selected{% endif %}>انجام نشد</option>
+                    <option value="3" {% if e.status == 3 %}selected{% endif %}>مسدود</option>
+                    <option value="4" {% if e.status == 4 %}selected{% endif %}>ناقص</option>
+                  </select>
+                </div>
+
+                <div class="desc-col">
+                  <input type="text"
+                         class="form-control luxury-input-transparent"
+                         name="note_{{ e.id }}"
+                         value="{{ e.note|default:'' }}"
+                         placeholder="توضیحات..."
+                         {% if is_locked %}disabled{% endif %}>
+                </div>
+              </div>
+            {% empty %}
+              <div class="p-4 text-center text-white-50">کاری برای امروز ثبت نشده است.</div>
+            {% endfor %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {# ---------------- Extras ---------------- #}
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="section-header mb-3 d-flex justify-content-between align-items-center">
+          <div>
+            <h3 class="h5 text-white fw-bold">
+              <i class="bi bi-lightning-charge text-warning me-2"></i>کارهای خارج از برنامه
+            </h3>
+            <p class="text-white-50 super-small mb-0">اگر فعالیتی انجام دادید که در برنامه نبود، اینجا اضافه کنید.</p>
+          </div>
+
+          <button type="button" id="addUnplannedBtn" class="btn btn-sm btn-luxury-outline"
+                  {% if is_locked %}disabled{% endif %}>
+            <i class="bi bi-plus-lg me-1"></i> افزودن مورد
+          </button>
+        </div>
+
+        <div id="unplannedContainer" class="d-flex flex-column gap-3">
+          {% if extras %}
+            {% for ex in extras %}
+              <div class="glass-card p-3 animate-fade-in position-relative unplanned-item">
+                <button type="button" class="btn-close-white position-absolute top-0 end-0 m-2 btn btn-sm"
+                        onclick="removeUnplanned(this)" {% if is_locked %}disabled{% endif %}>
+                  <i class="bi bi-x text-white-50"></i>
+                </button>
+
+                <div class="row g-3 align-items-end">
+                  <div class="col-md-2">
+                    <label class="super-small text-white-50 mb-1">شروع</label>
+                    <input type="time" class="form-control luxury-input p-2 text-center extra-start"
+                           value="{{ ex.start_time|time:'H:i' }}" {% if is_locked %}disabled{% endif %}>
+                  </div>
+                  <div class="col-md-2">
+                    <label class="super-small text-white-50 mb-1">پایان</label>
+                    <input type="time" class="form-control luxury-input p-2 text-center extra-end"
+                           value="{{ ex.end_time|time:'H:i' }}" {% if is_locked %}disabled{% endif %}>
+                  </div>
+                  <div class="col-md-8">
+                    <label class="super-small text-white-50 mb-1">شرح فعالیت</label>
+                    <input type="text" class="form-control luxury-input p-2 extra-title"
+                           value="{{ ex.title }}" placeholder="چه کاری انجام دادید؟" {% if is_locked %}disabled{% endif %}>
+                    <input type="text" class="form-control luxury-input p-2 mt-2 extra-desc"
+                           value="{{ ex.description }}" placeholder="توضیح (اختیاری)" {% if is_locked %}disabled{% endif %}>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div id="emptyUnplanned" class="glass-card p-4 text-center text-white-50 dashed-border">
+              <span class="small">موردی ثبت نشده است.</span>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+  </form>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/users_panel/report.js' %}"></script>
+{% endblock %}

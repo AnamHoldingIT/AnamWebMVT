@@ -1,0 +1,40 @@
+.status-card{
+  border: 1px solid rgba(255,255,255,0.05);
+  background: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.05) 100%);
+  backdrop-filter: blur(5px);
+}
+.status-card.locked{
+  border-right: 4px solid #6c757d;
+  opacity: 0.85;
+}
+
+.icon-box-sm{
+  width: 40px;
+  height: 40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.2rem;
+}
+
+/* حالت فقط خواندنی */
+input:disabled,
+select:disabled{
+  background: transparent !important;
+  border: none !important;
+  color: rgba(255,255,255,0.92) !important;
+  cursor: default;
+  opacity: 1;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+select:disabled{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.achieve-checkbox:disabled{
+  opacity: 0.7;
+}

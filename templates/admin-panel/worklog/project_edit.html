@@ -1,0 +1,166 @@
+{#project_edit.html#}
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}Anam Admin | ویرایش پروژه{% endblock %}
+{# {% block menu_worklog_projects %}active{% endblock %} #}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/admin_panel/worklog/admin-edit-project.css' %}">
+{% endblock %}
+
+{% block content %}
+
+  <header class="topbar mb-5">
+    <div class="d-flex align-items-center gap-3">
+      <a href="{{ back_url }}" class="btn btn-icon-glass"><i class="bi bi-arrow-right"></i></a>
+      <div>
+        <h2 class="h4 fw-bold text-white mb-1">ویرایش پروژه</h2>
+        <span class="text-white-50 small">مدیریت اطلاعات و اعضای تیم</span>
+      </div>
+    </div>
+
+    {# دکمه ذخیره (کل صفحه) #}
+    <button type="submit" form="projectEditForm" name="save_project"
+            class="btn btn-premium-gold shadow-gold px-4">
+      <i class="bi bi-check-lg me-2"></i> ذخیره تغییرات
+    </button>
+  </header>
+
+  {# پیام‌های جنگو #}
+  {% if messages %}
+    <div class="mb-4">
+      {% for m in messages %}
+        <div class="alert alert-{% if m.tags %}{{ m.tags }}{% else %}info{% endif %} mb-2">
+          {{ m }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <form id="projectEditForm" method="post">
+    {% csrf_token %}
+
+    <div class="row g-4">
+
+      <div class="col-lg-5">
+        <div class="glass-panel h-100">
+          <div class="panel-header mb-4 border-bottom border-white-10 pb-3">
+            <h5 class="text-white fw-bold mb-0">
+              <i class="bi bi-sliders text-gold me-2"></i>تنظیمات عمومی
+            </h5>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label text-white-50 small">عنوان پروژه</label>
+            <input name="title" type="text" class="form-control luxury-input" value="{{ project.title }}">
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label text-white-50 small">لینک گوگل شیت</label>
+            <div class="input-group-luxury">
+              <input name="sheet_url" type="url" class="form-control luxury-input" value="{{ project.sheet_url|default:'' }}">
+              {% if project.sheet_url %}
+                <a href="{{ project.sheet_url }}" target="_blank" class="input-icon-link" title="باز کردن">
+                  <i class="bi bi-box-arrow-up-right"></i>
+                </a>
+              {% else %}
+                <span class="input-icon-link" style="opacity:.35">
+                  <i class="bi bi-dash-circle"></i>
+                </span>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="p-3 rounded-3 bg-white-05 border border-white-10 d-flex justify-content-between align-items-center">
+            <div>
+              <span class="text-white d-block fw-bold fs-09">وضعیت پروژه</span>
+              <span class="text-white-50 super-small">پروژه‌های غیرفعال مخفی می‌شوند</span>
+            </div>
+            <label class="switch">
+              <input name="is_active" type="checkbox" {% if project.is_active %}checked{% endif %}>
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="glass-panel h-100 d-flex flex-column">
+
+          <div class="panel-header mb-4 border-bottom border-white-10 pb-3 d-flex justify-content-between align-items-center">
+            <h5 class="text-white fw-bold mb-0">
+              <i class="bi bi-people text-gold me-2"></i>اعضای تیم
+            </h5>
+            <span class="badge bg-white-10 text-white-50 rounded-pill">{{ members_count }} عضو</span>
+          </div>
+
+          {# افزودن عضو جدید #}
+          <div class="add-member-box p-3 rounded-3 mb-4">
+            <h6 class="text-gold super-small fw-bold mb-2">افزودن عضو جدید</h6>
+            <div class="d-flex gap-2">
+              <select name="new_user_id" class="form-select admin-select flex-grow-1">
+                <option selected disabled value="">انتخاب کاربر...</option>
+                {% for u in available_users %}
+                  <option value="{{ u.id }}">
+                    {{ u.full_name|default:u.username }}
+                    {% if u.email %} ({{ u.email }}){% endif %}
+                  </option>
+                {% endfor %}
+              </select>
+
+              <select name="new_role" class="form-select admin-select w-auto">
+                <option value="{{ ROLE_MEMBER }}">عضو</option>
+                <option value="{{ ROLE_MANAGER }}">مدیر</option>
+              </select>
+
+              <button class="btn btn-gold icon-btn" type="submit" name="add_member" value="1" title="افزودن">
+                <i class="bi bi-plus-lg"></i>
+              </button>
+            </div>
+          </div>
+
+          {# لیست اعضا #}
+          <div class="members-list custom-scrollbar flex-grow-1" style="max-height: 400px; overflow-y: auto;">
+
+            {% for m in members %}
+              <div class="member-item">
+                <div class="d-flex align-items-center gap-3">
+                  <img src="{{ m.avatar_url }}" class="avatar-md {% if m.is_manager %}manager-border{% endif %}">
+                  <div>
+                    <span class="text-white fw-bold d-block fs-09">{{ m.name }}</span>
+                    <span class="text-white-50 super-small">{{ m.email|default:"—" }}</span>
+                  </div>
+                </div>
+
+                <div class="d-flex align-items-center gap-2">
+                  <select name="role_{{ m.id }}" class="role-select {% if m.is_manager %}manager{% endif %}">
+                    <option value="{{ ROLE_MANAGER }}" {% if m.role == ROLE_MANAGER %}selected{% endif %}>مدیر پروژه</option>
+                    <option value="{{ ROLE_MEMBER }}" {% if m.role == ROLE_MEMBER %}selected{% endif %}>عضو عادی</option>
+                  </select>
+
+                  <button class="btn btn-icon-sm hover-danger"
+                          type="submit"
+                          name="remove_member"
+                          value="{{ m.id }}"
+                          title="حذف از پروژه">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+            {% empty %}
+              <div class="text-center text-white-50 py-5">
+                هنوز عضوی برای این پروژه ثبت نشده است.
+              </div>
+            {% endfor %}
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </form>
+
+{% endblock %}

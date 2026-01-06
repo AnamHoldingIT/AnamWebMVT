@@ -1,0 +1,102 @@
+{% extends "users_panel/users_panel_base.html" %}
+{% load static %}
+
+{% block title %}Anam Portal | لیست پروژه‌ها{% endblock %}
+
+{% block nav_projects_active %}active{% endblock %}
+{% block page_title %}پروژه‌های من{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/users_panel/projects_users.css' %}">
+{% endblock %}
+
+{% block content %}
+
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-5 animate-fade-in-up">
+    <div>
+      <h1 class="h3 fw-bold text-white mb-1">لیست پروژه‌ها</h1>
+      <p class="text-white-50 small mb-0">انتخاب پروژه جهت مشاهده جزئیات و برنامه روزانه</p>
+    </div>
+
+    <div class="filter-glass p-1 rounded-4 d-inline-flex">
+      <button class="btn btn-sm text-white-50 filter-btn active" data-filter="all">همه</button>
+      <button class="btn btn-sm text-white-50 filter-btn" data-filter="manager">مدیریت میکنم</button>
+      <button class="btn btn-sm text-white-50 filter-btn" data-filter="member">عضو هستم</button>
+    </div>
+  </div>
+
+  <div class="row g-4" id="projectsContainer">
+
+    {% for p in projects %}
+      <div class="col-xl-4 col-md-6 project-item" data-role="{{ p.role }}">
+        <div class="project-card-luxury {% if not p.is_active %}inactive{% endif %} h-100 d-flex flex-column">
+
+          <div class="card-top d-flex justify-content-between align-items-start mb-4">
+
+            {% if p.role == "manager" %}
+              <div class="role-chip manager">
+                <i class="bi bi-star-fill"></i>
+                <span>{{ p.role_label }}</span>
+              </div>
+            {% else %}
+              <div class="role-chip member">
+                <i class="bi bi-person"></i>
+                <span>{{ p.role_label }}</span>
+              </div>
+            {% endif %}
+
+            <span class="status-dot {% if p.is_active %}active pulse-green{% else %}inactive{% endif %}"
+                  {% if p.is_active %}title="پروژه فعال"{% else %}title="پروژه غیرفعال"{% endif %}>
+            </span>
+          </div>
+
+          <div class="card-content mb-4 flex-grow-1">
+            <h3 class="project-title {% if not p.is_active %}text-white-50{% endif %}">{{ p.title }}</h3>
+            <p class="project-desc {% if not p.is_active %}text-white-50{% endif %}">
+              {{ p.description|default:"" }}
+            </p>
+
+            <div class="meta-row {% if not p.is_active %}opacity-50{% endif %}">
+              <div class="meta-item">
+                <span class="label">تاریخ عضویت</span>
+                <span class="value">{{ p.joined_at }}</span>
+              </div>
+              <div class="meta-item">
+                <span class="label">نقش شما</span>
+                <span class="value text-gold">{{ p.role_label }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-action mt-auto">
+            {% if p.is_active %}
+              <a href="{{ p.sheet_url }}" target="_blank" class="btn-luxury-full">
+                <span>مشاهده جزئیات و برنامه</span>
+                <i class="bi bi-arrow-left-short"></i>
+              </a>
+            {% else %}
+              <button class="btn-luxury-full disabled" disabled>
+                <span>دسترسی محدود</span>
+                <i class="bi bi-lock-fill"></i>
+              </button>
+            {% endif %}
+          </div>
+
+          <div class="card-glow"></div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12">
+        <div class="text-center py-5 text-white-50">
+          فعلاً پروژه‌ای برای شما ثبت نشده.
+        </div>
+      </div>
+    {% endfor %}
+
+  </div>
+
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/users_panel/projects_users.js' %}"></script>
+{% endblock %}

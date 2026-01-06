@@ -1,0 +1,412 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap');
+
+:root {
+    --gold: #C5A059;
+    --gold-glow: rgba(197, 160, 89, 0.4);
+    --gold-hover: #e0b86a;
+    --bg-dark: #000505;
+
+    /* منحنی زمانی لوکس: شروع کند، حرکت نرم، توقف بسیار آرام */
+    --luxury-ease: cubic-bezier(0.23, 1, 0.32, 1);
+    --transition-fast: 0.3s var(--luxury-ease);
+    --transition-slow: 0.6s var(--luxury-ease);
+}
+
+body {
+    font-family: "Vazirmatn", system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-dark);
+    background: radial-gradient(circle at 50% 0%, #052624 0%, #000505 60%, #000000 100%);
+    color: #ECECEC;
+    overflow-x: hidden;
+}
+
+/* --- Utilities --- */
+.text-gold {
+    color: var(--gold) !important;
+}
+
+.bg-gold {
+    background-color: var(--gold) !important;
+}
+
+.border-gold {
+    border-color: var(--gold) !important;
+}
+
+/* پس‌زمینه شیشه‌ای با کیفیت بالا */
+.bg-glass-dark {
+    background: rgba(5, 10, 10, 0.7);
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+}
+
+.bg-white-05 {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.bg-white-10 {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.border-white-10 {
+    border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.super-small {
+    font-size: 0.65rem;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+}
+
+.letter-spacing-1 {
+    letter-spacing: 1.5px;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1040;
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.main-content-area {
+    margin-right: 280px;
+    transition: margin-right var(--transition-slow);
+}
+
+@media (max-width: 991.98px) {
+    .sidebar {
+        transform: translateX(100%);
+        transition: transform var(--transition-slow);
+    }
+
+    .sidebar.show {
+        transform: translateX(0);
+    }
+
+    .main-content-area {
+        margin-right: 0;
+    }
+}
+
+/* --- Menu Links Animation (Liquid Fill Effect) --- */
+.nav-link {
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-slow);
+    border: 1px solid transparent;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: #fff !important;
+    transform: translateX(-5px);
+    border-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* خط طلایی که هنگام اکتیو شدن ظاهر می‌شود */
+.nav-link.active {
+    background: linear-gradient(270deg, rgba(197, 160, 89, 0.15) 0%, transparent 100%);
+    color: var(--gold) !important;
+    border-right: 2px solid var(--gold);
+}
+
+.nav-link.active i {
+    filter: drop-shadow(0 0 8px var(--gold-glow));
+}
+
+/* --- Topbar Buttons --- */
+.btn-icon-glass {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.btn-icon-glass:hover {
+    background: rgba(197, 160, 89, 0.15);
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* --- LUXURY CARDS (بخش اصلی تغییرات) --- */
+.glass-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    /* سایه اولیه */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* افکت نور مخفی داخل کارت */
+.glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 100%, rgba(197, 160, 89, 0.0), transparent 60%);
+    transition: opacity var(--transition-slow);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.hover-lift-special {
+    transition: transform var(--transition-slow), box-shadow var(--transition-slow), border-color var(--transition-slow);
+}
+
+.hover-lift-special:hover {
+    /* حرکت کمتر ولی نرم‌تر */
+    transform: translateY(-6px);
+    /* سایه رنگی (Glow) طلایی */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(197, 160, 89, 0.1);
+    border-color: rgba(197, 160, 89, 0.3) !important;
+}
+
+.hover-lift-special:hover::before {
+    opacity: 1;
+    /* روشن شدن نور مخفی پایین کارت */
+    background: radial-gradient(circle at 50% 100%, rgba(197, 160, 89, 0.15), transparent 70%);
+}
+
+/* انیمیشن آیکون داخل کارت */
+.icon-box {
+    transition: all var(--transition-slow);
+    position: relative;
+    z-index: 2;
+}
+
+.hover-lift-special:hover .icon-box {
+    transform: scale(1.15) translateY(-5px);
+    /* بزرگ شدن و بالا رفتن */
+    background: rgba(197, 160, 89, 0.2);
+    /* پررنگ شدن پس زمینه آیکون */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.hover-lift-special:hover .icon-box i {
+    color: #fff;
+    filter: drop-shadow(0 0 5px var(--gold));
+    /* درخشش خود آیکون */
+}
+
+/* انیمیشن دکمه پایین کارت */
+.footer-link {
+    transition: all var(--transition-slow);
+}
+
+.hover-lift-special:hover .footer-link {
+    color: #fff !important;
+    transform: translateX(-5px);
+    /* حرکت کل لینک به چپ */
+}
+
+.hover-lift-special:hover .footer-link i {
+    margin-right: 5px;
+    /* فاصله گرفتن فلش */
+}
+
+/* --- Welcome Banner --- */
+.bg-gradient-dark-green {
+    background: linear-gradient(135deg, #02201e 0%, #000808 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glow-circle {
+    width: 300px;
+    height: 300px;
+    background: var(--gold);
+    filter: blur(130px);
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 0;
+    animation: breath 8s ease-in-out infinite alternate;
+}
+
+@keyframes breath {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.1;
+    }
+
+    100% {
+        transform: translate(-40%, -60%) scale(1.2);
+        opacity: 0.18;
+    }
+}
+
+/* --- Table Styles --- */
+.custom-table-hover tbody tr {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border-radius: 12px;
+}
+
+.custom-table-hover tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+}
+
+.custom-table-hover tbody tr td:first-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.custom-table-hover tbody tr td:last-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+/* Background colors for icons inside cards */
+.bg-gold-subtle {
+    background: rgba(197, 160, 89, 0.1);
+    color: var(--gold);
+    border: 1px solid rgba(197, 160, 89, 0.2);
+}
+
+.bg-info-subtle {
+    background: rgba(13, 202, 240, 0.1) !important;
+    color: #0dcaf0 !important;
+    border: 1px solid rgba(13, 202, 240, 0.2);
+}
+
+.bg-success-subtle {
+    background: rgba(25, 135, 84, 0.1) !important;
+    color: #198754 !important;
+    border: 1px solid rgba(25, 135, 84, 0.2);
+}
+
+/* --- Entrance Animation --- */
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s var(--luxury-ease) forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.delay-1 {
+    animation-delay: 0.15s;
+}
+
+.delay-2 {
+    animation-delay: 0.3s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+}
+
+/* =========================
+   Premium Gold Button
+   ========================= */
+
+.btn-premium-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-hover) 100%);
+    color: #07110f !important;
+    border: 1px solid rgba(197, 160, 89, 0.55);
+    border-radius: 14px;
+    font-weight: 800;
+    letter-spacing: .2px;
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+}
+
+.btn-premium-gold i {
+    color: #07110f;
+}
+
+/* Shine effect */
+.btn-premium-gold::before {
+    content: "";
+    position: absolute;
+    top: -60%;
+    left: -40%;
+    width: 60%;
+    height: 220%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .35), transparent);
+    transform: rotate(20deg);
+    opacity: .0;
+    transition: opacity var(--transition-fast), transform var(--transition-slow);
+    pointer-events: none;
+}
+
+.btn-premium-gold:hover::before {
+    opacity: .9;
+    transform: translateX(220%) rotate(20deg);
+}
+
+.btn-premium-gold:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.03);
+}
+
+.shadow-gold {
+    box-shadow: 0 10px 28px rgba(0, 0, 0, .45),
+    0 0 22px var(--gold-glow);
+}
+
+.hover-scale {
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.hover-scale:hover {
+    transform: translateY(-2px) scale(1.01);
+}
+
+/* Disabled state (خیلی مهم که مثل متن بی‌حال نشه) */
+.btn-premium-gold:disabled,
+.btn-premium-gold.disabled {
+    opacity: .45 !important;
+    filter: saturate(.2) grayscale(.2);
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+/* اگر تو هدر/پس‌زمینه تیره محو میشه این کمک می‌کنه */
+.btn-premium-gold:focus {
+    box-shadow: 0 0 0 .25rem rgba(197, 160, 89, .18),
+    0 10px 28px rgba(0, 0, 0, .45),
+    0 0 22px var(--gold-glow);
+    outline: none;
+}

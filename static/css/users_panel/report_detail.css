@@ -1,0 +1,248 @@
+/* --- Header Date Badge --- */
+.date-badge {
+    background: rgba(197, 160, 89, 0.15);
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    border-radius: 12px;
+    padding: 6px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    color: var(--gold);
+}
+
+.date-badge .day {
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.date-badge .month {
+    font-size: 0.8rem;
+}
+
+.backdrop-blur-md {
+    backdrop-filter: blur(15px);
+    background: rgba(5, 10, 10, 0.9);
+}
+
+/* --- Achievements Checklist --- */
+.achievement-checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.achievement-check-item {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 12px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.achievement-check-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* Checkbox Style (Hidden default, custom visual) */
+.achieve-checkbox {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    margin-left: 16px;
+    position: relative;
+    transition: 0.2s;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.achieve-checkbox:checked {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.achieve-checkbox:checked::after {
+    content: '✔';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+/* وقتی چک شود، کل ردیف سبز کمرنگ شود */
+.achievement-check-item:has(.achieve-checkbox:checked) {
+    border-color: rgba(25, 135, 84, 0.3);
+    background: rgba(25, 135, 84, 0.05);
+}
+
+.check-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.check-text {
+    font-size: 0.95rem;
+    color: #fff;
+}
+
+.check-status {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* --- Report Timeline Table --- */
+.timeline-header-row {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 12px 20px;
+    font-size: 0.8rem;
+    color: #aaa;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.col-time {
+    width: 120px;
+}
+
+.col-plan {
+    flex: 1;
+}
+
+.col-status {
+    width: 160px;
+}
+
+.col-desc {
+    flex: 1.2;
+}
+
+.report-row {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: transparent;
+    transition: background 0.3s;
+    flex-wrap: wrap;
+    /* برای موبایل */
+    gap: 10px;
+}
+
+.report-row:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.report-row.failed-bg {
+    background: rgba(220, 53, 69, 0.08);
+    border-left: 3px solid #dc3545;
+}
+
+.report-row.blocked-bg {
+    background: rgba(255, 193, 7, 0.08);
+    border-left: 3px solid #ffc107;
+}
+
+.report-row .time-col {
+    width: 120px;
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.report-row .plan-col {
+    flex: 1;
+    min-width: 200px;
+}
+
+.report-row .status-col {
+    width: 160px;
+    min-width: 140px;
+}
+
+.report-row .desc-col {
+    flex: 1.2;
+    min-width: 200px;
+}
+
+/* Luxury Select Input */
+.luxury-select {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 0.85rem;
+    border-radius: 8px;
+}
+
+.luxury-select:focus {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: var(--gold);
+    color: #fff;
+    box-shadow: none;
+}
+
+/* Luxury Text Input (Transparent) */
+.luxury-input-transparent {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ddd;
+    font-size: 0.9rem;
+    padding: 5px 0;
+    border-radius: 0;
+}
+
+.luxury-input-transparent:focus {
+    background: transparent;
+    color: #fff;
+    border-bottom-color: var(--gold);
+    box-shadow: none;
+}
+
+/* --- Unplanned Section --- */
+.dashed-border {
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.luxury-input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 10px;
+}
+
+.luxury-input:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--gold);
+    color: #fff;
+    box-shadow: none;
+}
+
+/* Responsive adjustments for table */
+@media (max-width: 768px) {
+    .timeline-header-row {
+        display: none !important;
+    }
+
+    .report-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .report-row .time-col,
+    .report-row .plan-col,
+    .report-row .status-col,
+    .report-row .desc-col {
+        width: 100%;
+    }
+}

@@ -1,0 +1,264 @@
+/* --- Inputs & Forms --- */
+.luxury-input {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 12px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.luxury-input:focus {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: var(--gold);
+    color: #fff;
+    box-shadow: none;
+}
+
+.input-group-luxury {
+    position: relative;
+}
+
+.input-icon-link {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+}
+
+/* --- Team Section --- */
+.add-member-box {
+    background: rgba(199, 160, 99, 0.05);
+    border: 1px dashed rgba(199, 160, 99, 0.3);
+}
+
+.admin-select {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.admin-select:focus {
+    background: rgba(0, 0, 0, 0.6);
+    border-color: var(--gold);
+    color: #fff;
+    box-shadow: none;
+}
+
+/* Member Item Style */
+.bg-white-05 {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.border-white-10 {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* avatar */
+.avatar-md {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.manager-border {
+    border-color: var(--gold);
+}
+
+/* Animation for new items */
+.animate-fade-in {
+    animation: fadeIn 0.35s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Switch Toggle --- */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #aaa;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: rgba(46, 213, 115, 0.2);
+    border: 1px solid #2ecc71;
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+    background-color: #2ecc71;
+}
+
+/* Buttons */
+.btn-gold {
+    background: var(--gold);
+    color: #000;
+    border: none;
+}
+
+.btn-gold:hover {
+    background: #d4af37;
+}
+
+.btn-icon-glass {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.btn-icon-glass:hover {
+    background: var(--gold);
+    color: #000;
+}
+
+.btn-premium-gold {
+    background: linear-gradient(135deg, #d4af37, #C5A059);
+    border: none;
+    color: #000;
+    font-weight: 700;
+    border-radius: 12px;
+    padding: 10px 24px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(199, 160, 99, 0.3);
+}
+
+.btn-premium-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(199, 160, 99, 0.5);
+    background: linear-gradient(135deg, #e0c060, #d4af37);
+}
+
+.btn-icon-sm {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: 0.2s;
+    border: none;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.hover-danger:hover {
+    background: rgba(220, 53, 69, 0.2);
+    color: #ff6b6b !important;
+}
+
+/* ✅ Toast */
+.lux-toast {
+    position: fixed;
+    left: 24px;
+    bottom: 24px;
+    z-index: 9999;
+    width: min(420px, calc(100vw - 48px));
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px);
+    transition: all .25s ease;
+}
+
+.lux-toast.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.lux-toast-inner {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px 14px;
+    border-radius: 14px;
+    background: rgba(15, 15, 20, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px);
+}
+
+.lux-toast-inner i.bi-exclamation-triangle-fill {
+    color: #ffcc00;
+    font-size: 1.15rem;
+    margin-top: 2px;
+}
+
+.lux-toast-text {
+    flex: 1;
+}
+
+.lux-toast-title {
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+}
+
+.lux-toast-msg {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.lux-toast-close {
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.65);
+    padding: 6px;
+    border-radius: 10px;
+    transition: .2s;
+}
+
+.lux-toast-close:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}

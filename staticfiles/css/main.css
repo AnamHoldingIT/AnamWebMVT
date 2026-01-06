@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap');
-
+/*main.css*/
 :root {
     /* --- پالت رنگی اصلاح شده --- */
     --main-green: #024442;
@@ -238,10 +237,9 @@ body {
     display: flex;
     align-items: center;
 
-    background:
-        linear-gradient(to bottom, rgba(0, 59, 54, 0.7), rgba(1, 10, 9, 0.9)),
-        linear-gradient(to left, rgba(0, 0, 0, 0.9) 10%, rgba(0, 59, 54, 0.5) 100%),
-        url('../image/bg/Hero.png');
+    background: linear-gradient(to bottom, rgba(0, 59, 54, 0.7), rgba(1, 10, 9, 0.9)),
+    linear-gradient(to left, rgba(0, 0, 0, 0.9) 10%, rgba(0, 59, 54, 0.5) 100%),
+    url('../image/bg/Hero.png');
 
     background-size: cover;
     background-position: center;
@@ -272,6 +270,14 @@ body {
 .hero-section .small.text-muted {
     color: #e0e8e7 !important;
     font-weight: 400;
+}
+
+
+/* روی موبایل/تبلت (و حالت reduce motion) fixed رو خاموش کن تا اسکرول نرم شه */
+@media (max-width: 992px), (prefers-reduced-motion: reduce) {
+    .hero-section {
+        background-attachment: scroll;
+    }
 }
 
 .dot {
@@ -368,8 +374,6 @@ body {
     padding: 1.7rem 1.6rem 1.4rem;
     position: relative;
     overflow: hidden;
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
 }
 
 .hero-growth-panel::before {
@@ -542,9 +546,8 @@ body {
 .dept-modern-glow {
     position: absolute;
     inset: 0;
-    background:
-        radial-gradient(circle at 10% 0%, rgba(0, 140, 110, 0.28), transparent 60%),
-        radial-gradient(circle at 90% 85%, rgba(197, 160, 89, 0.22), transparent 62%);
+    background: radial-gradient(circle at 10% 0%, rgba(0, 140, 110, 0.28), transparent 60%),
+    radial-gradient(circle at 90% 85%, rgba(197, 160, 89, 0.22), transparent 62%);
     opacity: 0.75;
     pointer-events: none;
 }
@@ -734,75 +737,63 @@ body {
 /* پس‌زمینه‌های گرادیانی (همون قبلی‌ها) */
 
 .bg-wave {
-    background:
-        radial-gradient(circle at 10% 0%, rgba(0, 188, 150, 0.6), transparent 60%),
-        linear-gradient(135deg, #001814, #020507);
+    background: radial-gradient(circle at 10% 0%, rgba(0, 188, 150, 0.6), transparent 60%),
+    linear-gradient(135deg, #001814, #020507);
 }
 
 .bg-lines {
-    background:
-        linear-gradient(120deg, rgba(0, 207, 148, 0.35), transparent 40%),
-        linear-gradient(135deg, #031b1a, #050608);
+    background: linear-gradient(120deg, rgba(0, 207, 148, 0.35), transparent 40%),
+    linear-gradient(135deg, #031b1a, #050608);
 }
 
 .bg-grid {
-    background:
-        radial-gradient(circle at 0% 100%, rgba(0, 150, 110, 0.5), transparent 55%),
-        linear-gradient(135deg, #020d12, #050608);
+    background: radial-gradient(circle at 0% 100%, rgba(0, 150, 110, 0.5), transparent 55%),
+    linear-gradient(135deg, #020d12, #050608);
 }
 
 .bg-deep {
-    background:
-        radial-gradient(circle at 100% 0%, rgba(0, 255, 180, 0.28), transparent 55%),
-        linear-gradient(145deg, #020b10, #050608);
+    background: radial-gradient(circle at 100% 0%, rgba(0, 255, 180, 0.28), transparent 55%),
+    linear-gradient(145deg, #020b10, #050608);
 }
 
 .bg-emerald {
-    background:
-        radial-gradient(circle at 0% 0%, rgba(0, 210, 160, 0.5), transparent 55%),
-        linear-gradient(135deg, #013327, #050608);
+    background: radial-gradient(circle at 0% 0%, rgba(0, 210, 160, 0.5), transparent 55%),
+    linear-gradient(135deg, #013327, #050608);
 }
 
 .bg-soft {
-    background:
-        radial-gradient(circle at 90% 0%, rgba(197, 160, 89, 0.4), transparent 60%),
-        linear-gradient(135deg, #01201b, #050608);
+    background: radial-gradient(circle at 90% 0%, rgba(197, 160, 89, 0.4), transparent 60%),
+    linear-gradient(135deg, #01201b, #050608);
 }
 
 .bg-people {
-    background:
-        linear-gradient(90deg, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.2)),
-        linear-gradient(135deg, #020911, #050608);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.2)),
+    linear-gradient(135deg, #020911, #050608);
 }
 
 .bg-darkglass {
-    background:
-        radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.08), transparent 55%),
-        linear-gradient(135deg, #050607, #050608);
+    background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.08), transparent 55%),
+    linear-gradient(135deg, #050607, #050608);
 }
 
 .bg-red {
-    background:
-        radial-gradient(circle at 10% 20%, rgba(255, 70, 70, 0.8), transparent 60%),
-        linear-gradient(135deg, #2b0000, #050608);
+    background: radial-gradient(circle at 10% 20%, rgba(255, 70, 70, 0.8), transparent 60%),
+    linear-gradient(135deg, #2b0000, #050608);
 }
 
 .bg-capital {
-    background:
-        radial-gradient(circle at 0% 100%, rgba(0, 160, 130, 0.6), transparent 60%),
-        linear-gradient(135deg, #010e14, #050608);
+    background: radial-gradient(circle at 0% 100%, rgba(0, 160, 130, 0.6), transparent 60%),
+    linear-gradient(135deg, #010e14, #050608);
 }
 
 .bg-ocean {
-    background:
-        radial-gradient(circle at 50% 100%, rgba(0, 150, 130, 0.7), transparent 60%),
-        linear-gradient(135deg, #001018, #050608);
+    background: radial-gradient(circle at 50% 100%, rgba(0, 150, 130, 0.7), transparent 60%),
+    linear-gradient(135deg, #001018, #050608);
 }
 
 .bg-midnight {
-    background:
-        radial-gradient(circle at 100% 100%, rgba(0, 200, 150, 0.4), transparent 60%),
-        linear-gradient(135deg, #020f11, #050608);
+    background: radial-gradient(circle at 100% 100%, rgba(0, 200, 150, 0.4), transparent 60%),
+    linear-gradient(135deg, #020f11, #050608);
 }
 
 /* BOTTOM NOTE */
@@ -872,8 +863,6 @@ body {
         grid-column: 1 / -1;
     }
 }
-
-
 
 
 /* =========================
@@ -1064,7 +1053,7 @@ body {
 .support-panel {
     position: relative;
     background: radial-gradient(circle at 0 0, rgba(197, 160, 89, 0.18), transparent 55%),
-        linear-gradient(135deg, #021311, #041f1d);
+    linear-gradient(135deg, #021311, #041f1d);
     border-radius: 26px;
     padding: 1.75rem 1.75rem 1.7rem;
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -1215,8 +1204,6 @@ body {
 }
 
 
-
-
 /* =========================================
    WHY US SECTION (TIMELINE STYLE)
    ========================================= */
@@ -1251,8 +1238,8 @@ body {
     bottom: -0.4rem;
     height: 2px;
     border-radius: 999px;
-    background: linear-gradient(90deg, rgba(197,160,89,0), #f1d59a, rgba(197,160,89,0));
-    box-shadow: 0 0 14px rgba(197,160,89,0.7);
+    background: linear-gradient(90deg, rgba(197, 160, 89, 0), #f1d59a, rgba(197, 160, 89, 0));
+    box-shadow: 0 0 14px rgba(197, 160, 89, 0.7);
 }
 
 .why-subtitle {
@@ -1283,7 +1270,11 @@ body {
 .why-left {
     display: flex;
     flex-direction: column;
-    gap: 1.3rem;
+    gap: 1.8rem;
+}
+
+.why-number {
+    display: none;
 }
 
 .why-card {
@@ -1328,9 +1319,9 @@ body {
     bottom: 0;
     width: 2px;
     background: linear-gradient(to bottom,
-            rgba(197, 160, 89, 0),
-            rgba(197, 160, 89, 0.9),
-            rgba(197, 160, 89, 0));
+    rgba(197, 160, 89, 0),
+    rgba(197, 160, 89, 0.9),
+    rgba(197, 160, 89, 0));
     box-shadow: 0 0 18px rgba(197, 160, 89, 0.6);
 }
 
@@ -1373,8 +1364,8 @@ body {
     align-items: center;
     padding: 0.3rem 0.8rem;
     border-radius: 12px;
-    background: rgba(197,160,89,0.12);
-    border: 1px solid rgba(197,160,89,0.5);
+    background: rgba(197, 160, 89, 0.12);
+    border: 1px solid rgba(197, 160, 89, 0.5);
     color: var(--gold);
     font-size: 0.78rem;
     font-weight: 600;
@@ -1405,13 +1396,7 @@ body {
     }
 
     .why-center {
-        order: -1;
-        flex-direction: row;
-        justify-content: center;
-        gap: 0.5rem;
-        min-height: auto;
-        padding-block: 0;
-        margin-bottom: 0.5rem;
+        display: none;
     }
 
     .why-line {
@@ -1421,6 +1406,15 @@ body {
 
     .why-left {
         order: 1;
+    }
+
+    .why-number {
+        display: flex;
+        margin-bottom: 16px;
+    }
+
+    .chart-index {
+        display: flex;
     }
 
     .why-right {
@@ -1448,9 +1442,6 @@ body {
 }
 
 
-
-
-
 /* ===========================
    ACCELERATION SECTION
    =========================== */
@@ -1464,9 +1455,8 @@ body {
 .accel-glow {
     position: absolute;
     inset: 0;
-    background:
-        radial-gradient(circle at 0% 100%, rgba(197, 160, 89, 0.26), transparent 60%),
-        radial-gradient(circle at 100% 0%, rgba(0, 120, 100, 0.25), transparent 60%);
+    background: radial-gradient(circle at 0% 100%, rgba(197, 160, 89, 0.26), transparent 60%),
+    radial-gradient(circle at 100% 0%, rgba(0, 120, 100, 0.25), transparent 60%);
     opacity: 0.9;
     pointer-events: none;
 }
@@ -1648,9 +1638,8 @@ body {
     height: 620px;
     right: -180px;
     bottom: -140px;
-    background:
-        radial-gradient(circle at 40% 0%, rgba(197, 160, 89, 0.5), transparent 60%),
-        radial-gradient(circle at 0% 100%, rgba(0, 140, 120, 0.6), transparent 60%);
+    background: radial-gradient(circle at 40% 0%, rgba(197, 160, 89, 0.5), transparent 60%),
+    radial-gradient(circle at 0% 100%, rgba(0, 140, 120, 0.6), transparent 60%);
     animation: orbitSpin 26s linear infinite;
 }
 
@@ -1659,21 +1648,30 @@ body {
     height: 420px;
     left: -140px;
     top: 10%;
-    background:
-        radial-gradient(circle at 0% 0%, rgba(0, 120, 100, 0.6), transparent 65%),
-        radial-gradient(circle at 100% 100%, rgba(197, 160, 89, 0.4), transparent 60%);
+    background: radial-gradient(circle at 0% 0%, rgba(0, 120, 100, 0.6), transparent 65%),
+    radial-gradient(circle at 100% 100%, rgba(197, 160, 89, 0.4), transparent 60%);
     animation: orbitDrift 22s ease-in-out infinite alternate;
 }
 
 @keyframes orbitSpin {
-    0%   { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes orbitDrift {
-    0%   { transform: translateY(0) translateX(0); }
-    50%  { transform: translateY(-18px) translateX(10px); }
-    100% { transform: translateY(6px) translateX(-8px); }
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+    50% {
+        transform: translateY(-18px) translateX(10px);
+    }
+    100% {
+        transform: translateY(6px) translateX(-8px);
+    }
 }
 
 /* شِل کلی کارت */
@@ -1681,7 +1679,7 @@ body {
     border-radius: 32px;
     overflow: hidden;
     background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.04), transparent 60%),
-                rgba(0, 0, 0, 0.82);
+    rgba(0, 0, 0, 0.82);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95);
 }
@@ -1700,15 +1698,18 @@ body {
     content: "";
     position: absolute;
     inset: -40%;
-    background:
-        conic-gradient(from 180deg, rgba(197, 160, 89, 0.15), transparent 45%, rgba(0, 150, 120, 0.18), transparent 80%);
+    background: conic-gradient(from 180deg, rgba(197, 160, 89, 0.15), transparent 45%, rgba(0, 150, 120, 0.18), transparent 80%);
     opacity: 0.9;
     animation: sideLightSweep 18s linear infinite;
 }
 
 @keyframes sideLightSweep {
-    0%   { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .apply-side-inner {
@@ -1790,9 +1791,8 @@ body {
 .apply-card {
     position: relative;
     padding: 2.2rem 2.1rem 2rem;
-    background:
-        radial-gradient(circle at 100% 0%, rgba(197, 160, 89, 0.16), transparent 60%),
-        linear-gradient(135deg, #020b0b, #010605);
+    background: radial-gradient(circle at 100% 0%, rgba(197, 160, 89, 0.16), transparent 60%),
+    linear-gradient(135deg, #020b0b, #010605);
     animation: formRise 0.8s ease-out forwards;
     opacity: 0;
     transform: translateY(18px);
@@ -1845,15 +1845,35 @@ body {
     animation: fieldFadeIn 0.6s ease-out forwards;
 }
 
-.apply-form .floating-group:nth-of-type(1) { animation-delay: 0.08s; }
-.apply-form .floating-group:nth-of-type(2) { animation-delay: 0.15s; }
-.apply-form .floating-group:nth-of-type(3) { animation-delay: 0.22s; }
-.apply-form .floating-group:nth-of-type(4) { animation-delay: 0.29s; }
-.apply-form .floating-group:nth-of-type(5) { animation-delay: 0.36s; }
+.apply-form .floating-group:nth-of-type(1) {
+    animation-delay: 0.08s;
+}
+
+.apply-form .floating-group:nth-of-type(2) {
+    animation-delay: 0.15s;
+}
+
+.apply-form .floating-group:nth-of-type(3) {
+    animation-delay: 0.22s;
+}
+
+.apply-form .floating-group:nth-of-type(4) {
+    animation-delay: 0.29s;
+}
+
+.apply-form .floating-group:nth-of-type(5) {
+    animation-delay: 0.36s;
+}
 
 @keyframes fieldFadeIn {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .floating-input {
@@ -1927,7 +1947,7 @@ textarea.floating-input {
 .floating-input:focus,
 .floating-input:not(:placeholder-shown) {
     background: radial-gradient(circle at 0 0, rgba(197, 160, 89, 0.15), transparent 70%),
-                rgba(0, 0, 0, 0.92);
+    rgba(0, 0, 0, 0.92);
 }
 
 .floating-input:focus {
@@ -1938,8 +1958,12 @@ textarea.floating-input {
 }
 
 @keyframes inputPulse {
-    0%   { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7); }
-    100% { box-shadow: 0 0 0 14px rgba(197, 160, 89, 0); }
+    0% {
+        box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 0 14px rgba(197, 160, 89, 0);
+    }
 }
 
 /* بالا رفتن لیبل وقتی فوکوس یا مقدار دارد */
@@ -1981,9 +2005,9 @@ textarea.floating-input {
     position: absolute;
     inset: -40%;
     background: conic-gradient(from 0deg, rgba(255, 255, 255, 0.3),
-                                         rgba(255, 255, 255, 0),
-                                         rgba(255, 255, 255, 0.4),
-                                         rgba(255, 255, 255, 0));
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0));
     mix-blend-mode: soft-light;
     opacity: 0;
     pointer-events: none;
@@ -2003,8 +2027,12 @@ textarea.floating-input {
 }
 
 @keyframes btnSweep {
-    0%   { transform: translateX(-40%); }
-    100% { transform: translateX(40%); }
+    0% {
+        transform: translateX(-40%);
+    }
+    100% {
+        transform: translateX(40%);
+    }
 }
 
 .apply-submit-btn:active {
@@ -2041,85 +2069,6 @@ textarea.floating-input {
         display: none;
     }
 }
-
-
-/* ======= Portfolio More Button ======= */
-
-.portfolio-btn {
-    display: inline-block;
-    padding: 0.45rem 1.4rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    border-radius: 50px;
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.portfolio-btn:hover {
-    background: var(--gold);
-    border-color: var(--gold);
-    color: #000;
-    box-shadow: 0 0 18px rgba(197, 160, 89, 0.6);
-    transform: translateY(-3px);
-}
-
-
-/* ======= Portfolio More Button (Premium Minimal Gold) ======= */
-
-.portfolio-more-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 0.55rem 1.9rem;
-
-    font-size: 0.92rem;
-    font-weight: 600;
-
-    border-radius: 30px;
-
-    color: #000;
-    text-decoration: none;
-
-    background: linear-gradient(135deg, #f1d59a, #d1a85b);
-    border: none;
-
-    box-shadow:
-        0 6px 18px rgba(0, 0, 0, 0.35),
-        inset 0 0 6px rgba(255, 255, 255, 0.3);
-
-    transition: all 0.25s ease;
-}
-
-.portfolio-more-btn i {
-    font-size: 1rem;
-    transition: transform 0.25s ease;
-}
-
-.portfolio-more-btn:hover {
-    filter: brightness(1.07);
-    transform: translateY(-3px);
-    box-shadow:
-        0 12px 26px rgba(0, 0, 0, 0.45),
-        inset 0 0 10px rgba(255, 255, 255, 0.4);
-}
-
-.portfolio-more-btn:hover i {
-    transform: translateX(-4px);
-}
-
-.portfolio-more-btn:active {
-    transform: translateY(-1px);
-    box-shadow:
-        0 8px 18px rgba(0, 0, 0, 0.35),
-        inset 0 0 5px rgba(255, 255, 255, 0.25);
-}
-
-
 
 
 /* =========================================
@@ -2325,15 +2274,523 @@ textarea.floating-input {
 }
 
 /* textarea فرم شتاب‌دهی */
-.apply-section .form-floating>textarea.form-control {
+.apply-section .form-floating > textarea.form-control {
     background-color: rgba(255, 255, 255, 0.05) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     color: #fff !important;
     border-radius: 10px;
 }
 
-.apply-section .form-floating>textarea.form-control:focus {
+.apply-section .form-floating > textarea.form-control:focus {
     background-color: rgba(255, 255, 255, 0.08) !important;
     border-color: var(--gold) !important;
     box-shadow: 0 0 0 0.25rem rgba(197, 160, 89, 0.15) !important;
+}
+
+
+/* =========================================
+   ANAM PORTFOLIO – CLEAN & LUX + ANIMATIONS
+   ========================================= */
+
+.anam-portfolio {
+    background: radial-gradient(circle at 12% 0%, rgba(0, 59, 54, 0.45), #010a09 60%, #000 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* هاله متحرک نرم روی سکشن (انیمیشن دائمی) */
+.anam-portfolio::before {
+    content: '';
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 0%, rgba(197, 160, 89, 0.36), transparent 60%),
+    radial-gradient(circle at 70% 100%, rgba(0, 140, 120, 0.4), transparent 60%);
+    opacity: 0.4;
+    filter: blur(60px);
+    top: -160px;
+    left: -120px;
+    animation: anamGlowDrift 18s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+/* یک اورب شیشه‌ای ظریف که دور سکشن می‌چرخه */
+
+
+@keyframes anamGlowDrift {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+        transform: translate3d(40px, 30px, 0) scale(1.06);
+    }
+    100% {
+        transform: translate3d(-10px, 20px, 0) scale(1.03);
+    }
+}
+
+
+/* ======= Portfolio More Button ======= */
+
+.portfolio-btn {
+    display: inline-block;
+    padding: 0.45rem 1.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 50px;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.portfolio-btn:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #000;
+    box-shadow: 0 0 18px rgba(197, 160, 89, 0.6);
+    transform: translateY(-3px);
+}
+
+
+/* ======= Portfolio More Button (Premium Minimal Gold) ======= */
+
+.portfolio-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.55rem 1.9rem;
+
+    font-size: 0.92rem;
+    font-weight: 600;
+
+    border-radius: 30px;
+
+    color: #000;
+    text-decoration: none;
+
+    background: linear-gradient(135deg, #f1d59a, #d1a85b);
+    border: none;
+
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35),
+    inset 0 0 6px rgba(255, 255, 255, 0.3);
+
+    transition: all 0.25s ease;
+}
+
+.portfolio-more-btn i {
+    font-size: 1rem;
+    transition: transform 0.25s ease;
+}
+
+.portfolio-more-btn:hover {
+    filter: brightness(1.07);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.45),
+    inset 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+.portfolio-more-btn:hover i {
+    transform: translateX(-4px);
+}
+
+.portfolio-more-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35),
+    inset 0 0 5px rgba(255, 255, 255, 0.25);
+}
+
+
+/* لاین انیمیشنی دائمی زیر سکشن */
+.anam-portfolio-line {
+    position: absolute;
+    inset-inline: 8%;
+    bottom: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+    transparent,
+    rgba(197, 160, 89, 0.3),
+    rgba(241, 213, 154, 0.95),
+    rgba(197, 160, 89, 0.3),
+    transparent);
+    opacity: 0.9;
+    transform-origin: center;
+    animation: anamLineFlow 7s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes anamLineFlow {
+    0% {
+        transform: translateX(0);
+        filter: blur(0px);
+    }
+    50% {
+        transform: translateX(20px);
+        filter: blur(1px);
+    }
+    100% {
+        transform: translateX(0);
+        filter: blur(0px);
+    }
+}
+
+/* زیرتیتر سمت راست */
+.anam-portfolio-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    color: #dfe8e5;
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+}
+
+/* کارت‌ها */
+
+.anam-pf-card {
+    position: relative;
+    border-radius: 22px;
+    overflow: hidden;
+    background: radial-gradient(circle at 0 0, rgba(197, 160, 89, 0.16), transparent 55%),
+    linear-gradient(145deg, #031c18, #020807);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.92);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transform: translateY(0);
+    transition: transform 0.25s ease-out,
+    box-shadow 0.25s ease-out,
+    border-color 0.25s ease-out,
+    background 0.25s ease-out;
+    will-change: transform, box-shadow;
+}
+
+
+/* شین (برق ملایم) روی کارت هنگام hover */
+.anam-pf-card::after {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 70%;
+    height: 140%;
+    background: linear-gradient(
+            115deg,
+            transparent 0%,
+            #c59f596c 45%,
+            rgba(255, 255, 255, 0.03) 60%,
+            transparent 100%
+    );
+    opacity: 0;
+    transform: translateX(40%) skewX(-18deg);
+    pointer-events: none;
+    will-change: transform, opacity;
+}
+
+.anam-pf-card::before {
+    content: '';
+    position: absolute;
+    inset-inline: 18%;
+    top: 0;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg,
+    transparent,
+    rgba(241, 213, 154, 0.9),
+    transparent);
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.anam-pf-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 26px 70px rgba(0, 0, 0, 0.98);
+    border-color: rgba(197, 160, 89, 0.85);
+}
+
+.anam-pf-card:hover::before {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.anam-pf-card:hover::after {
+    animation: anamCardSheen 0.55s ease-out forwards;
+}
+
+
+@keyframes anamCardSheen {
+    0% {
+        opacity: 0;
+        transform: translateX(80%) skewX(-18deg);
+    }
+    40% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-80%) skewX(-18deg);
+    }
+}
+
+/* تصویر (درشت) */
+
+.anam-pf-media {
+    position: relative;
+    height: 230px; /* عکس بزرگ‌تر */
+    overflow: hidden;
+}
+
+.anam-pf-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.03);
+    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    will-change: transform;
+}
+
+.anam-pf-card:hover .anam-pf-img {
+    transform: scale(1.09);
+}
+
+/* تگ دسته‌بندی روی عکس – با پالس خیلی نرم */
+
+.anam-pf-tag {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    padding: 0.25rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: rgba(0, 0, 0, 0.7);
+    color: var(--gold);
+    border: 1px solid rgba(197, 160, 89, 0.85);
+    backdrop-filter: blur(8px);
+    animation: anamTagPulse 3.2s ease-in-out infinite;
+}
+
+@keyframes anamTagPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.5);
+        transform: translateY(0);
+    }
+    50% {
+        box-shadow: 0 0 14px 3px rgba(197, 160, 89, 0.8);
+        transform: translateY(-1px);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4);
+        transform: translateY(0);
+    }
+}
+
+/* محتوای کارت */
+
+.anam-pf-content {
+    padding: 1.2rem 1.4rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.anam-pf-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.3rem;
+}
+
+.anam-pf-text {
+    font-size: 0.86rem;
+    color: #d3dedc;
+    line-height: 1.9;
+    margin-bottom: 1rem;
+}
+
+/* پایین کارت */
+
+.anam-pf-bottom {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.anam-pf-stage {
+    font-size: 0.78rem;
+    padding: 0.2rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    color: #d8e4e1;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* لینک */
+
+.anam-pf-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: #f1d59a;
+    border-bottom: 1px solid rgba(241, 213, 154, 0.75);
+    padding-bottom: 1px;
+    transition: all 0.22s ease;
+}
+
+.anam-pf-link i {
+    font-size: 1rem;
+}
+
+.anam-pf-link:hover {
+    color: #ffffff;
+    border-color: #ffffff;
+    transform: translateX(-3px);
+}
+
+/* ریسپانسیو */
+
+@media (max-width: 991.98px) {
+    .anam-pf-media {
+        height: 210px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .anam-pf-media {
+        height: 190px;
+    }
+
+    .anam-pf-content {
+        padding: 1rem 1.1rem 1.1rem;
+    }
+
+    .anam-pf-title {
+        font-size: 0.98rem;
+    }
+
+    .anam-pf-text {
+        font-size: 0.83rem;
+    }
+}
+
+/* رندر سکشن‌های پایین فقط وقتی داخل viewport میان */
+.about-section,
+.dept-modern-section,
+.services-section,
+.why-us-section,
+.acceleration-section,
+.portfolio-section,
+.apply-section,
+.footer-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 1000px; /* برای جلوگیری از پرش لِی‌اوت */
+}
+
+
+/* =========================================================
+   PERF PATCH (NO UI CHANGE)
+   ========================================================= */
+
+/* 1) مهم‌ترین: background-attachment: fixed روی موبایل لگ شدید می‌دهد */
+@media (hover: none) and (pointer: coarse), (max-width: 991px) {
+    .hero-section {
+        background-attachment: scroll; /* ظاهر عملاً همان، ولی لگِ fixed حذف می‌شود */
+    }
+}
+
+
+/* 4) بهبود لود اولیه روی مرورگرهای پشتیبان (بدون تغییر ظاهر) */
+@supports (content-visibility: auto) {
+    main > section {
+        content-visibility: auto;
+        contain-intrinsic-size: 900px; /* جلوگیری از پرش layout */
+    }
+
+    .hero-section {
+        content-visibility: visible;
+        contain-intrinsic-size: auto;
+    }
+}
+
+/* ===========================
+   PERF FIX (NO UI CHANGE)
+   =========================== */
+
+/* 1) blur های شیشه‌ای رو سبک‌تر کن */
+
+.support-panel,
+.apply-shell,
+.apply-card,
+.why-aside-card,
+.chart-card,
+.dept-card,
+.luxury-navbar.scrolled {
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* 2) کارت‌ها رو GPU optimize کن */
+.hero-growth-panel,
+.chart-card,
+.dept-card,
+.anam-pf-card,
+.apply-shell,
+.apply-card {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+}
+
+/* 3) سایه‌ها رو کمی سبک‌تر کن (UI تغییر واضحی ندارد) */
+.hero-growth-panel,
+.chart-card,
+.dept-card,
+.anam-pf-card,
+.apply-shell,
+.apply-card {
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.75) !important;
+}
+
+/* 4) Hero fixed رو برای لپ‌تاپ‌های ضعیف و موبایل خاموش کن */
+@media (max-width: 1200px), (prefers-reduced-motion: reduce) {
+    .hero-section {
+        background-attachment: scroll !important;
+    }
+}
+
+
+/* هنگام اسکرول blur ها خاموش می‌شوند */
+body.is-scrolling .hero-growth-panel,
+body.is-scrolling .support-panel,
+body.is-scrolling .apply-shell,
+body.is-scrolling .apply-card,
+body.is-scrolling .why-aside-card,
+body.is-scrolling .chart-card,
+body.is-scrolling .dept-card,
+body.is-scrolling .luxury-navbar.scrolled {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* برای اینکه ظاهر خیلی خشک نشود */
+body.is-scrolling .hero-growth-panel,
+body.is-scrolling .chart-card,
+body.is-scrolling .dept-card,
+body.is-scrolling .anam-pf-card,
+body.is-scrolling .apply-card {
+    background-color: rgba(0, 0, 0, 0.75) !important;
 }

@@ -1,0 +1,285 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Anam Holding | جزئیات پروژه {{ project.name_fa }}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap RTL -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.rtl.min.css"
+          integrity="sha384-CfCrinSRH2IR6a4e6fy2q6ioOX7O6Mtm1L9vRvFZ1trBncWmMePhzvafv7oIcWiW"
+          crossorigin="anonymous">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <!-- AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+
+    <!-- استایل کلی سایت -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <!-- استایل اختصاصی این صفحه -->
+    <link rel="stylesheet" href="{% static 'css/portfolio/portfolio-detail.css' %}">
+</head>
+
+<body>
+
+<main>
+    <!-- HERO / TOP SECTION -->
+    <section class="pf-detail-hero position-relative">
+        <div class="pf-hero-orbit pf-hero-orbit-main"></div>
+        <div class="pf-hero-orbit pf-hero-orbit-soft"></div>
+
+        <div class="container py-5 position-relative z-1">
+
+            <!-- Top bar: Back + breadcrumb -->
+            <div class="pf-topbar d-flex justify-content-between align-items-center mb-4">
+                <a href="{% url 'portfolio:portfolio_list' %}" class="pf-back-link">
+                    <i class="bi bi-arrow-right-short"></i>
+                    بازگشت به لیست پروژه‌ها
+                </a>
+
+                <nav class="pf-breadcrumb d-none d-sm-flex" aria-label="breadcrumb">
+                    <ol>
+                        <li><a href="{% url 'home:home' %}">صفحه اصلی</a></li>
+                        <li class="separator">/</li>
+                        <li><a href="{% url 'portfolio:portfolio_list' %}">پورتفوی پروژه‌ها</a></li>
+                        <li class="separator">/</li>
+                        <li class="current">{{ project.name_fa }}</li>
+                    </ol>
+                </nav>
+            </div>
+
+            <!-- HERO GRID -->
+            <div class="row align-items-center gy-4 pf-hero-grid">
+                <!-- متن و اطلاعات پروژه -->
+                <div class="col-lg-6" data-aos="fade-up">
+                    <span class="pf-badge">
+                        {% if project.category and project.category.icon_class %}
+                            <i class="bi {{ project.category.icon_class }} ms-1"></i>
+                        {% endif %}
+                        {{ project.category.name }}
+                    </span>
+
+                    <h1 class="pf-title mt-3 mb-3">
+                        {{ project.name_fa }}
+                        {% if project.name_en %}
+                            <span class="fs-6 text-muted">({{ project.name_en }})</span>
+                        {% endif %}
+                    </h1>
+
+                    <p class="pf-subtitle mb-4">
+                        {{ project.hero_subtitle|default:project.short_tagline }}
+                    </p>
+
+                    <!-- کارت خلاصه + نقش آنام -->
+                    <div class="pf-summary-card">
+                        <div class="pf-summary-header">
+                            <span class="pf-summary-label">چکیده پروژه</span>
+                            <span class="pf-stage-chip">
+                                {{ project.get_status_display }}
+                            </span>
+                        </div>
+
+                        <p class="pf-summary-text">
+                            {{ project.detail_summary|default:project.list_summary|default:project.short_tagline }}
+                        </p>
+
+                        <div class="pf-role-row">
+                            <div class="pf-role-col">
+                                <span class="pf-role-label">نقش آنام</span>
+                                <ul class="pf-role-tags">
+                                    {% for role in roles %}
+                                        <li>{{ role.title }}</li>
+                                    {% empty %}
+                                        <li>تعریف نقش‌ها بعداً تکمیل می‌شود.</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="pf-meta-col">
+                                <div class="pf-meta-item">
+                                    <span class="pf-meta-label">مرحله فعلی</span>
+                                    <span class="pf-meta-value">
+                                        {{ project.get_status_display }}
+                                    </span>
+                                </div>
+                                <div class="pf-meta-item">
+                                    <span class="pf-meta-label">مدل همکاری</span>
+                                    <span class="pf-meta-value">
+                                        {{ project.get_collaboration_model_display }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- هایلایت‌ها -->
+                        {% if highlights %}
+                            <div class="pf-highlight-row">
+                                {% for h in highlights %}
+                                    <span class="pf-highlight-pill">
+                                        {% if h.icon_class %}
+                                            <i class="bi {{ h.icon_class }} ms-1"></i>
+                                        {% endif %}
+                                        {{ h.text }}
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- تصویر / موکاپ با انیمیشن ثابت -->
+                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="80">
+                    <div class="pf-hero-media-wrap">
+                        <div class="pf-media-orbit pf-media-orbit-outer"></div>
+                        <div class="pf-media-orbit pf-media-orbit-inner"></div>
+
+                        <div class="pf-device-card" id="pfDeviceCard">
+                            <div class="pf-device-glow"></div>
+                            <div class="pf-device-header">
+                                <span class="pf-dot red"></span>
+                                <span class="pf-dot yellow"></span>
+                                <span class="pf-dot green"></span>
+                                <span class="pf-device-title">
+                                    {{ project.name_en|default:project.name_fa }} Dashboard
+                                </span>
+                            </div>
+                            <div class="pf-device-screen">
+                                {% if project.image %}
+                                    <img src="{{ project.image.url }}"
+                                         alt="{{ project.name_fa }}"
+                                         class="pf-device-img">
+                                {% endif %}
+                                <!-- لایه دیتا روی عکس -->
+                                <div class="pf-device-overlay">
+                                    <div class="pf-chip-row">
+                                        {% for m in metrics|slice:":2" %}
+                                            <span class="pf-mini-chip">
+                                                <i class="bi bi-graph-up-arrow ms-1"></i>
+                                                {{ m.label }}: {{ m.value }}
+                                            </span>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="pf-graph-bar">
+                                        <span style="--h: 32%;"></span>
+                                        <span style="--h: 64%;"></span>
+                                        <span style="--h: 85%;"></span>
+                                        <span style="--h: 55%;"></span>
+                                        <span style="--h: 92%;"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pf-media-caption">
+                            نمایی از {{ project.name_fa }} برای تیم‌های محصول، رشد و مدیریت.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- خط زیر سکشن -->
+        <div class="pf-hero-divider"></div>
+    </section>
+
+    <!-- SECOND SECTION – HIGHLIGHTS & JOURNEY -->
+    <section class="pf-highlights-section position-relative">
+        <div class="container py-5 position-relative z-1">
+
+            <div class="row g-4 align-items-stretch">
+                <!-- آمار کلیدی -->
+                <div class="col-lg-5" data-aos="fade-up">
+                    <div class="pf-metrics-card">
+                        <h2 class="pf-metrics-title">
+                            تصویر کلی نتایج
+                        </h2>
+                        <p class="pf-metrics-sub">
+                            چند شاخص که نشان می‌دهد همکاری {{ project.name_fa }} و آنام در عمل چه تغییری ایجاد کرده است.
+                        </p>
+
+                        {% if metrics %}
+                            <div class="pf-metrics-grid">
+                                {% for metric in metrics %}
+                                    <div class="pf-metric">
+                                        <span class="pf-metric-label">{{ metric.label }}</span>
+                                        <div class="pf-metric-value">{{ metric.value }}</div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-muted mb-0" style="font-size:0.8rem;">
+                                متریک‌ خاصی برای این پروژه ثبت نشده است.
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Journey سه مرحله‌ای -->
+                <div class="col-lg-7" data-aos="fade-left" data-aos-delay="80">
+                    <div class="pf-journey-card">
+                        <div class="pf-journey-header">
+                            <span class="pf-journey-label">
+                                مسیر همکاری
+                            </span>
+                            <h3 class="pf-journey-title">
+                                از تشخیص تا مقیاس‌پذیری
+                            </h3>
+                        </div>
+
+                        {% if journey_steps %}
+                            <div class="pf-journey-timeline">
+                                {% for step in journey_steps %}
+                                    <div class="pf-journey-step">
+                                        <div class="pf-journey-dot">{{ step.step_number }}</div>
+                                        <div class="pf-journey-body">
+                                            <h4>{{ step.title }}</h4>
+                                            <p>{{ step.description }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-muted mb-3" style="font-size:0.8rem;">
+                                مراحل مسیر همکاری برای این پروژه هنوز ثبت نشده است.
+                            </p>
+                        {% endif %}
+
+                        <div class="pf-journey-footer">
+                            <span>
+                                <i class="bi bi-infinity ms-1"></i>
+                                همراهی آنام در این نقطه متوقف نمی‌شود؛ پایش داده و تصمیم‌سازی مشترک ادامه دارد.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</main>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/portfolio/portfolio-detail.js' %}"></script>
+
+<script>
+    AOS.init({
+        duration: 700,
+        easing: 'ease-out-cubic',
+        once: true,
+        offset: 100,
+        disable: 'mobile'
+    });
+</script>
+</body>
+</html>

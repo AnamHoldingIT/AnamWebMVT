@@ -1,0 +1,591 @@
+/* =========================================
+   PORTFOLIO ARCHIVE – ANAM LUX
+   ========================================= */
+
+.portfolio-archive-hero {
+    position: relative;
+    background: radial-gradient(circle at 0% 0%, rgba(0, 59, 54, 0.7), #010a09 55%, #000 100%);
+    padding-bottom: 70px;
+
+    overflow: hidden;
+}
+
+.portfolio-hero-glow {
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 30% 0%, rgba(197, 160, 89, 0.35), transparent 60%),
+        radial-gradient(circle at 70% 100%, rgba(0, 140, 120, 0.4), transparent 60%);
+    filter: blur(70px);
+    opacity: 0.5;
+    top: -160px;
+    right: -120px;
+    pointer-events: none;
+    animation: archiveGlowDrift 22s ease-in-out infinite alternate;
+}
+
+@keyframes archiveGlowDrift {
+    0% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(-30px, 20px, 0); }
+    100% { transform: translate3d(15px, 10px, 0); }
+}
+
+/* نوار بالای هدر */
+
+.archive-topbar {
+    font-size: 0.82rem;
+    color: #d2dedb;
+}
+
+/* لینک برگشت */
+
+.archive-back-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+
+    padding: 0.5rem 1.6rem;
+    border-radius: 999px;
+
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    background: linear-gradient(135deg, #f8e7b4, #c5a059);
+    color: #251407;
+
+    border: none;
+
+    box-shadow:
+        0 10px 26px rgba(0, 0, 0, 0.8),
+        0 0 14px rgba(197, 160, 89, 0.7);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+}
+
+/* هاله ملایم پشت دکمه برای جلب توجه */
+.archive-back-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at 50% 0,
+        rgba(255, 255, 255, 0.35),
+        transparent 60%);
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.archive-back-link i {
+    font-size: 1.2rem;
+    margin-top: 1px;
+}
+
+/* hover state */
+.archive-back-link:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+    box-shadow:
+        0 16px 36px rgba(0, 0, 0, 0.9),
+        0 0 18px rgba(197, 160, 89, 0.9);
+}
+
+/* active – کلیک شده */
+.archive-back-link:active {
+    transform: translateY(0);
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.7),
+        0 0 10px rgba(197, 160, 89, 0.6);
+}
+
+
+/* هاله ملایم پشت دکمه برای جلب توجه */
+.archive-back-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at 50% 0,
+        rgba(255, 255, 255, 0.35),
+        transparent 60%);
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.archive-back-link i {
+    font-size: 1.2rem;
+    margin-top: 1px;
+}
+
+/* hover state */
+.archive-back-link:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+    box-shadow:
+        0 16px 36px rgba(0, 0, 0, 0.9),
+        0 0 18px rgba(197, 160, 89, 0.9);
+}
+
+/* active – کلیک شده */
+.archive-back-link:active {
+    transform: translateY(0);
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.7),
+        0 0 10px rgba(197, 160, 89, 0.6);
+}
+
+/* breadcrumb */
+
+.archive-breadcrumb ol {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.8rem;
+    color: #9fb0ae;
+}
+
+.archive-breadcrumb a {
+    color: #cbd8d5;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.archive-breadcrumb a:hover {
+    color: var(--gold);
+}
+
+.archive-breadcrumb .separator {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.archive-breadcrumb .current {
+    color: #f1d59a;
+}
+
+/* عنوان و توضیح */
+
+.archive-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid rgba(197, 160, 89, 0.8);
+    background: rgba(0, 0, 0, 0.6);
+    color: var(--gold);
+    font-size: 0.8rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+}
+
+.archive-title {
+    font-size: clamp(2.1rem, 3vw, 2.6rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.5;
+}
+
+.archive-subtitle {
+    font-size: 0.9rem;
+    color: #d4e0dd;
+    max-width: 520px;
+}
+
+/* پنل متا سمت راست */
+
+.archive-meta-panel {
+    background: linear-gradient(145deg, rgba(2, 36, 34, 0.9), rgba(0, 0, 0, 0.9));
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.4rem 1.4rem 1.2rem;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(15px);
+}
+
+.archive-meta-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.85rem;
+}
+
+.meta-label {
+    font-size: 0.75rem;
+    color: #9fb0ae;
+}
+
+.meta-value {
+    font-size: 0.9rem;
+    color: #f3fbf9;
+    font-weight: 600;
+}
+
+.archive-meta-foot {
+    font-size: 0.78rem;
+    color: #c1cfcc;
+    padding-top: 0.7rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* خط طلایی جداکننده زیر هدر */
+
+.archive-divider-line {
+    position: absolute;
+    inset-inline: 10%;
+    bottom: 0;
+    height: 2px;
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(197, 160, 89, 0.2),
+            rgba(241, 213, 154, 0.9),
+            rgba(197, 160, 89, 0.2),
+            transparent);
+    box-shadow: 0 0 18px rgba(197, 160, 89, 0.85);
+    opacity: 0.9;
+}
+
+/* ===== سکشن لیست ===== */
+
+.portfolio-archive-section {
+    position: relative;
+    background: radial-gradient(circle at 80% 0%, rgba(0, 59, 54, 0.4), #010907 60%, #000 100%);
+    padding-top: 40px;
+    padding-bottom: 80px;
+    overflow: hidden;
+}
+
+/* اورب پس زمینه */
+
+.portfolio-archive-bg-orbit {
+    position: absolute;
+    width: 620px;
+    height: 620px;
+    border-radius: 50%;
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    top: 50%;
+    left: -250px;
+    transform: translateY(-50%);
+    opacity: 0.24;
+    mix-blend-mode: screen;
+    filter: blur(0.5px);
+    pointer-events: none;
+    animation: archiveOrbit 36s linear infinite;
+}
+
+@keyframes archiveOrbit {
+    0% { transform: translateY(-50%) rotate(0deg); }
+    100% { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* برچسب کنار فیلتر */
+
+.filter-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.86rem;
+    color: #d8e4e1;
+}
+
+.dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+}
+
+.dot-gold {
+    background: radial-gradient(circle, #ffe8b4, var(--gold));
+    box-shadow: 0 0 12px rgba(197, 160, 89, 0.9);
+}
+
+/* نوار فیلتر */
+
+.portfolio-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.filter-chip {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(0, 0, 0, 0.7);
+    color: #dbe6e3;
+    font-size: 0.8rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(10px);
+}
+
+.filter-chip:hover {
+    border-color: rgba(197, 160, 89, 0.7);
+    color: var(--gold);
+    transform: translateY(-1px);
+}
+
+.filter-chip.active {
+    background: linear-gradient(135deg, #f1d59a, #c5a059);
+    color: #1e1407;
+    border-color: transparent;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75);
+}
+
+/* کارت پروژه */
+
+.project-card {
+    position: relative;
+    border-radius: 22px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 0 0, rgba(197, 160, 89, 0.14), transparent 55%),
+        linear-gradient(145deg, #021a17, #020707);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.92);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transform: translateY(0);
+    transition:
+        transform 0.25s ease-out,
+        box-shadow 0.25s ease-out,
+        border-color 0.25s ease-out,
+        background 0.25s ease-out;
+    will-change: transform, box-shadow;
+}
+
+/* هاله‌ی جذاب بالای کارت */
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    inset-inline: 18%;
+    top: 0;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(241, 213, 154, 0.9),
+            transparent);
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.project-card:hover::before {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(197, 160, 89, 0.85);
+    box-shadow: 0 26px 70px rgba(0, 0, 0, 0.98);
+}
+
+/* تصویر کارت */
+
+.project-media {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+
+.project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.02);
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    will-change: transform;
+}
+
+.project-card:hover .project-img {
+    transform: scale(1.07);
+}
+
+/* تگ دسته‌بندی روی عکس */
+
+.project-tag {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    padding: 0.2rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: rgba(0, 0, 0, 0.7);
+    color: var(--gold);
+    border: 1px solid rgba(197, 160, 89, 0.85);
+    backdrop-filter: blur(8px);
+    animation: tagPulseSoft 3.5s ease-in-out infinite;
+}
+
+@keyframes tagPulseSoft {
+    0% {
+        box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4);
+        transform: translateY(0);
+    }
+    50% {
+        box-shadow: 0 0 14px 4px rgba(197, 160, 89, 0.8);
+        transform: translateY(-1px);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4);
+        transform: translateY(0);
+    }
+}
+
+/* بدنه کارت */
+
+.project-body {
+    padding: 1.1rem 1.3rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.project-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    margin-bottom: 0.4rem;
+}
+
+.project-title {
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.stage-chip {
+    font-size: 0.7rem;
+    padding: 0.14rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #f1ddae;
+    border: 1px solid rgba(241, 213, 154, 0.7);
+}
+
+/* متن کوتاه کارت */
+
+.project-text {
+    font-size: 0.84rem;
+    color: #d1ddda;
+    line-height: 1.9;
+    margin: 0.25rem 0 0.85rem;
+}
+
+/* فوتر کارت */
+
+.project-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.project-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    color: #c9d6d3;
+}
+
+/* لینک جزئیات */
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-size: 0.8rem;
+    color: #f1d59a;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(241, 213, 154, 0.7);
+    padding-bottom: 1px;
+    transition: all 0.22s ease;
+}
+
+.project-link i {
+    font-size: 1rem;
+}
+
+.project-card:hover .project-link {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.project-link:hover {
+    transform: translateX(-3px);
+}
+
+/* انیمیشن فیلتر */
+
+.portfolio-item {
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.portfolio-item.pf-hidden {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    pointer-events: none;
+}
+
+/* ریسپانسیو */
+
+@media (max-width: 991.98px) {
+    .portfolio-archive-hero {
+        padding-top: 120px;
+        padding-bottom: 50px;
+    }
+
+    .archive-meta-panel {
+        margin-top: 0.8rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .portfolio-archive-section {
+        padding-top: 20px;
+        padding-bottom: 60px;
+    }
+
+    .project-media {
+        height: 170px;
+    }
+
+    .project-body {
+        padding: 1rem 1rem 1.05rem;
+    }
+
+    .project-title {
+        font-size: 0.96rem;
+    }
+
+    .project-text {
+        font-size: 0.8rem;
+    }
+
+    .archive-topbar {
+        margin-bottom: 1rem;
+    }
+}

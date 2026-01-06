@@ -1,0 +1,79 @@
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}دسته‌بندی‌های پورتفوی{% endblock %}
+{% block menu_portfolio %}active{% endblock %}
+
+{% block content %}
+
+<div class="detail-header">
+    <div>
+        <h2 class="page-title">دسته‌بندی‌های پروژه</h2>
+        <p class="detail-subtitle">
+            مدیریت دسته‌بندی‌هایی که پروژه‌های پورتفوی در آن‌ها قرار می‌گیرند
+        </p>
+    </div>
+
+    <div class="detail-header-actions">
+        <a href="{% url 'admin_panel:portfolio_category_create' %}" class="btn btn-outline-success">
+            <i class="bi bi-plus-lg"></i>
+            افزودن دسته‌بندی
+        </a>
+    </div>
+</div>
+
+<div class="panel-box">
+    {% if categories %}
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>نام</th>
+                        <th>اسلاگ</th>
+                        <th>آیکن</th>
+                        <th class="text-end">عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for cat in categories %}
+                    <tr>
+                        <td>
+                            <strong>{{ cat.name }}</strong>
+                        </td>
+
+                        <td class="dir-ltr text-muted">
+                            {{ cat.slug }}
+                        </td>
+
+                        <td>
+                            {% if cat.icon_class %}
+                                <i class="bi {{ cat.icon_class }} fs-5 text-warning"></i>
+                            {% else %}
+                                <span class="text-muted">—</span>
+                            {% endif %}
+                        </td>
+
+                        <td class="text-end">
+                            <a href="{% url 'admin_panel:portfolio_category_edit' cat.pk %}"
+                               class="btn btn-sm btn-outline-info">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+
+                            <a href="{% url 'admin_panel:portfolio_category_delete' cat.pk %}"
+                               class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="text-center text-muted py-4">
+            هنوز هیچ دسته‌بندی‌ای ثبت نشده است.
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

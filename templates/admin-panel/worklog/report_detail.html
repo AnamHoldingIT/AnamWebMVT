@@ -1,0 +1,144 @@
+{% extends "admin-panel/base_admin.html" %}
+{% load static %}
+
+{% block title %}آنام ادمین | جزئیات گزارش{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/admin_panel/worklog/admin-report-detail.css' %}">
+{% endblock %}
+
+{% block menu_worklog_reports %}active{% endblock %}
+
+{% block content %}
+
+    <header class="topbar mb-4 d-flex justify-content-between align-items-center">
+      <div>
+        <h2 class="h4 fw-bold text-white mb-1">جزئیات گزارش عملکرد</h2>
+        <span class="text-white-50 small">مشاهده نتیجه نهایی فعالیت‌های کاربر</span>
+      </div>
+
+      <a href="{% url 'admin_panel:worklog_reports' %}" class="btn btn-luxury-secondary d-flex align-items-center gap-2 px-4">
+          <i class="bi bi-arrow-right"></i>
+          <span>بازگشت به لیست</span>
+      </a>
+    </header>
+
+    <div class="row g-4">
+
+        <div class="col-lg-4">
+
+            <div class="glass-panel p-4 mb-4 text-center profile-card position-relative overflow-hidden">
+
+
+                <div class="avatar-wrapper mb-3">
+                    <div class="avatar-box-lg">
+                        <img src="{{ user_avatar }}" alt="avatar" style="width:100%; height:100%; border-radius:50%;">
+                    </div>
+                </div>
+                <h5 class="text-white fw-bold mb-1">{{ user_name }}</h5>
+                <p class="text-gold small mb-4">{{ project_title }}</p>
+
+                <div class="info-grid text-start">
+                    <div class="info-item">
+                        <span class="label"><i class="bi bi-calendar4 ms-2"></i>تاریخ گزارش</span>
+                        <span class="value">{{ date_pretty }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label"><i class="bi bi-clock-history ms-2"></i>زمان ثبت</span>
+                        <span class="value">{{ time_pretty }}</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="glass-panel p-4">
+                <h6 class="section-header mb-3"><i class="bi bi-trophy text-gold me-2"></i>وضعیت دستاوردها</h6>
+                <div class="achievement-results d-flex flex-column gap-2">
+
+                    {% for state in achievements_display %}
+                        <div class="achieve-item {% if state.achieved %}success{% else %}failed{% endif %}">
+                            <div class="icon">
+                                {% if state.achieved %}
+                                    <i class="bi bi-check-lg"></i>
+                                {% else %}
+                                    <i class="bi bi-x-lg"></i>
+                                {% endif %}
+                            </div>
+                            <span class="title">{{ state.achievement.title }}</span>
+                        </div>
+                    {% empty %}
+                        <p class="text-white-50 small text-center">هدفی برای این روز ثبت نشده.</p>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-8">
+            <div class="glass-panel p-4 h-100">
+                <h6 class="section-header mb-5"><i class="bi bi-list-check text-gold me-2"></i>شرح فعالیت‌ها (گزارش شده)</h6>
+
+                <div class="report-timeline-container">
+
+                    {% for item in timeline_items %}
+
+                        {% if item.type == 'extra' and forloop.first %}
+                             {% endif %}
+
+                        <div class="rt-item {{ item.type }} {% if item.is_blocked %}blocked{% else %}done{% endif %}">
+                            <div class="rt-time">
+                                <span>{{ item.start }}</span>
+                                <span class="dash">|</span>
+                                <span>{{ item.end }}</span>
+                            </div>
+
+                            <div class="rt-marker
+                                {% if item.is_blocked %}bg-danger border-danger
+                                {% elif item.type == 'extra' %}bg-warning border-warning
+                                {% else %}bg-success border-success{% endif %}">
+                            </div>
+
+                            <div class="rt-card
+                                {% if item.is_blocked %}rt-card-blocked
+                                {% elif item.type == 'extra' %}rt-card-extra
+                                {% else %}rt-card-done{% endif %}">
+
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h6 class="task-title {% if item.type == 'extra' %}text-gold{% endif %}">
+                                            {{ item.title }}
+                                        </h6>
+                                        {% if item.desc_plan %}
+                                            <span class="task-plan-desc">{{ item.desc_plan }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <span class="status-pill {{ item.status_class }}">{{ item.status_text }}</span>
+                                </div>
+
+                                {% if item.note %}
+                                    <div class="user-note {% if item.is_blocked %}bg-danger-subtle-glass text-danger-light{% endif %}">
+                                        {% if item.is_blocked %}
+                                            <i class="bi bi-exclamation-octagon-fill me-2 opacity-75"></i>
+                                        {% else %}
+                                            <i class="bi bi-chat-left-quote-fill me-2 text-gold opacity-50"></i>
+                                        {% endif %}
+                                        {{ item.note }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    {% empty %}
+                        <div class="text-center py-5 text-white-50">
+                            هیچ فعالیتی ثبت نشده است.
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
